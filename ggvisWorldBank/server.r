@@ -9,14 +9,15 @@ shinyServer(function(input, output, session) {
                 size = ~population),
           mark_symbol())
   })
- 
+
   # Set up observers for the spec and the data
-  observe_ggvis(r_gv, "plot1", session, "svg")
+  observe_ggvis(r_gv, "ggvis", session, "svg")
 
-  # User interface elements (in the sidebar)
-  output$ggvis_ui <- renderControls(r_gv, session)
+  output$ggplot2 <- renderPlot({
+    gg <- ggplot(subset(WorldBank, year==input$year))+
+      geom_point(aes(fertility.rate, life.expectancy, clickSelects=country,
+                     showSelected=year, colour=region, size=population))
+    print(gg)
+  })
 
-  ## output$mtc_table <- renderTable({
-  ##   mtc()[, c("wt", "mpg")]
-  ## })
 })
