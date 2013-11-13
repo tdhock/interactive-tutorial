@@ -25,6 +25,6 @@ shinyServer(function(input, output, session) {
           dscale("y", "numeric", domain=life.range))
   })
   # Set up observers for the spec and the data
-  observe_ggvis(r_gv, "ggvis", session, "svg")
+  observe_ggvis(r_gv, "scatter", session, "svg")
 
 })
