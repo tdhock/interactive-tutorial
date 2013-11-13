@@ -15,7 +15,9 @@ shinyServer(function(input, output, session) {
     ggvis(this.year,
           props(x = ~fertility.rate, y = ~life.expectancy,
                 size = ~population),
-          mark_symbol())
+          mark_symbol(),
+          dscale("x", "numeric", domain=fertility.range),
+          dscale("y", "numeric", domain=life.range))
   })
 
   # Set up observers for the spec and the data
