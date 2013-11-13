@@ -9,22 +9,25 @@ pop.range <- range(WorldBank$population, na.rm=TRUE)
 regions <- levels(WorldBank$region)
 
 shinyServer(function(input, output, session) {
-
-  r_gv <- reactive({
-    this.year <- years[[as.character(input$year)]]
-    this.year$hilite <- ifelse(this.year$country==input$country, "yes", "no")
-    this.country <- subset(this.year, country==input$country)
-    ggvis(props(x = ~fertility.rate, y = ~life.expectancy),
-          ##dscale("opacity", "nominal", domain=c("yes","no"), range=c(1,1/2)),
-          mark_symbol(props(size = ~population,
-                            ##opacity = ~hilite,
-                            fill = ~region), this.year),
-          ##mark_text(props(text = ~country), this.country),
-          dscale("x", "numeric", domain=fertility.range),
-          ##dscale("colour", "nominal", domain=regions, range=region.colors),
-          dscale("y", "numeric", domain=life.range))
+  this.year <- reactive({
+    current.year <- as.character(input$year)
+    dat <- years[[current.year]]
+    selected <- input$country == dat$country
+    dat$hilite <- ifelse(selected, "yes", "no")
+    dat$width <- ifelse(selected, 5, 0)
+    dat
   })
+  scatter <- ggvis(this.year,
+                   props(x= ~fertility.rate, y= ~life.expectancy,
+                         size= ~population, fill= ~region,
+                         ##strokeWidth= ~width,
+                         stroke= ~hilite),
+                   mark_symbol(),
+                   dscale("stroke", "nominal", range=c("white", "black")),
+                   ##dscale("strokeWidth","numeric",domain=c(0,5),range=c(0,5)),
+                   dscale("x", "numeric", domain=fertility.range),
+                   dscale("y", "numeric", domain=life.range))
+  r_gv <- reactive(scatter)
   # Set up observers for the spec and the data
   observe_ggvis(r_gv, "scatter", session, "svg")
-
 })
