@@ -12,6 +12,7 @@ shinyUI(pageWithSidebar(
     selectInput("country", "Country", countryList, selected="Japan")
   ),
   mainPanel(
-    plotOutput("ggplot2")
+    plotOutput("scatter"),
+    plotOutput("ts")
   )
 ))
