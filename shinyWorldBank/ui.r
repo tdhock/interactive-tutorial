@@ -12,6 +12,6 @@ shinyUI(pageWithSidebar(
     selectInput("country", "Country", countryList, selected="Japan")
   ),
   mainPanel(
-    ggvis_output("ggvis")
+    plotOutput("ggplot2")
   )
 ))
