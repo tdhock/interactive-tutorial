@@ -12,6 +12,7 @@ shinyUI(pageWithSidebar(
     selectInput("country", "Country", countryList, selected="Japan")
   ),
   mainPanel(
-    ggvis_output("scatter")
+    ggvis_output("scatter"),
+    ggvis_output("ts")
   )
 ))
