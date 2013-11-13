@@ -19,12 +19,15 @@ shinyServer(function(input, output, session) {
                      alpha=hilite),
                  data=this.year)+
       scale_alpha_manual(values=c(yes=1,no=1/2), guide=FALSE)+
-      geom_text(aes(fertility.rate, life.expectancy, label=country),
-                data=this.country)+
       continuous_scale("size","area",palette=function(x){
         scales:::rescale(sqrt(abs(x)), c(2,10))
       },breaks=pop.breaks, limits=pop.range)+
       xlim(fertility.range)+ylim(life.range)
+    if(!is.na(this.country$fert)){
+      gg <- gg+
+        geom_text(aes(fertility.rate, life.expectancy, label=country),
+                  data=this.country)
+    }
     print(gg)
   })
   output$ts <- renderPlot({
