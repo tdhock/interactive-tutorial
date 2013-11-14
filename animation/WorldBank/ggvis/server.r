@@ -8,10 +8,8 @@ life.range <- range(WorldBank$life.expectancy, na.rm=TRUE)
 pop.breaks <- seq(5e8, 1e9, by=1e8)
 pop.range <- range(WorldBank$population, na.rm=TRUE)
 regions <- levels(WorldBank$region)
-
 library(RColorBrewer)
 region.colors <- brewer.pal(length(regions), "Set1")
-
 shinyServer(function(input, output, session) {
   this.year <- reactive({
     current.year <- as.character(input$year)
@@ -21,7 +19,6 @@ shinyServer(function(input, output, session) {
     dat$width <- ifelse(selected, 5, 0)
     dat
   })
-  ## Scatterplot.
   scatter <- ggvis(this.year,
                    props(x= ~fertility.rate, y= ~life.expectancy,
                          size= ~population, stroke= ~region,
@@ -32,10 +29,9 @@ shinyServer(function(input, output, session) {
                    dscale("stroke", "nominal", range=region.colors),
                    ##dscale("strokeWidth","numeric",domain=c(0,5),range=c(0,5)),
                    dscale("x", "numeric", domain=fertility.range),
-                   dscale("y", "numeric", domain=life.range))
+                   dscale("y", "numeric", domain=life.range))#manual limits!
   r_gv <- reactive(scatter)
   observe_ggvis(r_gv, "scatter", session, "svg")
-  ## Time series plot
   this.country <- reactive({
     countries[[input$country]]
   })
@@ -53,7 +49,5 @@ shinyServer(function(input, output, session) {
               mark_symbol(data=this.country),
               mark_line(data=this.year.vline))
   r_gv2 <- reactive(ts)
-  # Set up observers for the spec and the data
   observe_ggvis(r_gv2, "ts", session, "svg")
 })
-

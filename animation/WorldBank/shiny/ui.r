@@ -2,7 +2,6 @@ data(WorldBank, package="animint")
 years <- unique(WorldBank$year)
 countries <- sort(unique(WorldBank$country))
 countryList <- structure(as.list(countries),names=countries)
-
 shinyUI(pageWithSidebar(
   div(),
   sidebarPanel(

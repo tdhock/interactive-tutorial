@@ -2,8 +2,6 @@ library(animation)
 library(grid)
 library(ggplot2)
 data(WorldBank, package="animint")
-## Need to manually specify scale ranges so the axes do not change
-## between animation frames.
 fertility.range <- range(WorldBank$fertility.rate, na.rm=TRUE)
 life.range <- range(WorldBank$life.expectancy, na.rm=TRUE)
 pop.breaks <- seq(5e8, 1e9, by=1e8)
@@ -34,10 +32,9 @@ saveHTML({
       continuous_scale("size","area",palette=function(x){
         scales:::rescale(sqrt(abs(x)), c(2,10))
       },breaks=pop.breaks, limits=pop.range)+
-      xlim(fertility.range)+ylim(life.range)
+      xlim(fertility.range)+ylim(life.range) #manually specify limits!
     if(any(!is.na(wb$fertility.rate))){
       print(scatter, vp=viewport(layout.pos.col=2,layout.pos.row=1))
     }
   }
 })
-

@@ -11,7 +11,7 @@ All 4 methods below have these points in common:
 |--------------+-----------------+----------+-----------------------+---------+-----------------------+---------------------+----------------------+-------------+----------+------------------------------------------|
 |        2007- | [[https://github.com/yihui/animation][animation]]       | [[https://github.com/hadley/ggplot2][ggplot2]]  | play/stop buttons     | no      | 1 = time              | R plots in sequence | PNG or video or js   | imperative  |       40 | ani.start(), saveHTML()                  |
 |        2012- | [[http://www.rstudio.com/shiny/][shiny]]           | [[https://github.com/hadley/ggplot2][ggplot2]]  | sliders, etc.         | yes     | several               | R server + ggplots  | PNG                  | reactive    |       60 | shinyServer(), shinyUI(), reactive()     |
-|        2013- | [[http://www.rstudio.com/shiny/][shiny]]           | [[https://github.com/rstudio/ggvis][ggvis]]    | sliders, etc.         | yes     | several               | R -> vega json      | vega json            | reactive    |      100 | node(), mark_point()                     |
+|        2013- | [[http://www.rstudio.com/shiny/][shiny]]           | [[https://github.com/rstudio/ggvis][ggvis]]    | sliders, etc.         | yes     | several               | R -> vega json      | vega json            | reactive    |       70 | node(), mark_point()                     |
 |        2013- | [[https://github.com/tdhock/animint][animint]]         | [[https://github.com/hadley/ggplot2][ggplot2]]  | the plot (data/geoms) | no      | several               | ggplots -> D3       | html/js/json/csv/svg | declarative |       20 | clickSelects, showSelected, gg2animint() |
 
 ** animation 
