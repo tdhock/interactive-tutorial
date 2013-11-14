@@ -6,14 +6,29 @@ All 4 methods below have these points in common:
 - Animation.
 - Multi-layer: several different geoms can be combined on the same plot (e.g. points and lines).
 - The user only needs to write R code (not JavaScript).
-- Plot rendered in a web browser using HTML and JavaScript (JS).
+- Plot rendered in a web browser using HTML and JavaScript.
 
-| main idea          | years | interaction | plotting | plot rendered as | click on              | server? | interaction variables | programming | user LOC | user needs to learn                         |
-|--------------------+-------+-------------+----------+------------------+-----------------------+---------+-----------------------+-------------+----------+---------------------------------------------|
-| plots in sequence  | 2007- | [[https://github.com/yihui/animation][animation]]   | [[https://github.com/hadley/ggplot2][ggplot2]]  | PNG              | play/stop buttons     | no      | 1 = time              | imperative  |       40 | saveHTML()                                  |
-| R server + ggplots | 2012- | [[http://www.rstudio.com/shiny/][shiny]]       | [[https://github.com/hadley/ggplot2][ggplot2]]  | PNG              | sliders, etc.         | yes     | several               | reactive    |       60 | shinyUI(), sliderInput(), renderPlot()      |
-| R server + vega    | 2013- | [[http://www.rstudio.com/shiny/][shiny]]       | [[https://github.com/rstudio/ggvis][ggvis]]    | vega json        | sliders, etc.         | yes     | several               | reactive    |       70 | props(), mark_point(), dscale(), reactive() |
-| ggplots -> D3      | 2013- | [[https://github.com/tdhock/animint][animint]]     | [[https://github.com/hadley/ggplot2][ggplot2]]  | json/csv/svg     | the plot (data/geoms) | no      | several               | declarative |       20 | clickSelects, showSelected, gg2animint()    |
+| main idea          | years | interaction | plotting | plot rendered as          | click on              | server? | interaction variables | programming | user LOC | user needs to learn                         |
+|--------------------+-------+-------------+----------+---------------------------+-----------------------+---------+-----------------------+-------------+----------+---------------------------------------------|
+| plots in sequence  | 2007- | [[https://github.com/yihui/animation][animation]]   | [[https://github.com/hadley/ggplot2][ggplot2]]  | PNG                       | play/stop buttons     | no      | 1 = time              | imperative  |       40 | saveHTML()                                  |
+| R server + ggplots | 2012- | [[http://www.rstudio.com/shiny/][shiny]]       | [[https://github.com/hadley/ggplot2][ggplot2]]  | PNG                       | sliders, etc.         | yes     | several               | reactive    |       60 | shinyUI(), sliderInput(), renderPlot()      |
+| R server + vega    | 2013- | [[http://www.rstudio.com/shiny/][shiny]]       | [[https://github.com/rstudio/ggvis][ggvis]]    | vega json (svg or canvas) | sliders, etc.         | yes     | several               | reactive    |       70 | props(), mark_point(), dscale(), reactive() |
+| ggplots -> D3      | 2013- | [[https://github.com/tdhock/animint][animint]]     | [[https://github.com/hadley/ggplot2][ggplot2]]  | json/csv/svg              | the plot (data/geoms) | no      | several               | declarative |       20 | clickSelects, showSelected, gg2animint()    | 
+
+Raster/bitmap image formats
+- Portable Network Graphics (PNG).
+- canvas is an HTML element which can be used with JavaScript to render a 2D raster image on a web page.
+
+Vector image formats
+- Scalable Vector Graphics (SVG).
+
+Text data formats
+- JavaScript Object Notation (json).
+- vega is a visualization grammar (a special case of json).
+
+Code formats (programming languages)
+- JavaScript is for controlling web pages.
+- Data-Driven Documents (D3) is a JavaScript library.
 
 ** animation 
 
