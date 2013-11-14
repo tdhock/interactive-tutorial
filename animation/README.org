@@ -6,13 +6,14 @@ All 4 methods below have these points in common:
 - Animation.
 - Multi-layer: several different geoms can be combined on the same plot (e.g. points and lines).
 - The user only needs to write R code (not JavaScript).
+- Plot rendered in a web browser using HTML and JavaScript (JS).
 
-| years active | Interaction pkg | Plot pkg | click on              | server? | interaction variables | main idea           | output               | programming | user LOC | user needs to learn                      |
-|--------------+-----------------+----------+-----------------------+---------+-----------------------+---------------------+----------------------+-------------+----------+------------------------------------------|
-|        2007- | [[https://github.com/yihui/animation][animation]]       | [[https://github.com/hadley/ggplot2][ggplot2]]  | play/stop buttons     | no      | 1 = time              | R plots in sequence | PNG or video or js   | imperative  |       40 | ani.start(), saveHTML()                  |
-|        2012- | [[http://www.rstudio.com/shiny/][shiny]]           | [[https://github.com/hadley/ggplot2][ggplot2]]  | sliders, etc.         | yes     | several               | R server + ggplots  | PNG                  | reactive    |       60 | shinyServer(), shinyUI(), reactive()     |
-|        2013- | [[http://www.rstudio.com/shiny/][shiny]]           | [[https://github.com/rstudio/ggvis][ggvis]]    | sliders, etc.         | yes     | several               | R -> vega json      | vega json            | reactive    |       70 | node(), mark_point()                     |
-|        2013- | [[https://github.com/tdhock/animint][animint]]         | [[https://github.com/hadley/ggplot2][ggplot2]]  | the plot (data/geoms) | no      | several               | ggplots -> D3       | html/js/json/csv/svg | declarative |       20 | clickSelects, showSelected, gg2animint() |
+| main idea          | years | interaction | plotting | plot rendered as   | click on              | server? | interaction variables | programming | user LOC | user needs to learn                      |
+|--------------------+-------+-------------+----------+--------------------+-----------------------+---------+-----------------------+-------------+----------+------------------------------------------|
+| plots in sequence  | 2007- | [[https://github.com/yihui/animation][animation]]   | [[https://github.com/hadley/ggplot2][ggplot2]]  | PNG or video or JS | play/stop buttons     | no      | 1 = time              | imperative  |       40 | ani.start(), saveHTML()                  |
+| R server + ggplots | 2012- | [[http://www.rstudio.com/shiny/][shiny]]       | [[https://github.com/hadley/ggplot2][ggplot2]]  | PNG                | sliders, etc.         | yes     | several               | reactive    |       60 | shinyServer(), shinyUI(), reactive()     |
+| R server + vega    | 2013- | [[http://www.rstudio.com/shiny/][shiny]]       | [[https://github.com/rstudio/ggvis][ggvis]]    | vega json          | sliders, etc.         | yes     | several               | reactive    |       70 | node(), mark_point()                     |
+| ggplots -> D3      | 2013- | [[https://github.com/tdhock/animint][animint]]     | [[https://github.com/hadley/ggplot2][ggplot2]]  | json/csv/svg       | the plot (data/geoms) | no      | several               | declarative |       20 | clickSelects, showSelected, gg2animint() |
 
 ** animation 
 
