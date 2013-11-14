@@ -20,11 +20,12 @@ Raster/bitmap image formats
 - canvas is an HTML element which can be used with JavaScript to render a 2D raster image on a web page.
 
 Vector image formats
-- Scalable Vector Graphics (SVG).
+- Scalable Vector Graphics (svg).
 
 Text data formats
 - JavaScript Object Notation (json).
 - vega is a visualization grammar (a special case of json).
+- Comma-separated values (csv) is for data tables.
 
 Code formats (programming languages)
 - JavaScript is for controlling web pages.
