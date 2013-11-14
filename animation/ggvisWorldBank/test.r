@@ -8,7 +8,6 @@ pop.range <- range(WorldBank$population, na.rm=TRUE)
 regions <- levels(WorldBank$region)
 current.year <- 5
 
-set.seed(430)
 dat <- years[[current.year]]
 ddat <- reactive({
   invalidateLater(2000, NULL)

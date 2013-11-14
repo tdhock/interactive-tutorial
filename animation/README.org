@@ -1,0 +1,27 @@
+Comparison of R packages that can produce interactive animations
+
+All 4 methods below have these points in common:
+
+* Interact with the plot to show/hide subsets of data.
+
+* Animation.
+
+* Multi-layer: several different geoms can be combined on the same plot (e.g. points and lines).
+
+* The user only needs to write R code (not JavaScript).
+
+| years active | Interaction pkg | Plot pkg | click on              | main idea           | output               | programming | user LOC | user needs to learn                      |
+|--------------+-----------------+----------+-----------------------+---------------------+----------------------+-------------+----------+------------------------------------------|
+|        2007- | [[https://github.com/yihui/animation][animation]]       | [[https://github.com/hadley/ggplot2][ggplot2]]  | play/stop buttons     | R plots in sequence | PNG or video or js   | imperative  |          | ani.start(), saveHTML()                  |
+|        2012- | [[http://www.rstudio.com/shiny/][shiny]]           | [[https://github.com/hadley/ggplot2][ggplot2]]  | sliders, etc.         | R server + ggplots  | PNG                  | reactive    |       60 | shinyServer(), shinyUI(), reactive()     |
+|        2013- | [[http://www.rstudio.com/shiny/][shiny]]           | [[https://github.com/rstudio/ggvis][ggvis]]    | sliders, etc.         | R -> vega json      | vega json            | reactive    |      100 | node(), mark_point()                     |
+|        2013- | [[https://github.com/tdhock/animint][animint]]         | [[https://github.com/hadley/ggplot2][ggplot2]]  | the plot (data/geoms) | ggplots -> D3       | html/js/json/csv/svg | declarative |       20 | clickSelects, showSelected, gg2animint() |
+
+Note: the only kind of interaction that can be expressed using animint
+is showing and hiding subsets of data, based on the current
+selection. In contrast, animation is a less powerful since only one
+time variable can be shown at a time. And shiny is more powerful since
+it can express any calculations.
+
+Future work: a translator that takes a list of ggplots with
+showSelected and clickSelects aesthetics, and outputs a shiny app.
