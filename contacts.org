@@ -1,0 +1,8 @@
+Emails I have sent to ask for help on a useR 2014 tutorial
+
+| package   | category  | person               | email                         | response |
+|-----------+-----------+----------------------+-------------------------------+----------|
+| googleVis | simple    | Markus Gesmann       | markus.gesmann@googlemail.com |          |
+| rCharts   | simple    | Ramnath Vaidyanathan | ramnath.vaidya@gmail.com      |          |
+| RIGHT     | brush     | Junghoon Lee         | flammy@gmail.com              | ok       |
+| ggvis     | animation | ggvis list           | google group                  |          |
