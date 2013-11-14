@@ -2,13 +2,10 @@ Comparison of R packages that can produce interactive animations
 
 All 4 methods below have these points in common:
 
-* Interact with the plot to show/hide subsets of data.
-
-* Animation.
-
-* Multi-layer: several different geoms can be combined on the same plot (e.g. points and lines).
-
-* The user only needs to write R code (not JavaScript).
+- Interact with the plot to show/hide subsets of data.
+- Animation.
+- Multi-layer: several different geoms can be combined on the same plot (e.g. points and lines).
+- The user only needs to write R code (not JavaScript).
 
 | years active | Interaction pkg | Plot pkg | click on              | main idea           | output               | programming | user LOC | user needs to learn                      |
 |--------------+-----------------+----------+-----------------------+---------------------+----------------------+-------------+----------+------------------------------------------|
