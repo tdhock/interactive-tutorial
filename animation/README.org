@@ -36,7 +36,7 @@ Code formats (programming languages)
 If you want to interact with only one variable (time), then animation
 is the best, since it offers a wide variety of export formats (web
 page, MOV, animated GIF). To view an example, 
-=source("animation.R")= in a subdirectory.
+=source("animation.R")= in the WorldBank subdirectory.
 
 ** animint
 
@@ -44,14 +44,16 @@ If you want to interact with several variables (not just time), then
 animint is the best. However, the only kind of interaction that can be
 expressed using animint is showing and hiding subsets of data, based
 on the selected value of each interaction variable. To view an
-example, =source("animint.R")= in a subdirectory.
+example, =source("animint.R")= in the WorldBank subdirectory.
 
 ** shiny + ggplot2 or ggvis
 
 If you want other kinds of interactions, or you want to do
 calculations on the server, then shiny is the best. Do
 =shiny::runApp("shiny")= for ggplot2, and =shiny::runApp("ggvis")= for
-ggvis.
+ggvis. Due to some backwards-incompatible changes, you may need to run
+=git checkout 3e0b8d379d15d51d29a4a7ba799741065abe3db2= to get a
+version of ggvis that works with this example.
 
 ** Future work
 
