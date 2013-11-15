@@ -1,0 +1,45 @@
+Proposal for an tutorial overview of interactive graphics packages
+
+Should be sent before January 5, 2014 to useR-2014@R-project.org.
+
+** Goals, why the tutorial is important
+
+There are two main goals for this tutorial:
+- Summarize of the differences and relative strengths of the different
+  packages which are now available for making interactive graphics
+  using R.
+- Bring the developers of these packages together in one place, to
+  discuss future directions for interactive graphics in R.
+
+** Detailed outline
+
+First hour: simple interactive web graphics (rCharts, googleVis)
+
+Second hour: brushing several linked plots of 1 data.frame (RIGHT,
+iplots, cranvas)
+
+Third hour: interactive and/or animated graphics (ggvis, animation,
+animint). We will focus on a detailed description about how to
+generate [[http://sugiyama-www.cs.titech.ac.jp/~toby/animint/WorldBank/viz.html][this GapMinder-style multipanel, multilayer, interactive
+animation]] using several different R packages.
+- 10 minutes: [[https://github.com/tdhock/interactive-tutorial/tree/master/animation][overview of the differences between the animation,
+  animint, shiny, and ggvis packages]].
+- 15 minutes: animation.
+- 15 minutes: animint.
+- 15 minutes: shiny+ggvis.
+   
+** Background knowledge required, potential attendees
+
+Since we plan to present state-of-the-art interactive graphics, people
+should know how to use R data structures (lists, data.frames) and the
+ggplot2 package. 
+
+Even though many examples will be interactive web graphics, we will
+assume only knowledge of R, not HTML/JavaScript.
+
+There are two classes of potential attendees:
+- UseRs who are not very familiar with interactive graphics should
+  benefit the most, since we will give a high-level overview of many
+  different packages.
+- DevelopeRs of interactive packages are encouraged to come, to
+  discuss the current state-of-the-art and future directions.
