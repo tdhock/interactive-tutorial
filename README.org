@@ -20,8 +20,9 @@ popup window that shows more information about a data point when you
 move your mouse over it.
 
 *Second hour: brushing.* One or several rows of 1 data.frame can be
-selected interactively using the mouse, and the selected data are
-shown in several linked plots (RIGHT, iplots, cranvas).
+brushed interactively using the mouse, and the brushed data are
+highlighted alongside the other data in several linked plots (RIGHT,
+iplots, cranvas).
 
 *Third hour: show/hide data subsets.* Several multi-layer plots show
 different columns of a data set, and different rows can be shown over
