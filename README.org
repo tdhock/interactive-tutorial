@@ -23,10 +23,10 @@ move your mouse over it.
 selected interactively using the mouse, and the selected data are
 shown in several linked plots (RIGHT, iplots, cranvas).
 
-*Third hour: show/hide data subsets.* Several plots show different
-columns of a data set, and different rows can be shown over time
-(animation) or in response to mouse clicks (interactivity). We will
-focus on a detailed description about how to generate [[http://sugiyama-www.cs.titech.ac.jp/~toby/animint/WorldBank/viz.html][this
+*Third hour: show/hide data subsets.* Several multi-layer plots show
+different columns of a data set, and different rows can be shown over
+time (animation) or in response to mouse clicks (interactivity). We
+will focus on a detailed description about how to generate [[http://sugiyama-www.cs.titech.ac.jp/~toby/animint/WorldBank/viz.html][this
 GapMinder-style multipanel, multilayer, interactive animation]] using
 packages animation, animint, and shiny+ggvis.
 - 10 minutes: [[https://github.com/tdhock/interactive-tutorial/tree/master/animation][overview of the differences between the animation,
