@@ -13,15 +13,22 @@ There are two main goals for this tutorial:
 
 ** Detailed outline
 
-First hour: simple interactive web graphics (rCharts, googleVis)
+*First hour: simple graphics.* generate single-layer, single-panel
+interactive web graphics with only 1 line of R code (rCharts,
+googleVis). Interactivity is mostly limited to tooltips i.e. a little
+popup window that shows more information about a data point when you
+move your mouse over it.
 
-Second hour: brushing several linked plots of 1 data.frame (RIGHT,
-iplots, cranvas)
+*Second hour: brushing.* One or several rows of 1 data.frame can be
+selected interactively using the mouse, and the selected data are
+shown in several linked plots (RIGHT, iplots, cranvas).
 
-Third hour: interactive and/or animated graphics (ggvis, animation,
-animint). We will focus on a detailed description about how to
-generate [[http://sugiyama-www.cs.titech.ac.jp/~toby/animint/WorldBank/viz.html][this GapMinder-style multipanel, multilayer, interactive
-animation]] using several different R packages.
+*Third hour: show/hide data subsets.* Several plots show different
+columns of a data set, and different rows can be shown over time
+(animation) or in response to mouse clicks (interactivity). We will
+focus on a detailed description about how to generate [[http://sugiyama-www.cs.titech.ac.jp/~toby/animint/WorldBank/viz.html][this
+GapMinder-style multipanel, multilayer, interactive animation]] using
+packages animation, animint, and shiny+ggvis.
 - 10 minutes: [[https://github.com/tdhock/interactive-tutorial/tree/master/animation][overview of the differences between the animation,
   animint, shiny, and ggvis packages]].
 - 15 minutes: animation.
