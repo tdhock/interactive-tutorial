@@ -1,11 +1,12 @@
 library(animint)
 data(WorldBank)
+pop.range <- range(WorldBank$pop,na.rm=TRUE)
 viz <-
   list(ts=ggplot()+
        make_tallrect(WorldBank, "year")+
-       geom_line(aes(year, life.expectancy, group=country,
+       geom_line(aes(year, life.expectancy, group=country, colour=region,
                      clickSelects=country),
-                 data=WorldBank, size=4, alpha=3/5),
+                 data=WorldBank, size=3, alpha=3/5),
        time=list(variable="year",ms=3000),
        duration=list(year=1000),
        scatter=ggplot()+
@@ -18,5 +19,5 @@ viz <-
        make_text(WorldBank, 5, 80, "year")+
        continuous_scale("size","area",palette=function(x){
          scales:::rescale(sqrt(abs(x)), c(2,20))
-       },breaks=seq(5e8, 1e9, by=1e8)))
+       },breaks=seq(pop.range[1], pop.range[2], l=5)))
 gg2animint(viz)

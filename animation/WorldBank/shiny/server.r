@@ -33,8 +33,8 @@ shinyServer(function(input, output, session) {
     gg <- ggplot()+
       geom_vline(aes(xintercept=year), data=this.year[1,])+
       scale_alpha_manual(values=c(yes=1,no=1/10), guide=FALSE)+
-      geom_line(aes(year, life.expectancy, group=country, alpha=hilite),
-                data=WorldBank)+
+      geom_line(aes(year, life.expectancy, group=country, colour=region,
+                    alpha=hilite), data=WorldBank)+
       ylim(life.range)
     print(gg)
   })
