@@ -4,8 +4,6 @@ library(ggplot2)
 data(WorldBank, package="animint")
 fertility.range <- range(WorldBank$fertility.rate, na.rm=TRUE)
 life.range <- range(WorldBank$life.expectancy, na.rm=TRUE)
-pop.breaks <- seq(5e8, 1e9, by=1e8)
-pop.range <- range(WorldBank$population, na.rm=TRUE)
 years <- split(WorldBank, WorldBank$year)
 ani.options(ani.width=800,ani.height=800)
 saveHTML({
@@ -30,8 +28,8 @@ saveHTML({
       geom_text(aes(label=sprintf("Year = %d",year)), data=YearLabel)+
       geom_text(aes(label=country), data=CountryLabel)+
       continuous_scale("size","area",palette=function(x){
-        scales:::rescale(sqrt(abs(x)), c(2,10))
-      },breaks=pop.breaks, limits=pop.range)+
+        scales:::rescale(sqrt(abs(x)), c(2,20), c(0,1))
+      }, breaks=10^(4:9), limits=range(WorldBank$population, na.rm=TRUE))+
       xlim(fertility.range)+ylim(life.range) #manually specify limits!
     if(any(!is.na(wb$fertility.rate))){
       print(scatter, vp=viewport(layout.pos.col=1,layout.pos.row=2))

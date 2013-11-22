@@ -32,7 +32,7 @@ shinyServer(function(input, output, session) {
     size.range <- ranges[[input$size]]
     if(!is.null(size.range)){
       gg <- gg+continuous_scale("size","area",palette=function(x){
-        scales:::rescale(sqrt(abs(x)), c(2,10))
+        scales:::rescale(sqrt(abs(x)), c(2,10), c(0,1))
       },breaks=breaks[[input$size]], limits=size.range)
     }
     for(xy in c("x", "y")){

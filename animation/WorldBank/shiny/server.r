@@ -3,8 +3,6 @@ data(WorldBank, package="animint")
 years <- split(WorldBank, WorldBank$year)
 fertility.range <- range(WorldBank$fertility.rate, na.rm=TRUE)
 life.range <- range(WorldBank$life.expectancy, na.rm=TRUE)
-pop.breaks <- seq(5e8, 1e9, by=1e8)
-pop.range <- range(WorldBank$population, na.rm=TRUE)
 shinyServer(function(input, output, session) {
   output$scatter <- renderPlot({
     this.year <- years[[as.character(input$year)]]
@@ -17,8 +15,8 @@ shinyServer(function(input, output, session) {
                  data=this.year)+
       scale_alpha_manual(values=c(yes=1,no=1/2), guide=FALSE)+
       continuous_scale("size","area",palette=function(x){
-        scales:::rescale(sqrt(abs(x)), c(2,10))
-      },breaks=pop.breaks, limits=pop.range)+
+        scales:::rescale(sqrt(abs(x)), c(2,20), c(0,1))
+      }, breaks=10^(4:9), limits=range(WorldBank$pop, na.rm=TRUE))+
       xlim(fertility.range)+ylim(life.range)#Manually specify limits!
     if(!is.na(this.country$fert)){
       gg <- gg+
