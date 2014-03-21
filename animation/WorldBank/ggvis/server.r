@@ -1,6 +1,8 @@
 library(shiny)
 library(ggvis)
+
 data(WorldBank, package="animint")
+WorldBank <- subset(WorldBank, !is.na(life.expectancy) & !is.na(population) & !is.na(fertility.rate))
 years <- split(WorldBank, WorldBank$year)
 countries <- split(WorldBank, WorldBank$country)
 fertility.range <- range(WorldBank$fertility.rate, na.rm=TRUE)
@@ -23,13 +25,26 @@ shinyServer(function(input, output, session) {
                    props(x= ~fertility.rate, y= ~life.expectancy,
                          size= ~population, stroke= ~region,
                          ##strokeWidth= ~width,
-                         fill= ~hilite),
-                   mark_symbol(),
-                   dscale("fill", "nominal", range=c("white", "black")),
-                   dscale("stroke", "nominal", range=region.colors),
-                   ##dscale("strokeWidth","numeric",domain=c(0,5),range=c(0,5)),
-                   dscale("x", "numeric", domain=fertility.range),
-                   dscale("y", "numeric", domain=life.range))#manual limits!
+                         fill= ~hilite)) +
+                   layer_point() +
+                   dscale("stroke", "nominal", range=region.colors, name="stroke") +
+                   dscale("fill", "nominal", name="fill", range=c("white", "black")) +
+                   dscale("size", "numeric", name="size") +
+                   dscale("x", "numeric", domain=fertility.range) + #manual limits!
+                   dscale("y", "numeric", domain=life.range) + 
+    guide_axis("x", title="Fertility Rate") + 
+    guide_axis("y", title="Life Expectancy") +
+    guide_legend(size = "size", orient="left", title="Population") +
+    guide_legend(fill = "stroke", stroke="stroke", orient="right", title="Region") + 
+    guide_legend(stroke = "fill", orient="left", title="", values=c("", ""), 
+                 properties=list(
+                   legend=props(size=0, stroke="transparent", fill="transparent", 
+                                strokeOpacity=0, fillOpacity=0, strokeWidth='0px'), 
+                   symbols=props(size=0, stroke="transparent", fill="transparent", 
+                                 strokeOpacity=0, fillOpacity=0, strokeWidth='0px'))) +
+    opts(width=450, height=400)
+  
+  scatter$legends[which(sapply(scatter$legends, function(i)  i$title==""))][[1]][["properties"]][["legend"]]$y <- 50
   r_gv <- reactive(scatter)
   observe_ggvis(r_gv, "scatter", session, "svg")
   this.country <- reactive({
@@ -42,12 +57,14 @@ shinyServer(function(input, output, session) {
     dat
   })
   ts <- ggvis(props(x= ~year, y= ~life.expectancy),
-              ##mark_line(data=by_group(country)), #doesn't work!
-              mark_symbol(props(fill := "white", stroke := "black",
-                                opacity := 1/10),
-                          data=WorldBank),
-              mark_symbol(data=this.country),
-              mark_line(data=this.year.vline))
+              layer_path(props(stroke := "black",
+                                opacity := 2/10),
+                          data=subset(WorldBank, !is.na(life.expectancy))),
+              layer_path(data=this.country, props(strokeWidth :=2)),
+              layer_path(data=this.year.vline)) + 
+    guide_axis("x", title="Year", format="04d") + 
+    guide_axis("y", title="Life Expectancy") +
+    opts(width=425, height=400)
   r_gv2 <- reactive(ts)
   observe_ggvis(r_gv2, "ts", session, "svg")
 })
