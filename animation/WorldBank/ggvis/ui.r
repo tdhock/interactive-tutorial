@@ -5,8 +5,8 @@ countryList <- structure(as.list(countries),names=countries)
 shinyUI(fluidPage(
   titlePanel("ggvis Interactive Graphics"),
   fluidRow(
-    column(2, sliderInput("year", "Year", min = min(years), max = max(years),
-                           value=1970, step = 1, format="#",
+    column(2, sliderInput("year", "Year", min = 1960, max = 2011,
+                           value=1960, step = 1, format="#",
                            animate=animationOptions(interval=2000, loop=TRUE)),
                     selectInput("country", "Country", countryList, selected="Japan")), 
     column(4, ggvis_output("ts")),
