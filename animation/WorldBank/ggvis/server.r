@@ -3,14 +3,14 @@ library(animint)
 library(ggvis)
 
 data(WorldBank, package="animint")
-WorldBank <- subset(WorldBank, !is.na(life.expectancy) & !is.na(population) & !is.na(fertility.rate))
-years <- split(WorldBank, WorldBank$year)
-countries <- split(WorldBank, WorldBank$country)
-fertility.range <- range(WorldBank$fertility.rate, na.rm=TRUE)
-life.range <- range(WorldBank$life.expectancy, na.rm=TRUE)
+Worldbank <- subset(WorldBank, !is.na(life.expectancy) & !is.na(population) & !is.na(fertility.rate) & !is.na(year))
+years <- split(Worldbank, Worldbank$year)
+countries <- split(Worldbank, Worldbank$country)
+fertility.range <- range(Worldbank$fertility.rate, na.rm=TRUE)
+life.range <- range(Worldbank$life.expectancy, na.rm=TRUE)
 pop.breaks <- seq(5e8, 1e9, by=1e8)
-pop.range <- range(WorldBank$population, na.rm=TRUE)
-regions <- levels(WorldBank$region)
+pop.range <- range(Worldbank$population, na.rm=TRUE)
+regions <- levels(Worldbank$region)
 library(RColorBrewer)
 region.colors <- brewer.pal(length(regions), "Set1")
 shinyServer(function(input, output, session) {
@@ -59,7 +59,7 @@ shinyServer(function(input, output, session) {
   })
   ts <- ggvis(props(x= ~year, y= ~life.expectancy),
               layer_path(props(stroke:="black", opacity := 2/10),
-                          data=subset(WorldBank, !is.na(life.expectancy))),
+                          data=subset(Worldbank, !is.na(life.expectancy))),
               layer_path(data=this.country, props(stroke=~region, strokeWidth :=2, opacity:=1)),
               layer_path(data=this.year.vline)) + 
     guide_axis("x", title="Year", format="04d") + 
