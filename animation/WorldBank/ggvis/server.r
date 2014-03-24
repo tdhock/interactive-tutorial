@@ -1,4 +1,5 @@
 library(shiny)
+library(animint)
 library(ggvis)
 
 data(WorldBank, package="animint")
