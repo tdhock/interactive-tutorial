@@ -34,8 +34,8 @@ shinyServer(function(input, output, session) {
                    dscale("y", "numeric", domain=life.range) + 
     guide_axis("x", title="Fertility Rate") + 
     guide_axis("y", title="Life Expectancy") +
-    guide_legend(size = "size", orient="left", title="Population") +
-    guide_legend(fill = "stroke", stroke="stroke", orient="right", title="Region") + 
+    guide_legend(size = "size", title="Population") +
+    guide_legend(fill = "stroke", stroke="stroke", orient="left", title="Region") + 
     guide_legend(stroke = "fill", orient="left", title="", values=c("", ""), 
                  properties=list(
                    legend=props(size=0, stroke="transparent", fill="transparent", 
@@ -54,16 +54,21 @@ shinyServer(function(input, output, session) {
     current.year <- as.character(input$year)
     dat <- years[[current.year]][1:2,]
     dat$life.expectancy <- life.range
-    dat
+    subset(dat, !is.na(life.expectancy) & !is.na(region) & !is.na(year))
   })
   ts <- ggvis(props(x= ~year, y= ~life.expectancy),
-              layer_path(props(stroke := "black",
-                                opacity := 2/10),
+              layer_path(props(stroke:="black", opacity := 2/10),
                           data=subset(WorldBank, !is.na(life.expectancy))),
-              layer_path(data=this.country, props(strokeWidth :=2)),
+              layer_path(data=this.country, props(stroke=~region, strokeWidth :=2, opacity:=1)),
               layer_path(data=this.year.vline)) + 
     guide_axis("x", title="Year", format="04d") + 
     guide_axis("y", title="Life Expectancy") +
+    guide_legend(fill = "stroke", stroke="stroke",orient="left", title="", values=c("", ""), 
+                 properties=list(
+                   legend=props(size=0, stroke="transparent", fill="transparent", 
+                                strokeOpacity=0, fillOpacity=0, strokeWidth='0px'), 
+                   symbols=props(size=0, stroke="transparent", fill="transparent", 
+                                 strokeOpacity=0, fillOpacity=0, strokeWidth='0px'))) +
     opts(width=425, height=400)
   r_gv2 <- reactive(ts)
   observe_ggvis(r_gv2, "ts", session, "svg")

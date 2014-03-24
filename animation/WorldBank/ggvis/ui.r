@@ -3,7 +3,8 @@ years <- unique(WorldBank$year)
 countries <- sort(unique(WorldBank$country))
 countryList <- structure(as.list(countries),names=countries)
 shinyUI(fluidPage(
-  titlePanel("ggvis Interactive Graphics"),
+  titlePanel("ggvis Interactive Graphics", tags$head(tags$style(type="text/css", "#g47 { display: none;} #g25 { display: none;}"))
+  ),
   fluidRow(
     column(2, sliderInput("year", "Year", min = 1960, max = 2011,
                            value=1960, step = 1, format="#",
