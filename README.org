@@ -1,41 +1,60 @@
-Proposal for an tutorial overview of interactive graphics packages
+** TODO 
 
-Should be sent before January 5, 2014 to useR-2014@R-project.org.
+send this to useR-2014@R-project.org before January 10, 2016.
 
-** Goals, why the tutorial is important
+** Tutorial Title
 
-There are two main goals for this tutorial:
-- Summarize of the differences and relative strengths of the different
-  packages which are now available for making interactive graphics
-  using R.
-- Bring the developers of these packages together in one place, to
-  discuss future directions for interactive graphics in R.
+Interactive, animated, multi-layer graphics
 
-** Detailed outline
+I wonder if we should specifically mention animint in the title, since
+Ramnath is submitting another tutorial on htmlwidgets?
 
-*First hour: simple graphics.* generate single-layer, single-panel
-interactive web graphics with only 1 line of R code (rCharts,
-googleVis). Interactivity is mostly limited to tooltips i.e. a little
-popup window that shows more information about a data point when you
-move your mouse over it.
+** Instructors
 
-*Second hour: brushing.* One or several rows of 1 data.frame can be
-brushed interactively using the mouse, and the brushed data are
-highlighted in several linked plots (RIGHT, iplots, cranvas).
+| Name                | Institution      | Address             | Email                       |
+|---------------------+------------------+---------------------+-----------------------------|
+| Toby Dylan Hocking  | McGill           | Montreal, Canada    | toby.hocking@mail.mcgill.ca |
+| Claus Thorn Ekstrøm | Univ. Copenhagen | Copenhagen, Denmark | ekstrom@sund.ku.dk          |
 
-*Third hour: show/hide data subsets.* Several multi-layer plots show
-different columns of a data set, and different rows can be shown over
-time (animation) or in response to mouse clicks (interactivity). We
-will focus on a detailed description about how to generate [[http://sugiyama-www.cs.titech.ac.jp/~toby/animint/WorldBank/viz.html][this
-GapMinder-style multipanel, multilayer, interactive animation]] using
-packages animation, animint, and shiny+ggvis.
-- 10 minutes: [[https://github.com/tdhock/interactive-tutorial/tree/master/animation][overview of the differences between the animation,
-  animint, shiny, and ggvis packages]].
-- 15 minutes: animation.
-- 15 minutes: animint.
-- 15 minutes: shiny+ggvis.
-   
-** Background knowledge required, potential attendees
+** Short Instructor Biography
+
+Toby Dylan Hocking is the original author of the animint package
+(https://github.com/tdhock/animint), which was presented in an invited
+session at Joint Statistical Meetings 2015.
+
+https://www.amstat.org/meetings/jsm/2015/onlineprogram/AbstractDetails.cfm?abstractid=314184
+
+_The bio should enable the scientific committee to gauge the
+instructor's qualifications for the tutorial. Links to works previous
+tutorials and/or relevant publications may be included._
+
+** Brief Description of Tutorial
+
+The animint package simplifies creation of interactive, animated,
+multi-layer graphics. In this tutorial we will explain how to use R
+packages with similar functionality (ggvis, shiny, animation,
+ggplot2), and explain the relative strengths and weaknesses of each
+package.
+
+** Goals
+
+1. By showing several examples, explain what it means for a
+   statistical graphic to be "interactive," "animated," and
+   "multi-layer."
+2. Explain how existing R packages can be used to create these
+   graphics.
+3. Explain the strengths and weaknesses of the existing R packages, to
+   highlight directions for future work.
+
+** Detailed Outline
+
+_Detailed outline text._
+
+** Justification
+
+_Justification why tutorial is current and important._
+
+** Background Knowledge
 
 Since we plan to present state-of-the-art interactive graphics, people
 should know how to use R data structures (lists, data.frames) and the
@@ -50,3 +69,9 @@ There are two classes of potential attendees:
   different packages.
 - DevelopeRs of interactive packages are encouraged to come, to
   discuss the current state-of-the-art and future directions.
+
+** Expected Number of Attendees
+
+_How many do you expect to attend the tutorial?_
+
+
