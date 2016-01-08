@@ -96,8 +96,6 @@ weaknesses of each package.
 
 The three hours will roughly contain the following:
 
-*** First hour :: examples of different graphics
-
 - Motivation for interactive graphics in exploratory data analysis and
   reporting results (15 minutes).
 - Multi-layer graphics, ggplot2 package, 15 minutes :: A multi-layer
