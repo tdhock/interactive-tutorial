@@ -61,11 +61,24 @@ http://biostatistics.dk/presentations/DynGraph.html
 
 ** Brief Description of Tutorial
 
+Interactive graphics provide a huge potential for exploratory data
+analysis, in teaching, and for reporting data analyses since
+interactive graphics invites the viewer to become an active partner in
+the analysis and allows for immediate feedback on how the data and
+results may change when inputs are modified.
+
+Several R packages provide different approaches to interactive
+graphics either a stand-alone solutions or by interfacing to external
+graphical libraries. In this tutorial we will provide an overview and
+introduction to R packages (animint, shiny, rCharts, rMaps, ggvis) that
+consider different types of interactive graphics. 
+
 The animint package simplifies creation of interactive, animated,
-multi-layer graphics. In this tutorial we will explain how to use R
-packages with similar functionality (ggvis, shiny, animation,
-ggplot2), and explain the relative strengths and weaknesses of each
-package.
+multi-layer graphics, and we will will give a thorough comparison of a
+number of packages with similar functionality to the animint (ggvis,
+shiny, animation, ggplot2), and explain the relative strengths and
+weaknesses of each package.
+
 
 ** Goals
 
@@ -79,7 +92,16 @@ package.
 
 ** Detailed Outline
 
-_Detailed outline text._
+The three hours will roughly contain the following:
+
+1. By showing several examples, explain what it means for a
+   statistical graphic to be "interactive," "animated," and
+   "multi-layer."
+2. Explain how existing R packages can be used to create these
+   graphics.
+3. Explain the strengths and weaknesses of the existing R packages, to
+   highlight directions for future work.
+
 
 ** Justification
 
