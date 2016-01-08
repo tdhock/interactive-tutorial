@@ -95,24 +95,38 @@ weaknesses of each package.
 
 ** Detailed Outline
 
-The three hours will roughly contain the following:
+The three hours will roughly be structured as follows:
 
-1. By showing several examples, explain what it means for a
-   statistical graphic to be "interactive," "animated," and
+1. Discussion about the role of interactive graphics in exploratory
+   data analysis, from a learning and teaching perspective. The
+   discussion will showcase possibilities offered by interactive and
+   dynamic graphics offered by the rCharts, shiny, rMaps
+2. 
+3. 
+
+
+
+Besides the structure outlined above, we will be discussing 
+
+- the importance
+- what it means for a statistical graphic to be "interactive," "animated," and
    "multi-layer."
 2. Explain how existing R packages can be used to create these
    graphics.
 3. Explain the strengths and weaknesses of the existing R packages, to
    highlight directions for future work.
 
+rCharts, shiny, rMaps, htmlwidgets, plotly, R2D3
+
 
 ** Justification
 
 Interactive graphics provide a huge potential for exploratory data
-analysis, in teaching, and for reporting data analyses since
-interactive graphics invites the viewer to become an active partner in
-the analysis and allows for immediate feedback on how the data and
-results may change when inputs are modified.
+analysis, in teaching, and for reporting data analyses. Interactive
+graphics such as those by the D3 JavScript library invites the viewer
+to become an active partner in the analysis and allows for immediate
+feedback on how the data and results may change when inputs are
+modified.
 
 The role of graphics is expanding and is moving away from simple
 static representations found in scientific journals to more
@@ -124,10 +138,10 @@ some of the external graphics libraries that exist.
 
 The various implementations for interactive graphics found in R
 packages are often highly specialized in the same way as high-level
-plots, but have no consensus grammar and typically have completely
-different syntax. This tutorial will give an overview of the
-capabilities for creating interactive graphics in R, present practical
-examples to produce interactive graphics, and describe the
+plots, and just a few introduce graphics grammar so they typically
+have completely different syntax. This tutorial will give an overview
+of the capabilities for creating interactive graphics in R, present
+practical examples to produce interactive graphics, and describe the
 frustrations and shortcomings from the perspective of users new to
 these packages may encounter.
 
