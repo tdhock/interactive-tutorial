@@ -108,7 +108,35 @@ The three hours will roughly contain the following:
 
 ** Justification
 
-_Justification why tutorial is current and important._
+Interactive graphics provide a huge potential for exploratory data
+analysis, in teaching, and for reporting data analyses since
+interactive graphics invites the viewer to become an active partner in
+the analysis and allows for immediate feedback on how the data and
+results may change when inputs are modified.
+
+The role of graphics is expanding and is moving away from simple
+static representations found in scientific journals to more
+interactive representations where the user is directly involved in
+exploring different facets of the data. In that sense, the reader
+indirectly takes on the role of the analyst, and R is the ideal tool
+to produce integrated, interactive graphics and for interfacing with
+some of the external graphics libraries that exist.
+
+The various implementations for interactive graphics found in R
+packages are often highly specialized in the same way as high-level
+plots, but have no consensus grammar and typically have completely
+different syntax. This tutorial will give an overview of the
+capabilities for creating interactive graphics in R, present practical
+examples to produce interactive graphics, and describe the
+frustrations and shortcomings from the perspective of users new to
+these packages may encounter.
+
+When the tutorial is over the attendees should 1) have an overview of the
+packages for producing interactive graphics, 2) have seen and tried
+examples so they are able to create interactive graphics using some of
+the packages presented, and 3) have seen the broad scope of variation
+among packages that seek to produce the same type of graphics.
+
 
 ** Background Knowledge
 
@@ -130,4 +158,4 @@ There are two classes of potential attendees:
 
 _How many do you expect to attend the tutorial?_
 
-
+I have no clue on how to assess this
