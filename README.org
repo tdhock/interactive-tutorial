@@ -70,8 +70,8 @@ results may change when inputs are modified.
 Several R packages provide different approaches to interactive
 graphics either a stand-alone solutions or by interfacing to external
 graphical libraries. In this tutorial we will provide an overview and
-introduction to R packages (animint, shiny, rCharts, rMaps, ggvis) that
-consider different types of interactive graphics. 
+introduction to R packages (animint, shiny, rCharts, rMaps, ggvis,
+htmlwidgets) that consider different types of interactive graphics.
 
 The animint package simplifies creation of interactive, animated,
 multi-layer graphics, and we will will give a thorough comparison of a
@@ -82,12 +82,15 @@ weaknesses of each package.
 
 ** Goals
 
-1. By showing several examples, explain what it means for a
+1. To explain and emphasize the role that interactive graphics will
+   have in reporting, scientific journals, and in teaching.
+2. By showing several examples, explain what it means for a
    statistical graphic to be "interactive," "animated," and
    "multi-layer."
-2. Explain how existing R packages can be used to create these
+3. Explain how existing R packages can be used to create various
+   different types of interactive graphics these
    graphics.
-3. Explain the strengths and weaknesses of the existing R packages, to
+4. Explain the strengths and weaknesses of the existing R packages, to
    highlight directions for future work.
 
 ** Detailed Outline
