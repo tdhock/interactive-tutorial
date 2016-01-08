@@ -1,6 +1,6 @@
 ** TODO 
 
-send this to useR-2014@R-project.org before January 10, 2016.
+send this to useR-2016@R-project.org before January 10, 2016.
 
 CE (General comment)
 
@@ -24,7 +24,7 @@ focus on presenting as many different approaches as possible.
 
 ** Tutorial Title
 
-Interactive, animated, multi-layer graphics
+Animated, interactive, multi-layer, multi-panel graphics
 
 I wonder if we should specifically mention animint in the title, since
 Ramnath is submitting another tutorial on htmlwidgets?
@@ -85,11 +85,10 @@ weaknesses of each package.
 1. To explain and emphasize the role that interactive graphics will
    have in reporting, scientific journals, and in teaching.
 2. By showing several examples, explain what it means for a
-   statistical graphic to be "interactive," "animated," and
-   "multi-layer."
-3. Explain how existing R packages can be used to create various
-   different types of interactive graphics these
-   graphics.
+   statistical graphic to be "interactive," "animated," "multi-panel,"
+   and "multi-layer."
+3. Explain how existing R packages can be used to create these
+   different types of graphics.
 4. Explain the strengths and weaknesses of the existing R packages, to
    highlight directions for future work.
 
@@ -97,14 +96,39 @@ weaknesses of each package.
 
 The three hours will roughly contain the following:
 
-1. By showing several examples, explain what it means for a
-   statistical graphic to be "interactive," "animated," and
-   "multi-layer."
-2. Explain how existing R packages can be used to create these
-   graphics.
-3. Explain the strengths and weaknesses of the existing R packages, to
-   highlight directions for future work.
+*** First hour :: examples of different graphics
 
+- Motivation for interactive graphics in exploratory data analysis and
+  reporting results (15 minutes).
+- Multi-layer graphics, ggplot2 package, 15 minutes :: A multi-layer
+     graphic shows more than one data set. Multi-layer plots are
+     useful for showing relationships between data sets.
+  - A map that shows a circle for every city, and a line for borders of
+    each country.
+  - A plot of a linear model that shows data as circles, a regression
+    line, and model residuals as line segments.
+- Multi-panel graphics, facets in ggplot2, 15 minutes :: A multi-panel
+     graphic shows different things in different panels (sub-plots)
+     which each have their own axes (perhaps different from each
+     other). They are useful for showing
+  - Same plot for different data subsets :: a linear model fit to each
+       of several data subsets.
+  - Different plots with aligned axes :: World Bank data viz with one
+       time series panel, and one scatterplot panel.
+- Animated graphics, animation package, 15 minutes :: An animated
+     graphic automatically advances over time, like a video. Animated
+     graphics are most useful when data sets have a time
+     dimension. The only interaction possible is moving forward and
+     backward in time.
+  - Gradient descent (time=iterations).
+  - Two-panel World Bank data viz (time=years).
+- Interactive graphics, 30 minutes :: user interaction changes what is
+     displayed on the plots.
+  - shiny + ggplot2 :: World Bank data viz, interacting with widgets
+       changes selected year, countries, regions.
+  - shiny + ggvis :: idem.
+  - animint :: World Bank data viz, direct manipulation changes
+               selected year, countries, regions.
 
 ** Justification
 
