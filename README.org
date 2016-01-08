@@ -2,12 +2,37 @@
 
 send this to useR-2014@R-project.org before January 10, 2016.
 
+CE: General comment 
+
+> What I had in mind for the course/tutorial when we talked about the
+> tutorial last year was a general introduction
+> to the existing possibilities to create interactive/dynamic graphics
+> in R. The tutorial would be a hodge-podge of different packages and
+> should have two main goals: give the audience an overview of the
+> current possibilities in R as well as presenting the advantages/disadvantages of the
+> different approaches. A person attending the tutorial should have an
+> idea about the possibilities and "where to start" without being an
+> expert on any particular package.
+> 
+> I think I get the same vibe when reading your draft tutorial - is
+> that correct?
+>
+> Also, since we know that Ramnath is working on an htmlwidgets
+> tutorial, I think it would even more important for this tutorial to
+> focus on presenting as many different approaches as possible.
+
+
 ** Tutorial Title
 
 Interactive, animated, multi-layer graphics
 
 I wonder if we should specifically mention animint in the title, since
 Ramnath is submitting another tutorial on htmlwidgets?
+
+CE: I think it would be crucial for the title to make sure it
+differentiates itself from the other possible tutorial. Maybe we
+should hone in on the title as we get more details on the contents? 
+
 
 ** Instructors
 
@@ -24,9 +49,15 @@ session at Joint Statistical Meetings 2015.
 
 https://www.amstat.org/meetings/jsm/2015/onlineprogram/AbstractDetails.cfm?abstractid=314184
 
-_The bio should enable the scientific committee to gauge the
-instructor's qualifications for the tutorial. Links to works previous
-tutorials and/or relevant publications may be included._
+
+Claus Thorn Ekstrøm is the creator and contributor to a number of R
+packages (MESS, MethComp, SuperRanker) and is the author of "The R
+Primer" book. He has previously given tutorials on Dynamic
+graphics in R and the role of interactive graphics in teaching.
+
+http://biostatistics.dk/presentations/DynGraph.html
+
+
 
 ** Brief Description of Tutorial
 
