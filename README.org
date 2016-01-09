@@ -24,15 +24,7 @@ focus on presenting as many different approaches as possible.
 
 ** Tutorial Title
 
-Animated, interactive, multi-layer, multi-panel graphics
-
-I wonder if we should specifically mention animint in the title, since
-Ramnath is submitting another tutorial on htmlwidgets?
-
-CE: I think it would be crucial for the title to make sure it
-differentiates itself from the other possible tutorial. Maybe we
-should hone in on the title as we get more details on the contents? 
-
+A vocabulary for understanding interactive graphics
 
 ** Instructors
 
@@ -43,12 +35,10 @@ should hone in on the title as we get more details on the contents?
 
 ** Short Instructor Biography
 
-Toby Dylan Hocking is the original author of the animint package
-(https://github.com/tdhock/animint), which was presented in an invited
-session at Joint Statistical Meetings 2015.
-
-https://www.amstat.org/meetings/jsm/2015/onlineprogram/AbstractDetails.cfm?abstractid=314184
-
+Toby Dylan Hocking is the designer and primary maintainer of the
+animint package, which was presented in an [[https://www.amstat.org/meetings/jsm/2015/onlineprogram/AbstractDetails.cfm?abstractid=314184%0A][invited session at Joint
+Statistical Meetings 2015]]. His is also the original designer of the
+ggplot conversion feature of the plotly package.
 
 Claus Thorn Ekstrøm is the creator and contributor to a number of R
 packages (MESS, MethComp, SuperRanker) and is the author of "The R
@@ -57,36 +47,32 @@ graphics in R and the role of interactive graphics in teaching.
 
 http://biostatistics.dk/presentations/DynGraph.html
 
-
-
 ** Brief Description of Tutorial
 
-Interactive graphics provide a huge potential for exploratory data
-analysis, in teaching, and for reporting data analyses since
-interactive graphics invites the viewer to become an active partner in
-the analysis and allows for immediate feedback on how the data and
-results may change when inputs are modified.
+An interactive graphic invites the viewer to become an active partner
+in the analysis and allows for immediate feedback on how the data and
+results may change when inputs are modified. Interactive graphics can
+be extremely useful for exploratory data analysis, for teaching, and
+for reporting.
 
-Several R packages provide different approaches to interactive
-graphics either a stand-alone solutions or by interfacing to external
-graphical libraries. In this tutorial we will provide an overview and
-introduction to R packages (animint, shiny, rCharts, rMaps, ggvis,
-htmlwidgets) that consider different types of interactive graphics.
-
-The animint package simplifies creation of interactive, animated,
-multi-layer graphics, and we will will give a thorough comparison of a
-number of packages with similar functionality to the animint (ggvis,
-shiny, animation, ggplot2), and explain the relative strengths and
-weaknesses of each package.
-
+Because there are so many different kinds of interactive graphics,
+there has been an explosion in R packages that can produce them
+(e.g. animint, shiny, rCharts, rMaps, ggvis, htmlwidgets). A beginner
+with little knowledge of interactive graphics can thus be easily
+confused by (1) understanding what kinds of graphics are useful for
+what kinds of data, and (2) finding an R package that can produce the
+desired type of graphic. This tutorial solves these two problems by
+(1) introducing a vocabulary of keywords for understanding the
+different kinds of graphics, and (2) explaining what R packages can be
+used for each kind of graphic.
 
 ** Goals
 
 1. To explain and emphasize the role that interactive graphics will
    have in reporting, scientific journals, and in teaching.
-2. By showing several examples, explain what it means for a
-   statistical graphic to be "interactive," "animated," "multi-panel,"
-   and "multi-layer."
+2. By showing several examples, explain different categories of
+   graphics: animated, multi-panel, and multi-layer, interactive
+   (direct vs indirect manipulation).
 3. Explain how existing R packages can be used to create these
    different types of graphics.
 4. Explain the strengths and weaknesses of the existing R packages, to
@@ -94,16 +80,56 @@ weaknesses of each package.
 
 ** Detailed Outline
 
-The three hours will roughly be structured as follows
+*** A vocabulary for understanding interactive graphics, 30 minutes
 
-- Motivation for interactive graphics, 15 minutes :: The motivation for
-     interactive graphics in exploratory data analysis, reporting
-     results and teaching.
+In this section we will give a high-level introduction about
+interactive graphics, without going into details about R code for
+specific packages.
+
+Motivation: interactive graphics in exploratory data analysis,
+reporting results and teaching.
+
+Vocabulary for describing interactive graphics:
+- interactive :: user interaction changes what is displayed. Useful
+     when there are many similar plots for different data subsets, but
+     you *don't* want to see them all at the same time.
+- animated :: An animated graphic automatically advances over time,
+     like a video. Animated graphics are most useful when data sets
+     have a time dimension. The only interaction possible is moving
+     forward and backward in time.
+- multi-layer :: A multi-layer graphic uses several geometric elements
+     to show more than one data set. Multi-layer plots are useful for
+     showing relationships between variables.
+- multi-panel :: A multi-panel graphic shows different things in
+     different panels (sub-plots) which each have their own axes
+     (perhaps different from each other). Useful when there are many
+     similar plots for different data subsets, and you *do* want to
+     see them at the same time. Also useful for showing different
+     plots with aligned axes.
+Compare and contrast:
+- interactive vs animated :: only interaction possible in an animated
+     graphic is moving forward and backward in time (animated graphics
+     are thus a subset of interactive graphics).
+- interactive vs multi-panel :: both useful for many similar plots
+     with different data subsets. Do you want to see all the subsets
+     at the same time? (yes=multi-panel, no=interactive)
+
+*** Quiz questions
+
+The previous section introduced a vocabulary for describing
+interactive graphics. In the following section, after showing a new
+graphic, we will ask the audience to take 1 minute to discuss with
+their neighbor about which vocabulary words can be used to describe
+that graphic.
+
+*** Creating interactive graphics using R packages
+
+In this section we will show specific R code examples from the various
+packages.
+
+- High-level interactive plotting packages, 30 minutes ::
   - Simple approaches like rotating plots (rgl package) and simple user
-    interaction (wallyplot from MESS package)
-- Overview of high-level interactive plotting packages, 30 minutes ::
-     An overview of packages that provide interactive graphics and
-     their implementation approaches.
+    interaction (wallyplot from MESS package).
   - Interactive bar plots (rCharts, several different JavaScript
     interfaces, interfacing with JavaScript libraries to change axes
     and legends)
@@ -113,7 +139,7 @@ The three hours will roughly be structured as follows
   - interactive maps and choropleths (the rMaps packages)
   - Discussion of frustrations that new users unfamiliar with
     JavaScript may encounter when interfacing with JavaScript libraries
-- Interactive graphics with shiny and plotly, 30 minutes :: asd
+- Interactive graphics with shiny and plotly, 30 minutes :: 
   - Teaching least squares estimation (shiny)
   - Teaching power calculations (shiny)
   - Reproducing some of the previous graphics on happiness and tax
@@ -122,8 +148,9 @@ The three hours will roughly be structured as follows
   - Graphics on prediction accuracy for Danish population predictions
     (plotly, adding sliders)
 - Multi-layer graphics, ggplot2 package, 15 minutes :: A multi-layer
-     graphic shows more than one data set. Multi-layer plots are
-     useful for showing relationships between data sets.
+     graphic uses several geometric elements to show more than one
+     data set. Multi-layer plots are useful for showing relationships
+     between variables.
   - A map that shows a circle for every city, and a line for borders of
     each country.
   - A plot of a linear model that shows data as circles, a regression
@@ -131,7 +158,7 @@ The three hours will roughly be structured as follows
 - Multi-panel graphics, facets in ggplot2, 15 minutes :: A multi-panel
      graphic shows different things in different panels (sub-plots)
      which each have their own axes (perhaps different from each
-     other). They are useful for showing [XXX Something missing here]
+     other). They are useful in two different situations:
   - Same plot for different data subsets :: a linear model fit to each
        of several data subsets.
   - Different plots with aligned axes :: World Bank data viz with one
@@ -143,28 +170,15 @@ The three hours will roughly be structured as follows
      backward in time.
   - Gradient descent (time=iterations).
   - Two-panel World Bank data viz (time=years).
-- Interactive graphics, 30 minutes :: user interaction changes what is
-     displayed on the plots.
+- Interactive + animated + multi-panel + multi-layer, 45 minutes :: user
+     interaction changes what is displayed on the plots.
   - shiny + ggplot2 :: World Bank data viz, interacting with widgets
        changes selected year, countries, regions.
   - shiny + ggvis :: idem.
   - animint :: World Bank data viz, direct manipulation changes
                selected year, countries, regions.
 
-Besides the structure outlined above, we will generally be
-highlighting what it means for a statistical graphic to be
-"interactive," "animated," and "multi-layer", and discuss the
-strengths and weaknesses of the existing R packages, to highlight
-directions for future work.
-
 ** Justification
-
-Interactive graphics provide a huge potential for exploratory data
-analysis, in teaching, and for reporting data analyses. Interactive
-graphics such as those by the D3 JavScript library invites the viewer
-to become an active partner in the analysis and allows for immediate
-feedback on how the data and results may change when inputs are
-modified.
 
 The role of graphics is expanding and is moving away from simple
 static representations found in scientific journals to more
@@ -176,19 +190,23 @@ some of the external graphics libraries that exist.
 
 The various implementations for interactive graphics found in R
 packages are often highly specialized in the same way as high-level
-plots, and just a few introduce graphics grammar so they typically
-have completely different syntax. This tutorial will give an overview
-of the capabilities for creating interactive graphics in R, present
-practical examples to produce interactive graphics, and describe the
-frustrations and shortcomings from the perspective of users new to
-these packages may encounter.
+plots, and each package typically has a completely different
+syntax. This tutorial will 
+- introduce a vocabulary for categorizing interactive graphics,
+- present practical examples of how to produce interactive graphics
+  using existing R packages, 
+- describe how to overcome frustrations typical of new users to
+  interactive graphics, and
+- highlight advantages and room for improvement in existing
+  packages. 
 
-When the tutorial is over the attendees should 1) have an overview of the
-packages for producing interactive graphics, 2) have seen and tried
-examples so they are able to create interactive graphics using some of
-the packages presented, and 3) have seen the broad scope of variation
-among packages that seek to produce the same type of graphics.
-
+*TDH should we delete this paragraph? It seems repetitive with the
+previous paragaph.* When the tutorial is over the attendees should 1)
+have an overview of the packages for producing interactive
+graphics, 2) have seen and tried examples so they are able to create
+interactive graphics using some of the packages presented, and 3) have
+seen the broad scope of variation among packages that seek to produce
+the same type of graphics.
 
 ** Background Knowledge
 
