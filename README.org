@@ -2,26 +2,6 @@
 
 send this to useR-2016@R-project.org before January 10, 2016.
 
-CE (General comment)
-
-What I had in mind for the course/tutorial when we talked about the
-tutorial last year was a general introduction
-to the existing possibilities to create interactive/dynamic graphics
-in R. The tutorial would be a hodge-podge of different packages and
-should have two main goals: give the audience an overview of the
-current possibilities in R as well as presenting the advantages/disadvantages of the
-different approaches. A person attending the tutorial should have an
-idea about the possibilities and "where to start" without being an
-expert on any particular package.
-
-I think I get the same vibe when reading your draft tutorial - is
-that correct?
-
-Also, since we know that Ramnath is working on an htmlwidgets
-tutorial, I think it would even more important for this tutorial to
-focus on presenting as many different approaches as possible.
-
-
 ** Tutorial Title
 
 A vocabulary for understanding interactive graphics
@@ -228,4 +208,4 @@ There are two classes of potential attendees:
 
 _How many do you expect to attend the tutorial?_
 
-I have no clue on how to assess this
+40
