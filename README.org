@@ -48,8 +48,8 @@ used for each kind of graphic.
 
 ** Goals
 
-1. To explain and emphasize the role that interactive graphics will
-   have in reporting, scientific journals, and in teaching.
+1. Explain and emphasize the role that interactive graphics have in
+   reporting, scientific journals, and in teaching.
 2. By showing several examples, explain different categories of
    graphics: animated, multi-panel, and multi-layer, interactive
    (direct vs indirect manipulation).
@@ -73,13 +73,18 @@ Vocabulary for describing interactive graphics:
 - interactive :: user interaction changes what is displayed. Useful
      when there are many similar plots for different data subsets, but
      you *don't* want to see them all at the same time.
+  - direct manipulation :: interacting with plot elements (lines,
+       points, etc).
+  - indirect manipulation :: interacting with keyboard, mouse clicks
+       on widgets (buttons, menus, etc).
 - animated :: An animated graphic automatically advances over time,
      like a video. Animated graphics are most useful when data sets
      have a time dimension. The only interaction possible is moving
      forward and backward in time.
 - multi-layer :: A multi-layer graphic uses several geometric elements
-     to show more than one data set. Multi-layer plots are useful for
-     showing relationships between variables.
+     to show several data sets and/or variables. Multi-layer plots are
+     useful for showing relationships between data sets and/or
+     variables.
 - multi-panel :: A multi-panel graphic shows different things in
      different panels (sub-plots) which each have their own axes
      (perhaps different from each other). Useful when there are many
@@ -127,31 +132,23 @@ packages.
     effects, and dropdown)
   - Graphics on prediction accuracy for Danish population predictions
     (plotly, adding sliders)
-- Multi-layer graphics, ggplot2 package, 15 minutes :: A multi-layer
-     graphic uses several geometric elements to show more than one
-     data set. Multi-layer plots are useful for showing relationships
-     between variables.
+- Multi-layer graphics, ggplot2 package, 15 minutes :: 
   - A map that shows a circle for every city, and a line for borders of
     each country.
   - A plot of a linear model that shows data as circles, a regression
     line, and model residuals as line segments.
-- Multi-panel graphics, facets in ggplot2, 15 minutes :: A multi-panel
-     graphic shows different things in different panels (sub-plots)
-     which each have their own axes (perhaps different from each
-     other). They are useful in two different situations:
+- Multi-panel graphics, facets in ggplot2, 15 minutes :: useful in two
+     different situations:
   - Same plot for different data subsets :: a linear model fit to each
        of several data subsets.
   - Different plots with aligned axes :: World Bank data viz with one
        time series panel, and one scatterplot panel.
-- Animated graphics, animation package, 15 minutes :: An animated
-     graphic automatically advances over time, like a video. Animated
-     graphics are most useful when data sets have a time
-     dimension. The only interaction possible is moving forward and
-     backward in time.
+- Animated graphics, animation package, 15 minutes :: 
   - Gradient descent (time=iterations).
   - Two-panel World Bank data viz (time=years).
-- Interactive + animated + multi-panel + multi-layer, 45 minutes :: user
-     interaction changes what is displayed on the plots.
+- Interactive + animated + multi-panel + multi-layer, 45 minutes :: a
+     few packages are able to produce complex graphics which can be
+     described by several vocabulary words.
   - shiny + ggplot2 :: World Bank data viz, interacting with widgets
        changes selected year, countries, regions.
   - shiny + ggvis :: idem.
