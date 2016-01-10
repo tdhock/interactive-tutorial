@@ -177,8 +177,7 @@ syntax. This tutorial will
 - highlight advantages and room for improvement in existing
   packages. 
 
-*TDH should we delete this paragraph? It seems repetitive with the
-previous paragaph.* When the tutorial is over the attendees should 1)
+*TDH should we delete this paragraph? It seems repetitive with the previous paragaph.* When the tutorial is over the attendees should 1)
 have an overview of the packages for producing interactive
 graphics, 2) have seen and tried examples so they are able to create
 interactive graphics using some of the packages presented, and 3) have
@@ -203,6 +202,6 @@ There are two classes of potential attendees:
 
 ** Expected Number of Attendees
 
-_How many do you expect to attend the tutorial?_
-
-40
+We're not sure how to estimate this, but typically interactive
+graphics are a popular topic so it would be best to have a decent
+sized lecture hall (50-150 people).
