@@ -119,14 +119,18 @@ reporting results and teaching.
 
 Vocabulary for describing interactive graphics:
 \begin{description}
-\item[{interactive}] user interaction changes what is displayed. Useful
-when there are many similar plots for different data subsets, but
-you \textbf{don't} want to see them all at the same time.
-\begin{description}
-\item[{direct manipulation}] interacting with plot elements (lines,
-points, etc).
-\item[{indirect manipulation}] interacting with keyboard, mouse clicks
-on widgets (buttons, menus, etc).
+\item[zoomable] reduce axes limits and hide data outside of limits. can
+  do it with both static and interactive.
+\item[{interactive}] user can change what is displayed without
+  changing the code. (aka dynamic)
+  \begin{description}
+  \item[{direct manipulation}] interacting with plot elements (lines,
+    points, etc).
+  \item[{indirect manipulation}] interacting with keyboard, mouse clicks
+    on widgets (buttons, menus, etc).
+    Useful when there are many similar plots for
+different data subsets,
+    but you \textbf{don't} want to see them all at the same time.
 \end{description}
 \item[{animated}] An animated graphic automatically advances over time,
 like a video. Animated graphics are most useful when data sets
