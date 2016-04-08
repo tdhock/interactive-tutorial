@@ -1,0 +1,223 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Toby Dylan Hocking}
+\date{\today}
+\title{Understanding and producing interactive graphics}
+\hypersetup{
+ pdfauthor={Toby Dylan Hocking},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.3.1 (Org mode 8.3.2)}, 
+ pdflang={English}}
+\begin{document}
+
+%\tableofcontents
+
+%% \section{{\bfseries\sffamily TODO} }
+%% \label{sec:orgheadline1}
+
+%% send this to useR-2016@R-project.org before January 10, 2016.
+
+\section{Tutorial Title}
+\label{sec:orgheadline2}
+
+Understanding and creating interactive graphics
+
+\section{Instructors}
+\label{sec:orgheadline3}
+
+\begin{center}
+\begin{tabular}{llll}
+Name & Institution & Address & Email\\
+\hline
+Toby Dylan Hocking & McGill & Montreal, Canada & toby.hocking@mail.mcgill.ca\\
+Claus Thorn Ekstrøm & Univ. Copenhagen & Copenhagen, Denmark & ekstrom@sund.ku.dk\\
+\end{tabular}
+\end{center}
+
+\section{Brief Description of Tutorial}
+\label{sec:orgheadline5}
+
+An interactive graphic invites the viewer to become an active partner
+in the analysis and allows for immediate feedback on how the data and
+results may change when inputs are modified. Interactive graphics can
+be extremely useful for exploratory data analysis, for teaching, and
+for reporting.
+
+Because there are so many different kinds of interactive graphics,
+there has been an explosion in R packages that can produce them
+(e.g. animint, shiny, rCharts, rMaps, ggvis, htmlwidgets). A beginner
+with little knowledge of interactive graphics can thus be easily
+confused by (1) understanding what kinds of graphics are useful for
+what kinds of data, and (2) finding an R package that can produce the
+desired type of graphic. This tutorial solves these two problems by
+(1) introducing a vocabulary of keywords for understanding the
+different kinds of graphics, and (2) explaining what R packages can be
+used for each kind of graphic.
+
+\section{Goals}
+\label{sec:orgheadline6}
+
+\begin{enumerate}
+\item Explain and emphasize the role that interactive graphics have in
+  exploratory data analysis, reporting, and teaching.
+\item By showing several examples, explain different categories of
+  graphics: animated, multi-panel, and multi-layer, interactive
+  (direct vs indirect manipulation).
+\item Explain how existing R packages can be used to create these
+  different types of graphics.
+\item Explain the strengths and weaknesses of the existing R packages, to
+  highlight directions for future work.
+\end{enumerate}
+
+\section{Detailed Outline}
+\label{sec:orgheadline10}
+
+\subsection{A vocabulary for understanding interactive graphics, 30 minutes}
+\label{sec:orgheadline7}
+
+In this section we will give a high-level introduction about
+interactive graphics, without going into details about R code for
+specific packages.
+
+Motivation: interactive graphics in exploratory data analysis,
+reporting results and teaching.
+
+Vocabulary for describing interactive graphics:
+\begin{description}
+\item[zoomable] reduce axes limits and hide data outside of limits. can
+  do it with both static and interactive.
+\item[{interactive}] user can change what is displayed without
+  changing the code. (aka dynamic)
+  \begin{description}
+  \item[{direct manipulation}] interacting with plot elements (lines,
+    points, etc).
+  \item[{indirect manipulation}] interacting with keyboard, mouse clicks
+    on widgets (buttons, menus, etc).
+    Useful when there are many similar plots for
+different data subsets,
+    but you \textbf{don't} want to see them all at the same time.
+\end{description}
+\item[{animated}] An animated graphic automatically advances over time,
+like a video. Animated graphics are most useful when data sets
+have a time dimension. The only interaction possible is moving
+forward and backward in time.
+\item[{multi-layer}] A multi-layer graphic uses several geometric elements
+to show several data sets and/or variables. Multi-layer plots are
+useful for showing relationships between data sets and/or
+variables.
+\item[{multi-panel}] A multi-panel graphic shows different things in
+different panels (sub-plots) which each have their own axes
+(perhaps different from each other). Useful when there are many
+similar plots for different data subsets, and you \textbf{do} want to
+see them at the same time. Also useful for showing different
+plots with aligned axes.
+\end{description}
+Compare and contrast:
+\begin{description}
+\item[{interactive vs animated}] only interaction possible in an animated
+graphic is moving forward and backward in time (animated graphics
+are thus a subset of interactive graphics).
+\item[{interactive vs multi-panel}] both useful for many similar plots
+with different data subsets. Do you want to see all the subsets
+at the same time? (yes=multi-panel, no=interactive)
+\end{description}
+
+\subsection{Creating interactive graphics using R packages}
+\label{sec:orgheadline9}
+
+In this section we will show specific R code examples from the various
+packages.
+
+\begin{description}
+\item[{High-level interactive plotting packages, 30 minutes}] \mbox{ }
+
+\begin{itemize}
+\item Simple approaches like rotating plots (rgl package) and simple user
+interaction (wallyplot from MESS package).
+\item Interactive bar plots (rCharts, several different JavaScript
+interfaces, interfacing with JavaScript libraries to change axes
+and legends)
+\item Interactive scatter plots showing happiness and tax rate (rCharts,
+and clickme packages, several different JavaScript interfaces, add
+dropdown effects and improve tooltips)
+\item interactive maps and choropleths (the rMaps packages)
+\item Discussion of frustrations that new users unfamiliar with
+JavaScript may encounter when interfacing with JavaScript libraries
+\end{itemize}
+\item[{Interactive graphics with shiny and plotly, 30 minutes}] \mbox{ }
+\begin{itemize}
+\item Teaching least squares estimation (shiny)
+\item Teaching power calculations (shiny)
+\item Reproducing some of the previous graphics on happiness and tax
+rate in plotly (ggplot2, and ggplotly, adding tooltips/hover
+effects, and dropdown)
+\item Graphics on prediction accuracy for Danish population predictions
+(plotly, adding sliders)
+\end{itemize}
+\item[{Multi-layer graphics, ggplot2 package, 15 minutes}] \mbox{ }
+\begin{itemize}
+\item A map that shows a circle for every city, and a line for borders of
+each country.
+\item A plot of a linear model that shows data as circles, a regression
+line, and model residuals as line segments.
+\end{itemize}
+\item[{Multi-panel graphics, facets in ggplot2, 15 minutes}] useful in two
+different situations:
+\begin{description}
+\item[{Same plot for different data subsets}] a linear model fit to each
+of several data subsets.
+\item[{Different plots with aligned axes}] World Bank data viz with one
+time series panel, and one scatterplot panel.
+\end{description}
+\item[{Animated graphics, animation package, 15 minutes}] \mbox{ }
+\begin{itemize}
+\item Gradient descent (time=iterations).
+\item Two-panel World Bank data viz (time=years).
+\end{itemize}
+\item[{Interactive + animated + multi-panel + multi-layer, 45 minutes}] a
+few packages are able to produce complex graphics which can be
+described by several vocabulary words.
+\begin{description}
+\item[{shiny + ggplot2}] World Bank data viz, interacting with widgets
+changes selected year, countries, regions.
+\item[{shiny + ggvis}] same kind of graphic with World Bank data.
+\item[{animint}] World Bank data viz, direct manipulation changes
+selected year, countries, regions.
+\end{description}
+\end{description}
+
+\section{Background Knowledge}
+\label{sec:orgheadline12}
+
+Since we plan to present state-of-the-art interactive graphics, people
+should know how to use R data structures (lists, data.frames) and the
+ggplot2 package. 
+
+Even though many examples will be interactive web graphics, we will
+assume only knowledge of R, not HTML/JavaScript.
+
+There are two classes of potential attendees:
+\begin{itemize}
+\item UseRs who are not very familiar with interactive graphics should
+benefit the most, since we will give a high-level overview of many
+different packages.
+\item DevelopeRs of interactive graphics packages are encouraged to
+  come, to discuss the current state-of-the-art and future directions.
+\end{itemize}
+
+\end{document}
