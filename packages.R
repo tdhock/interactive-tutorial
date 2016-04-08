@@ -52,4 +52,5 @@ works_with_R <- function(Rvers,...){
 
 works_with_R(
   "3.2.3",
+  rCharts="0.4.2",
   "tdhock/ggplot2@a8b06ddb680acdcdbd927773b1011c562134e4d2")
