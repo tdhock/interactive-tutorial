@@ -57,15 +57,23 @@ desired type of graphic. This tutorial solves these two problems by
 different kinds of graphics, and (2) explaining what R packages can be
 used for each kind of graphic.
 
+\section*{Tutorial Overview}
+
+Attendees will gain hands-on experience with using R to create
+interactive graphics. We will discuss several example data sets and
+several R interactive graphics packages. Attendees will learn a
+vocabulary that helps to understand the strengths and weaknesses of
+the many different packages which are currently available.
+
 \section*{Detailed Outline}
 \label{sec:orgheadline10}
 
-\subsection*{A vocabulary for understanding interactive graphics, 30 minutes}
+\subsection*{Differences between interactive/dynamic and non-interactive/static graphics}
+
+\subsection*{A vocabulary for understanding interactive graphics}
 \label{sec:orgheadline7}
-
-We will use the following vocabulary to classify each interactive
+Attendees will learn a vocabulary for classifying an interactive
 graphic in terms of complexity, possible actions, and effects.
-
 \begin{description}
 \item[Complexity] multi-panel, multi-layer, multi-plot.
 \item[Actions] animation, direct manipulation (clicking, hovering), indirect manipulation
@@ -74,81 +82,60 @@ graphic in terms of complexity, possible actions, and effects.
   hyperlink.
 \end{description}
 
-\subsection*{High-level interactive plotting packages, 30 minutes}
+\subsection*{High-level interactive plotting packages}
+rgl, MESS, rCharts, clickme, rMaps. Discussion of frustrations that
+new users unfamiliar with JavaScript may encounter when using these
+libraries.
+
+\subsection*{Interactive graphics with shiny and plotly}
+shiny, plotly, ggplot2.
+
+\subsection*{Multi-layer graphics with ggplot2}
+Several geoms that show different data tables.
+
+\subsection*{Multi-panel graphics with facets in ggplot2}
+Multi-panel graphics are useful in two different situations:
 \begin{itemize}
-\item Simple approaches like rotating plots (\textbf{rgl} package) and
-  keyboard interaction (wallyplot from \textbf{MESS} package).
-\item Interactive bar plots (\textbf{rCharts}, several different JavaScript
-  interfaces, interfacing with JavaScript libraries to change axes
-  and legends).
-\item Interactive scatter plots showing happiness and tax rate
-  (\textbf{rCharts}, \textbf{clickme}, several different JavaScript
-  interfaces, add dropdown effects and improve tooltips).
-\item interactive maps and choropleths (\textbf{rMaps}).
-\item Discussion of frustrations that new users unfamiliar with
-  JavaScript may encounter when interfacing with JavaScript libraries.
+\item same plot for different data subsets, and
+\item different plots with aligned axes.
 \end{itemize}
 
-\subsection*{Interactive graphics with shiny and plotly, 30 minutes}
-\begin{itemize}
-\item Teaching least squares and power calculations (\textbf{shiny}).
-\item Reproducing some of the previous graphics on happiness and tax
-  rate (\textbf{plotly}+\textbf{ggplot2}, adding tooltips/hover
-  effects, and dropdown).
-\item Graphics on prediction accuracy for Danish population predictions
-  (\textbf{plotly}, adding sliders).
-\end{itemize}
+\subsection*{Animated graphics using the animation package}
 
-\subsection*{Multi-layer graphics, ggplot2 package, 15 minutes}
-\begin{itemize}
-\item Map of tornadoes (points and segments) in the United States (polygons).
-\item Change-point detection: data points, segment means,
-  change-points.
-\end{itemize}
+\subsection*{Complex interactive graphics}
+Packages that can produce multi-panel, multi-layer, multi-plot,
+interactive graphics (shiny, ggplot2, ggvis, animint).
 
-\subsection*{Multi-panel graphics, facets in ggplot2, 15 minutes}
-Facets are useful in two different situations:
-\begin{description}
-\item[{Same plot for different data subsets}] a linear model fit to each
-  of several data subsets.
-\item[{Different plots with aligned axes}] World Bank data viz with one
-  time series panel, and one scatterplot panel.
-\end{description}
+\section*{Background Knowledge}
 
-\subsection{Animated graphics, animation package, 15 minutes}
-\begin{itemize}
-\item Gradient descent (time=iterations).
-\item Two-panel World Bank data viz (time=years).
-\end{itemize}
+Knowledge of \textbf{base}, \textbf{lattice}, or \textbf{ggplot2}
+functions for creating static graphics will be helpful. No
+knowledge of JavaScript is necessary.
 
-\subsection{Interactive + animated + multi-panel + multi-layer, 45 minutes}
-few packages are able to produce complex graphics which can be
-described by several vocabulary words.
-\begin{description}
-\item[{shiny + ggplot2}] World Bank data viz, interacting with widgets
-changes selected year, countries, regions.
-\item[{shiny + ggvis}] same kind of graphic with World Bank data.
-\item[{animint}] World Bank data viz, direct manipulation changes
-selected year, countries, regions.
-\end{description}
-
-\subsection*{Background Knowledge}
+\section*{Potential Attendees}
 \label{sec:orgheadline12}
+Our tutorial is appropriate for:
+\begin{description}
+\item[complete R newbies:] the vocabulary for understanding interactive
+graphics should be useful, even if you don't understand all of the R
+code that we present.
+\item[intermediate useRs:] you already know how to use basic R data
+  structures like data.frame and list, and maybe static graphics
+  packages like ggplot2. You will learn how to create interactive
+  graphics.
+\item[interactive graphics package developeRs:] you have written an
+  interactive graphics package. Please come to see us present some
+  other packages, and to discuss the current state-of-the-art and
+  future directions.
+\end{description}
 
-Since we plan to present state-of-the-art interactive graphics, people
-should know how to use R data structures (lists, data.frames) and the
-ggplot2 package. 
+\subsection*{Requirements for interactive session}
 
-Even though many examples will be interactive web graphics, we will
-assume only knowledge of R, not HTML/JavaScript.
+Attendees should run the following R code to install the packages
+which are required for our tutorial:
 
-There are two classes of potential attendees:
-\begin{itemize}
-\item UseRs who are not very familiar with interactive graphics should
-benefit the most, since we will give a high-level overview of many
-different packages.
-\item DevelopeRs of interactive graphics packages are encouraged to
-  come, to discuss the current state-of-the-art and future directions.
-\end{itemize}
+\begin{verbatim}
+source("http://raw.githubusercontent.com/tdhock/interactive-tutorial/master/packages.R")
+\end{verbatim}
 
 \end{document}
