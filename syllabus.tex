@@ -47,15 +47,14 @@ be extremely useful for exploratory data analysis, for teaching, and
 for reporting.
 
 Because there are so many different kinds of interactive graphics,
-there has recently been an explosion in R packages that can produce them
-(e.g. animint, shiny, rCharts, rMaps, ggvis, htmlwidgets). A beginner
-with little knowledge of interactive graphics can thus be easily
-confused by (1) understanding what kinds of graphics are useful for
-what kinds of data, and (2) finding an R package that can produce the
-desired type of graphic. This tutorial solves these two problems by
-(1) introducing a vocabulary of keywords for understanding the
-different kinds of graphics, and (2) explaining what R packages can be
-used for each kind of graphic.
+there has recently been an explosion in R packages that can produce
+them. A beginner with little knowledge of interactive graphics can
+thus be easily confused by (1) understanding what kinds of graphics
+are useful for what kinds of data, and (2) finding an R package that
+can produce the desired type of graphic. This tutorial solves these
+two problems by (1) introducing a vocabulary of keywords for
+understanding the different kinds of graphics, and (2) explaining what
+R packages can be used for each kind of graphic.
 
 \section*{Tutorial Overview}
 
@@ -67,13 +66,10 @@ the many different packages which are currently available.
 
 \section*{Detailed Outline}
 \label{sec:orgheadline10}
-
-\subsection*{Differences between interactive/dynamic and non-interactive/static graphics}
-
-\subsection*{A vocabulary for understanding interactive graphics}
-\label{sec:orgheadline7}
-Attendees will learn a vocabulary for classifying an interactive
-graphic in terms of complexity, possible actions, and effects.
+\begin{itemize}
+\item Differences between interactive/dynamic and non-interactive/static graphics.
+\item A vocabulary for understanding interactive graphics in terms of
+  complexity, possible actions, and effects.
 \begin{description}
 \item[Complexity] multi-panel, multi-layer, multi-plot.
 \item[Actions] animation, direct manipulation (clicking, hovering), indirect manipulation
@@ -81,34 +77,27 @@ graphic in terms of complexity, possible actions, and effects.
 \item[Effects] zoom, highlight, show/hide (data, labels, tooltips),
   hyperlink.
 \end{description}
-
-\subsection*{High-level interactive plotting packages}
-rgl, MESS, rCharts, clickme, rMaps. Discussion of frustrations that
+\item High-level interactive plotting packages (rgl, MESS, rCharts,
+  clickme, rMaps, htmlwidgets, dygraphs).
+\item Discussion of frustrations that
 new users unfamiliar with JavaScript may encounter when using these
 libraries.
-
-\subsection*{Interactive graphics with shiny and plotly}
-shiny, plotly, ggplot2.
-
-\subsection*{Multi-layer graphics with ggplot2}
-Several geoms that show different data tables.
-
-\subsection*{Multi-panel graphics with facets in ggplot2}
-Multi-panel graphics are useful in two different situations:
+\item Interactive graphics with shiny, plotly, ggplot2.
+\item Multi-layer graphics with ggplot2.
+\item Multi-panel graphics with facets in ggplot2, useful in two
+  different situations:
 \begin{itemize}
 \item same plot for different data subsets, and
 \item different plots with aligned axes.
 \end{itemize}
-
-\subsection*{Animated graphics using the animation package}
-
-\subsection*{Complex interactive graphics}
-Packages that can produce multi-panel, multi-layer, multi-plot,
-interactive graphics (shiny, ggplot2, ggvis, animint).
+\item Animated graphics using the animation package.
+\item Multi-panel, multi-layer, multi-plot, interactive graphics
+  (animint, shiny, ggplot2, ggvis).
+\end{itemize}
 
 \section*{Background Knowledge}
 
-Knowledge of \textbf{base}, \textbf{lattice}, or \textbf{ggplot2}
+Knowledge of base, lattice, or ggplot2
 functions for creating static graphics will be helpful. No
 knowledge of JavaScript is necessary.
 
@@ -129,13 +118,13 @@ code that we present.
   future directions.
 \end{description}
 
-\subsection*{Requirements for interactive session}
+\section*{Requirements for interactive session}
 
 Attendees should run the following R code to install the packages
 which are required for our tutorial:
 
 \begin{verbatim}
-source("http://raw.githubusercontent.com/tdhock/interactive-tutorial/master/packages.R")
+source("http://tdhock.github.io/interactive-tutorial/packages.R")
 \end{verbatim}
 
 \end{document}
