@@ -24,7 +24,6 @@ gg.signals <- ggplot()+
     "logratio (approximate DNA copy number)",
     breaks=c(-1, 0, 1))+
   geom_point(aes(base/1e6, logratio),
-             shape=1,
              data=intreg$sig)
 gg.signals+facet_wrap("signal")
 gg.signals+facet_grid(signal ~ .)
@@ -39,15 +38,16 @@ There are 20 segmentation models for each signal, which we can also
 view in separate panels.
 
 ```{r}
+breaks.top <- 1
+breaks.bottom <- -1
+label.top <- 1
+label.bottom <- -1.5
 gg.models <- gg.signals+
-  geom_segment(aes(first.base/1e6, mean, xend=last.base/1e6, yend=mean,
-                   showSelected=signal,
-                   showSelected2=segments),
+  geom_segment(aes(first.base/1e6, mean, xend=last.base/1e6, yend=mean),
                data=intreg$seg,
                color="green")+
-  geom_vline(aes(xintercept=base/1e6,
-                 showSelected=signal,
-                 showSelected2=segments),
+  geom_segment(aes(x=base/1e6, xend=base/1e6,
+                   y=breaks.top, yend=breaks.bottom),
              color="green",
              linetype="dashed",
              data=intreg$breaks)
@@ -58,7 +58,6 @@ gg.models+facet_grid(segments ~ signal, scales="free", space="free")
 Quiz: what keywords apply to the graphics above?
 
 ```{r}
-library(data.table)
 segments.dt <- data.table(intreg$segments)
 setkey(segments.dt, signal, first.base, last.base)
 signals.dt[, base.after := base+1L]
@@ -74,17 +73,24 @@ model.selection <- signals.with.models[, list(
   data=.N), by=.(signal, segments)]
 model.selection[, log.data := log(data)]
 model.selection[, penalized.error := total.squared.error + log.data * segments]
-model.selection[signal=="4.2",][order(segments),]
+(one.signal.selection <- model.selection[signal=="4.2",][order(segments),])
+model.selection.labels <- model.selection[segments==1,]
 ggplot()+
+  geom_text(aes(segments, total.squared.error, label=signal),
+            data=model.selection.labels,
+            hjust=1)+
   geom_line(aes(segments, total.squared.error, group=signal),
             data=model.selection)
 ggplot()+
+  geom_text(aes(segments, penalized.error, label=signal),
+            data=model.selection.labels,
+            hjust=1)+
   geom_line(aes(segments, penalized.error, group=signal),
             data=model.selection)
 addType <- function(dt, error.type){
   data.table(dt, error.type=factor(error.type, c("total squared error", "penalized error")))
 }
-ggplot()+
+selectionPlotStatic <- ggplot()+
   theme_bw()+
   theme(panel.margin=grid::unit(0, "cm"))+
   facet_grid(error.type ~ ., scales="free")+
@@ -93,9 +99,11 @@ ggplot()+
             data=addType(model.selection, "total squared error"))+
   geom_line(aes(segments, penalized.error, group=signal),
             data=addType(model.selection, "penalized error"))
+selectionPlotStatic
 ```
 
-Quiz: what keywords apply to the graphics above?
+Quiz: what keywords apply to the graphics above? Can you add labels to
+the last ggplot?
 
 Note that as the number of segments increases, the total squared error
 always decreases, so attains its minimum at 20 segments. In contrast,
@@ -103,21 +111,121 @@ the penalized error (BIC) does not always decrease, so attains its
 minimum at an intermediate number of segments. 
 
 ```{r}
-sig.labels <- model.selection[segments==1,]
-sig.seg.names <- signals
-  group_by(signal, segments) %>%
-  summarise(min.base=min(base),
-            max.base=max(base)) %>%
-  mutate(base=(min.base+max.base)/2)
-sig.names <- sig.seg.names %>%
-  group_by(signal, base) %>%
-  summarise(logratio=max(signals.dt$logratio))
-seg.names <- sig.seg.names %>%
-  group_by(signal, segments, base) %>%
-  summarise(logratio=min(signals.dt$logratio)-0.2)
-tallrects <- make_tallrect(model.selection, "segments")
-tallrects$geom_params$colour <- signal.colors[["estimate"]]
+model.labels <- signals.with.models[, list(
+  min.base=min(base),
+  max.base=max(base)
+  ), by=.(signal, segments)]
+model.labels[, label.base := (min.base+max.base)/2]
+signal.labels <- model.labels[segments==1,]
+gg.models+
+  geom_text(aes(label.base/1e6, label.top,
+                label=paste("signal", signal)),
+            data=signal.labels)+
+  geom_text(aes(label.base/1e6, label.bottom,
+                label=paste0(segments, " segment", ifelse(segments==1, "", "s"))),
+            data=model.labels,
+            color="green")+
+  facet_grid(segments ~ signal, scales="free", space="free")
 ```
+
+## Interactive data viz using animint
+
+```{r}
+selectionPlotInteractive <- ggplot()+
+  ggtitle("Click to select signal and model")+
+  theme_bw()+
+  theme(panel.margin=grid::unit(0, "cm"))+
+  facet_grid(error.type ~ ., scales="free")+
+  ylab("")+
+  geom_tallrect(aes(xmin=segments-0.5, xmax=segments+0.5, clickSelects=segments),
+                alpha=0.5,
+                data=one.signal.selection)+
+  geom_line(aes(segments, total.squared.error, group=signal,
+                clickSelects=signal), #NEW
+            data=addType(model.selection, "total squared error"),
+            alpha=0.6,
+            size=4)+
+  geom_line(aes(segments, penalized.error, group=signal,
+                clickSelects=signal), #NEW
+            data=addType(model.selection, "penalized error"),
+            alpha=0.6,
+            size=4)
+selectionPlotInteractive
+```
+
+New things above:
+
+* `geom_tallrect` creates a rectangle that spans the entire vertical
+  area (so you only need to specify `xmin` and `xmax` aesthetics).
+* `aes(clickSelects=var)` means that clicking changes the current
+  value of the selection variable `var`. So clicking the
+  `geom_tallrect` changes `segments`, and clicking a `geom_line`
+  changes `signal`.
+
+```{r}
+signalsPlot <- ggplot()+
+  ggtitle("Selected signal and segmentation model")+
+  theme_bw()+
+  theme_animint(width=1000)+ #new
+  theme(panel.margin=grid::unit(0, "lines"))+
+  scale_x_continuous(
+    "position on chromosome (mega base pairs)",
+    breaks=c(100, 200))+
+  scale_y_continuous(
+    "logratio (approximate DNA copy number)",
+    breaks=c(-1, 0, 1))+
+  geom_point(aes(base/1e6, logratio,
+                 showSelected=signal), #NEW
+             data=intreg$sig)+
+  geom_text(aes(label.base/1e6, label.top,
+                label=paste("signal", signal),
+                showSelected=signal), #NEW
+            data=signal.labels)+
+  geom_text(aes(label.base/1e6, label.bottom,
+                label=paste0(segments, " segment", ifelse(segments==1, "", "s")),
+                showSelected=segments, #NEW
+                showSelected2=signal), #NEW
+            data=model.labels,
+            color="green")+
+  geom_segment(aes(first.base/1e6, mean, xend=last.base/1e6, yend=mean,
+                   showSelected=signal,
+                   showSelected2=segments),
+               data=intreg$seg,
+               color="green")+
+  geom_segment(aes(x=base/1e6, xend=base/1e6,
+                   y=breaks.top, yend=breaks.bottom,
+                   showSelected=signal,
+                   showSelected2=segments),
+             color="green",
+             linetype="dashed",
+             data=intreg$breaks)
+signalsPlot
+signalsPlot+facet_grid(segments ~ signal, scales="free", space="free")
+```
+
+New things above:
+
+* Any geoms with `showSelected` aesthetics will subset their data
+  before plotting, using the values of the specified selection
+  variables.
+* Since ggplot2 ignores the `showSelected` aesthetics, it shows all
+  data at once.
+
+```{r}
+library(animint)
+viz <- list(
+  selection=selectionPlotInteractive,
+  signals=signalsPlot)
+structure(viz, class="animint")
+```
+
+Click the plot above to select signals and models. Note how that in
+most cases the penalized error does a pretty good job at selecting a
+plausible segmentation model. One exception is signal 4.2 for which
+the penalized error says we should select 2 segments. However it is
+pretty clear that 4 segments should be preferred for that signal.
+
+TODO: add plot for selecting penalty constant, highlight BIC and AIC.
 
 ```{r}
 library(animint)
