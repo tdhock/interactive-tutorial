@@ -35,9 +35,10 @@ In contrast, the following interactive graphic can be zoomed by
 dragging the mouse on the plot (without changing the R code).
 
 ```{r}
-library(dygraphs)
-dygraph(lungDeaths)
+dygraphs::dygraph(lungDeaths)
 ```
+
+## Actions, effects, and complexity
 
 We will use the terms **Actions** and **Effects** to categorize
 different kinds of interactive graphics. In the graphic above, we see
@@ -50,30 +51,64 @@ following effects:
 | Drag mouse | Zoom x or y axis |
 | Double click | Zoom out |
 
-Several techniques from static graphics are also useful for
-interactive graphics:
+We use the term **direct manipulation** to describe **actions** near
+the plotted data. This contrasts **indirect manipulation** on buttons
+or menus which are typically located outside of the plotting region.
 
-* **Multi-layer** graphics include 
+We will use some other terms to describe the **complexity** of a data
+visualization. The complexity terms answer the following questions:
 
-# Examples
-
-* [dygraphs](https://rstudio.github.io/dygraphs/gallery-synchronization.html)
-  single-layer, multi-panel, single-plot, direct manipulation (click
-  to zoom, hover to show data values and
-  [tooltips](https://rstudio.github.io/dygraphs/gallery-annotations.html)).
+* How many layers? A single plot may have several layers or different
+  geoms (points, lines, etc) that represent different parts of a
+  complex data set. The data viz above is **single-layer** because it
+  only displays one layer (lines).
+* How many panels? A single plot may have several panels, each with
+  its own axis. The data viz above is **single-panel** since it has
+  only one panel.
+* How many plots? A single data viz may have several linked plots,
+  each with different axes and data. The data viz above is
+  **single-plot** since it has only one plot.
   
+## The shiny web server
+
+The `shiny` package provides a web server that can be used for many
+interactive graphics based on indirect manipulation actions. For
+example, **multi-panel**, **multi-layer**, **single-plot** data viz
+below uses **indirect manipulation** to show how the central limit
+theorem works for data of different distributions.
+
+```{r, eval=FALSE}
+shiny::runGitHub('ShinySampleMean', 'ekstroem')
+```
+
+Another example with the same keywords to explain power calculations.
+
+```{r, eval=FALSE}
+shiny::runGitHub('ShinyPower', 'ekstroem')
+```
+
+## Multi-plot data visualization
+
+This is not in R, but [dc.js](http://dc-js.github.io/dc.js/) can be
+used to create **multi-plot**, **single-panel**, **single-layer** data
+visualizations with **direct manipulation actions**.
+
+## Animation
+
+The `animation` package can be used to produce **animated** data
+visualizations which use **indirect manipulation** to scroll forward
+and backward in time. For example
+[this](http://nicholsonppp.r-forge.r-project.org/2009-08-19/index.htm)
+is a **multi-plot**, **multi-panel**, **single-layer** data
+visualization which shows the results of a simulation model of
+evolution. Each animation update has two effects: **showing a new data
+subset**, and **updating the highlighted generation** in the time
+series plot.
+
 # Summary of vocabulary
 
 * **Actions**: direct manipuation (click, drag, hover), indirect
-  manipulation (menus, buttons).
+  manipulation (menus, buttons), animation.
 * **Effects**: zoom, highlight, show/hide (data, labels, tooltips).
 * **Complexity**: multi-panel, multi-layer, multi-plot.
 
-# Does not work yet
-
-```{r, eval=FALSE}
-library(highcharter)
-data(diamonds, package = "ggplot2")
-hchart(diamonds$price, color = "#B71C1C") %>%
-  hc_title(text = "You can zoom me")
-```
