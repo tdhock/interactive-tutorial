@@ -1,7 +1,7 @@
 # A vocabulary for characterizing interactive graphics
 
 This tutorial presents several R packages for making interactive
-graphics. To begin, make sure to install the required packages:
+graphics. To begin, please install the required packages:
 
 ```{r}
 source("http://tdhock.github.io/interactive-tutorial/packages.R")
@@ -93,22 +93,52 @@ This is not in R, but [dc.js](http://dc-js.github.io/dc.js/) can be
 used to create **multi-plot**, **single-panel**, **single-layer** data
 visualizations with **direct manipulation actions**.
 
-## Animation
+## Animated data visualization
 
-The `animation` package can be used to produce **animated** data
-visualizations which use **indirect manipulation** to scroll forward
-and backward in time. For example
-[this](http://nicholsonppp.r-forge.r-project.org/2009-08-19/index.htm)
-is a **multi-plot**, **multi-panel**, **single-layer** data
-visualization which shows the results of a simulation model of
-evolution. Each animation update has two effects: **showing a new data
-subset**, and **updating the highlighted generation** in the time
-series plot.
+The `animation` and `animint` packages can be used to produce
+**animated** data visualizations which are updated over time like a
+video. The main difference is that
 
-# Summary of vocabulary
+* `animation` uses **indirect manipulation**, and only allows
+  scrolling forward or backward in time.
+* `animint` uses **direct manipulation**, and allows interaction with
+  any number of variables (not just the time variable).
+  
+Exercise: what keywords apply to the following data visualizations?
 
-* **Actions**: direct manipuation (click, drag, hover), indirect
-  manipulation (menus, buttons), animation.
-* **Effects**: zoom, highlight, show/hide (data, labels, tooltips).
-* **Complexity**: multi-panel, multi-layer, multi-plot.
+| Data | `animation`     | `animint` |
+|--------|------------|--|
+| World Bank | [viz+source](http://www.ggplot2-exts.org/gganimate.html) |[viz](http://cbio.ensmp.fr/~thocking/WorldBank-facets/) [source](https://github.com/tdhock/animint/blob/master/inst/examples/WorldBank-facets.R)| 
+| Evolution | [viz](http://nicholsonppp.r-forge.r-project.org/2009-08-19/index.htm) |  [viz](http://cbio.ensmp.fr/~thocking/animint-evolution-plots/) [source](https://github.com/tdhock/animint/blob/master/inst/examples/evolution.R) | 
+
+## Summary of vocabulary
+
+We have discussed the following terms.
+
+### Actions
+
+* Direct manipulation (click, drag, hover) is useful for showing
+  details of plotted data.
+* Indirect manipulation (menus, buttons) is useful for changing the
+  data subset or plotting parameters.
+* Animation is useful for showing how data sets vary with a time
+  variable.
+
+### Effects
+
+* Zooming is useful to show details of data that is already plotted.
+* Showing/hiding data/labels/tooltips is useful to show details that
+  are not already shown.
+* Highlighting is useful to show the current selection. 
+
+### Complexity
+
+* Multi-layer graphics are useful when there are different data sets
+  to compare on the same axes.
+* Multi-panel graphics are useful in two situations.
+  * Same geom for different data subsets (mostly useful for non-interactive graphics).
+  * Different geoms for with aligned axes (useful for interactive graphics). 
+* Multi-plot graphics are useful for data sets where there are more
+  than two quantitative variables. You can show an overview in one
+  plot and details in another.
 
