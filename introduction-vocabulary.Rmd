@@ -1,0 +1,79 @@
+# A vocabulary for characterizing interactive graphics
+
+This tutorial presents several R packages for making interactive
+graphics. To begin, make sure to install the required packages:
+
+```{r}
+source("http://tdhock.github.io/interactive-tutorial/packages.R")
+```
+
+## Definition of interactive graphics
+
+The R command line is interactive, so aren't all R graphics
+interactive? Yes, if you have access to the data and R source
+code. No, if you only have access to the graphic itself.
+
+This tutorial uses the following definition: in an **interactive** or
+**dynamic** graphic, the plot can be updated without changing the R
+code. In a **non-interactive** or **static** graphic, the R code must
+be changed to update the plot.
+
+For example, the following is a static graphic
+
+```{r}
+lungDeaths <- cbind(mdeaths, fdeaths)
+matplot(lungDeaths, type="l")
+```
+
+because it can be zoomed only by changing the R code:
+
+```{r}
+matplot(lungDeaths, type="l", xlim=c(20, 40))
+```
+
+In contrast, the following interactive graphic can be zoomed by
+dragging the mouse on the plot (without changing the R code).
+
+```{r}
+library(dygraphs)
+dygraph(lungDeaths)
+```
+
+We will use the terms **Actions** and **Effects** to categorize
+different kinds of interactive graphics. In the graphic above, we see
+several examples of **direct manipulation actions** which produce the
+following effects:
+
+| Action | Effect     |
+|--------|------------|
+| Hover mouse | Show x and y values |
+| Drag mouse | Zoom x or y axis |
+| Double click | Zoom out |
+
+Several techniques from static graphics are also useful for
+interactive graphics:
+
+* **Multi-layer** graphics include 
+
+# Examples
+
+* [dygraphs](https://rstudio.github.io/dygraphs/gallery-synchronization.html)
+  single-layer, multi-panel, single-plot, direct manipulation (click
+  to zoom, hover to show data values and
+  [tooltips](https://rstudio.github.io/dygraphs/gallery-annotations.html)).
+  
+# Summary of vocabulary
+
+* **Actions**: direct manipuation (click, drag, hover), indirect
+  manipulation (menus, buttons).
+* **Effects**: zoom, highlight, show/hide (data, labels, tooltips).
+* **Complexity**: multi-panel, multi-layer, multi-plot.
+
+# Does not work yet
+
+```{r, eval=FALSE}
+library(highcharter)
+data(diamonds, package = "ggplot2")
+hchart(diamonds$price, color = "#B71C1C") %>%
+  hc_title(text = "You can zoom me")
+```

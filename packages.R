@@ -53,5 +53,9 @@ works_with_R <- function(Rvers,...){
 works_with_R(
   "3.2.3",
   rCharts="0.4.2",
+  dygraphs="0.8",
+  igraph="0.7.1",
+  ##highcharter="1.0",
+  "jbkunst/highcharter@a8c917e91ae64efa66087d8fe883e1b403e177be",
   "tdhock/ggplot2@a8b06ddb680acdcdbd927773b1011c562134e4d2"
 )
