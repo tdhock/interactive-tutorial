@@ -13,6 +13,7 @@ library(data.table)
 We can use facets to view each signal in a separate panel.
 
 ```{r}
+library(ggplot2)
 gg.signals <- ggplot()+
   ggtitle("Copy number profiles")+
   theme_bw()+

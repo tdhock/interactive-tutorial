@@ -1,3 +1,5 @@
+intreg.html: intreg.Rmd
+	Rscript -e 'rmarkdown::render("intreg.Rmd")'
 introduction-vocabulary.html: introduction-vocabulary.Rmd
 	Rscript -e 'rmarkdown::render("introduction-vocabulary.Rmd")'
 syllabus.pdf: syllabus.tex
