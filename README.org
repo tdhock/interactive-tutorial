@@ -3,4 +3,4 @@ http://user2016.org/tutorials/13.html
 
 - Part 1: [[file:introduction-vocabulary.Rmd][introduction and vocabulary]].
 - Part 2: simple graphics.
-- Part 3: multi-layer animated graphics.
+- Part 3: [[http://cbio.ensmp.fr/~thocking/animint-book/Ch02-ggplot2.html][multi-layer animated graphics]].
