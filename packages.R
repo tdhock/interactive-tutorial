@@ -52,7 +52,8 @@ works_with_R <- function(Rvers,...){
 
 works_with_R(
   "3.2.3",
-  rCharts="0.4.2",
+  ##rCharts="0.4.2",
+  "ramnathv/rCharts@faf2043f90e149d8620a570c78449079c6dbb6fb",
   dygraphs="0.8",
   igraph="0.7.1",
   ##highcharter="1.0",
