@@ -1,0 +1,321 @@
+---
+title: "Interactive graphics"
+author: "Toby and Claus"
+date: "16 May 2016"
+output: slidy_presentation
+---
+
+
+## Why - presentations
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+![Nature](img/nature.png)
+
+Nature, October 2014
+
+
+## Why - teaching
+
+Least squares estimation
+
+Linear regression model
+
+$$
+y_i = \alpha + \beta x_i + \epsilon
+$$
+
+Estimates for the intercept and slope can be found by minimizing the squared residuals
+
+$$
+\arg \min \sum_i \left(y_i - (\hat\alpha + \hat\beta x_i)^2 \right)
+$$
+
+
+
+## Why - teaching
+
+![Stearic acid](img/fedtsyre.png)
+
+
+## Why - teaching
+
+![Stearic acid](img/fedtsyrer1.png)
+
+## Why - teaching
+
+![Stearic acid](img/fedtsyrer2.png)
+
+
+## Why - teaching
+
+Slidify
+
+```{r eval=FALSE,echo=TRUE}
+library(shiny)
+runGitHub('ShinyLeastSquares', 'ekstroem')
+```
+
+
+## Background
+
+(Some stuff about us)
+
+Toby: asasdasd
+
+Claus: asdasd
+
+
+## Outline for the tutorial
+
+ - Introduction [**15 minutes**]. Concepts. Quick quiz
+ - Highlevel interactive graphics [**35 minutes**]. Javascript. Exercises
+ - Interactive graphics [**35 minutes**]. Shiny. Exercises
+ - Break
+ - Multi layer/ -panel graphics [**30 minutes**]
+ - Animated graphics [**30 minutes**]
+ - Putting it all together [**30 minutes**]
+
+
+Tutorial goals:
+
+## Necessary stuff
+
+Necesary packages etc 
+
+Rstudio
+
+See also: Tobys link
+
+devtools::install_github("ramnathv/rCharts")
+
+
+## Concepts
+
+Tobys slides terms / discussion
+
+
+ - multi-layer, multi-panel, multi-plot
+ - animation, direct manipulation (clicking, hovering), indirect manipulation (buttons, menus)
+ - zoom, highlight, show/hide (data, labels, tooltips)
+
+## The role of the viewer
+
+Thinking about graphics
+
+
+## Quiz
+
+![Use kahoot.com?](img/kahoot.png)
+
+
+## Interactive graphics architechture
+
+![Architechture](img/client.png)
+
+Dedicated server vs. local server 
+
+
+## d3.js
+
+JavaScript libraries, D3.js doesn’t ship with any pre-built charts out of the box. However, you can look at the list of graphs built with D3.js to get an overview.
+
+ChartJS
+Chartist.js
+n3
+plotly
+
+
+### R and Javascript architecture
+
+R -> package -> javascript library  -> html/javascript
+
+View in browser. More problematic to share
+
+
+
+## Highlevel interactive graphics
+
+ Numerous possibilities in R
+ 
+ - rCharts
+ - htmlwidgets
+ - dygraph
+ - plotly
+ 
+ 
+  R markdown
+    + Markdown + embedded R code chunks like knitr
+    +  .Rmd &rarr; .md &rarr; .html (docx, pdf)
+    + RStudio: "Knit" command (Ctrl+Shift+K)
+
+
+## rCharts interfaces
+
+| library  | function |            |
+|:---------|----------|------------|
+|[polychart](http://www.polychart.com/js/) | rPlot    | ggplot2-like |
+|[Morris](http://morrisjs.github.io/morris.js/)    | mPlot    | Pretty time series |
+|[nvd3](http://nvd3.org)      | nPlot    | Lines/areas/bars |
+|[xCharts](http://tenxer.github.io/xcharts/)   | xPlot    | Various graphs |
+|[Highcharts](http://www.highcharts.com/)| hPlot    | Interactive charts |
+|[Leaflet](http://leafletjs.com/)   |  new()   | Interactive Maps |
+|[Rickshaw](http://code.shutterstock.com/rickshaw/)  |  new()   | Real-time ts graphs |
+|[Dimple](http://www.dimplejs.org)    | dPlot    | Business analytics |
+
+Add the rest: metricsgraphics, dygraphs
+
+## polychart
+
+## highcharter
+
+
+```{r results="asis", message=FALSE, warning=FALSE}
+library(MESS)
+library(rCharts)
+library(knitr)
+data(happiness)
+mydata <- happiness
+mydata$size <- sqrt(mydata$population)/8
+h1 <- hPlot(x = "tax", y = "happy", data = mydata, type = "bubble", 
+            group = "continent", size = "size")
+#h1$show('iframesrc', cdn = TRUE)
+# h1$show('inline')
+h1$show('inline', include_assets = TRUE)
+#h1$print('chart1', include_assets = TRUE, cdn = TRUE)
+```
+
+
+## dygraph
+
+```{r echo=TRUE}
+library(dygraphs)
+dygraph(nhtemp, main = "New Haven Temperatures") %>% 
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+```
+
+## metricsgraphics
+
+```{r}
+library(htmlwidgets)
+library(metricsgraphics)
+library(RColorBrewer)
+mtcars %>%
+  mjs_plot(x=wt, y=mpg, width=600, height=500) %>%
+  mjs_point(color_accessor=cyl,
+            x_rug=TRUE, y_rug=TRUE,
+            size_accessor=carb,
+            size_range=c(5, 10),
+            color_type="category",
+            color_range=brewer.pal(n=11, name="RdBu")[c(1, 5, 11)]) %>%
+  mjs_labs(x="Weight of Car", y="Miles per Gallon") %>%
+  mjs_add_legend(legend="X")
+```
+
+## rMaps  - choropleths
+
+```{r results="asis", message=FALSE, warning=FALSE}
+library(rMaps)
+i1 <- ichoropleth(Crime ~ State, data = violent_crime, animate = "Year")
+i1$show('inline', include_assets = TRUE)
+```
+
+
+## leaflet
+
+```{r}
+library(leaflet)
+library(MESS)
+
+
+data(earthquakes)
+m <- leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=earthquakes$longitude[earthquakes$mag>6],          lat=earthquakes$latitude[earthquakes$mag>6], popup="Mag 6+")
+m
+```
+
+
+
+## Publishing interactive graphics
+
+self_contained: false
+
+html
+
+standalone
+
+javascript
+
+images
+
+
+## Including in R markdown
+
+
+## Exercise
+
+
+
+## Shiny and plotly
+
+
+## plotly
+
+Differences to other libraries ... public
+
+
+## Exercise
+
+## Shiny
+
+Use standard R. Rather simple and beautiful. Simple input - no fancy transitions. Requires server
+
+## Example
+
+```{r eval=FALSE,echo=TRUE}
+library(shiny)
+runGitHub('ShinySampleMean', 'ekstroem')
+```
+
+## Quick introduction to Shiny
+
+## Shiny User Interface
+
+## Shiny server interface
+
+
+## Example
+
+ui.R
+
+server.R
+
+## Running apps
+
+
+## Running apps from Github
+
+
+## Exercise
+
+
+## Remember
+
+High-level interactive plotting packages, 30 minutes
+• Simple approaches like rotating plots (rgl package) and simple user interaction (wallyplot from MESS package).
+• Interactive bar plots (rCharts, several different JavaScript interfaces, interfacing with JavaScript libraries to change axes and legends)
+• Interactive scatter plots showing happiness and tax rate (rCharts, and clickme packages, several different JavaScript interfaces, add dropdown effects and improve tooltips)
+• interactive maps and choropleths (the rMaps packages)
+• Discussion of frustrations that new users unfamiliar with JavaScript may encounter when interfacing with JavaScript libraries
+
+Interactive graphics with shiny and plotly, 30 minutes
+• Teaching least squares estimation (shiny)
+• Teaching power calculations (shiny)
+• Reproducing some of the previous graphics on happiness and tax rate in plotly (ggplot2, and ggplotly, adding tooltips/hover effects, and dropdown)
+• Graphics on prediction accuracy for Danish population predictions (plotly, adding sliders)
