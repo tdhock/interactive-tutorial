@@ -58,6 +58,7 @@ works_with_R(
   dygraphs="0.8",
   igraph="0.7.1",
   shiny="0.13.0",
+  "ekstroem/MESS@0a4218119fb9f6d2bd715ffb57b6cf2f24eee710",
   metricsgraphics="0.9.0",
   ##highcharter="1.0",
   "jbkunst/highcharter@a8c917e91ae64efa66087d8fe883e1b403e177be",
