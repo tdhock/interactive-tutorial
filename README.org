@@ -1,1 +1,6 @@
-Please see the gh-pages branch https://github.com/tdhock/interactive-tutorial/tree/gh-pages
+The official description from useR is
+http://user2016.org/tutorials/13.html
+
+- Part 1: [[http://cbio.ensmp.fr/~thocking/interactive-tutorial/introduction-vocabulary.html][introduction and vocabulary]], [[https://github.com/tdhock/interactive-tutorial/blob/gh-pages/introduction-vocabulary.Rmd][source]]
+- Part 2: [[http://tdhock.github.io/interactive-tutorial/IntGraph.html][Claus Thorn Ekstrom's presentation]], [[https://github.com/tdhock/interactive-tutorial/blob/gh-pages/IntGraph.Rmd][source]].
+- Part 3: [[http://cbio.ensmp.fr/~thocking/animint-book/Ch02-ggplot2.html][multi-layer animated graphics]], [[https://github.com/tdhock/animint-book][source]].
