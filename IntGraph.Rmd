@@ -12,6 +12,7 @@ output: slidy_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+source("packages.R")
 ```
 
 
@@ -80,6 +81,7 @@ Claus: asdasd
  - Multi layer/ -panel graphics [**30 minutes**]
  - Animated graphics [**30 minutes**]
  - Putting it all together [**30 minutes**]
+
 
 
 Tutorial goals:

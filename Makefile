@@ -1,3 +1,5 @@
+IntGraph.html: IntGraph.Rmd
+	Rscript -e 'rmarkdown::render("IntGraph.Rmd")'
 intreg.html: intreg.Rmd
 	Rscript -e 'rmarkdown::render("intreg.Rmd")'
 introduction-vocabulary.html: introduction-vocabulary.Rmd
