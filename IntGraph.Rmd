@@ -5,8 +5,6 @@ date: "6 June 2016"
 output: ioslides_presentation
 ---
 
-output: slidy_presentation
-
 ## Why - presenting research results {.flexbox .vcenter}
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -15,14 +13,15 @@ output: slidy_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-![Nature](img/nature.png)
+
+```{r, out.width = 600, fig.retina = NULL}
+knitr::include_graphics("img/nature.png")
+```
 
 Nature, October 2014
 
 
-## Why - teaching
-
-
+## Interactive graphics - teaching {.columns-2}
 
 Least squares estimation
 
@@ -38,55 +37,55 @@ $$
 \arg_{\alpha, \beta} \min \sum_i \left(y_i - (\alpha + \beta x_i) \right)^2
 $$
 
-![Stearic acid](img/fedtsyre.png)
-</div>
+```{r, out.width = 400, fig.retina = NULL}
+knitr::include_graphics("img/fedtsyre.png")
+```
 
 
-## Why - teaching
+## Why - teaching {.centered}
 
-![Stearic acid](img/fedtsyre.png)
+```{r, out.width = 500, fig.retina = NULL}
+knitr::include_graphics("img/fedtsyre.png")
+```
 
+## Why - teaching {.centered}
 
-## Why - teaching
+```{r, out.width = 500, fig.retina = NULL}
+knitr::include_graphics("img/fedtsyrer1.png")
+```
 
-![Stearic acid](img/fedtsyrer1.png)
+## Why - teaching {.centered}
 
-## Why - teaching
-
-![Stearic acid](img/fedtsyrer2.png)
-
+```{r, out.width = 500, fig.retina = NULL}
+knitr::include_graphics("img/fedtsyrer2.png")
+```
 
 ## Why - teaching
 
 Slidify
 
-```{r eval=FALSE,echo=TRUE}
+```{r eval=FALSE, echo=TRUE}
 library(shiny)
 runGitHub('ekstroem/ShinyLeastSquares')
 ```
 
 
-## Background
+## Background { .columns-2 }
 
-<div class="columns-2">
-  ![](image.png)
-  
-  Toby: asasdasd
+### Toby
 
-Claus: asdasd
+
+### Claus 
 
  - Dept. Biostatistics, UCPH
  - 
  -
   
-</div>
-(Some stuff about us)
-
-
 
 ## Outline for the tutorial
 
  - Introduction [**15 minutes**]. Concepts. Quick quiz
+   -  asdasd
  - Highlevel interactive graphics [**35 minutes**]. Javascript. Exercises
  - Interactive graphics [**35 minutes**]. Shiny. Exercises
  - Break
@@ -209,7 +208,7 @@ r1$show('inline', include_assets = TRUE)
 
 ![HighCharter](img/highcharter.png)
 
-## highcharter
+## highcharter {.columns-2}
 
 ```{r}
 knit_print.htmlwidget <- function(x, ..., options = NULL){ 
@@ -225,7 +224,10 @@ knit_print.htmlwidget <- function(x, ..., options = NULL){
 # knit_print.htmlwidget(hc)
 ```
 
-<div class="columns-2">
+Start with empty chart and add components.
+
+Simple bar plot.
+
 ```{r echo=TRUE}
 library(highcharter)
 hc <- highchart() %>% 
@@ -236,9 +238,7 @@ hc <- highchart() %>%
                 name = "Downloads")
 hc
 ```
-</div>
 
-Build graph from bottom up.
 
 ## Highcharter - adding data
 
