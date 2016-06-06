@@ -1,12 +1,13 @@
 ---
 title: "Interactive graphics"
 author: "Toby and Claus"
-date: "16 May 2016"
-output: slidy_presentation
+date: "6 June 2016"
+output: ioslides_presentation
 ---
 
+output: slidy_presentation
 
-## Why - presentations
+## Why - presenting research results {.flexbox .vcenter}
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -14,13 +15,14 @@ output: slidy_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-
 ![Nature](img/nature.png)
 
 Nature, October 2014
 
 
 ## Why - teaching
+
+
 
 Least squares estimation
 
@@ -30,12 +32,14 @@ $$
 y_i = \alpha + \beta x_i + \epsilon
 $$
 
-Estimates for the intercept and slope can be found by minimizing the squared residuals
+Estimates for the intercept and slope can be found by minimizing the squared residuals.
 
 $$
-\arg \min \sum_i \left(y_i - (\hat\alpha + \hat\beta x_i)^2 \right)
+\arg_{\alpha, \beta} \min \sum_i \left(y_i - (\alpha + \beta x_i) \right)^2
 $$
 
+![Stearic acid](img/fedtsyre.png)
+</div>
 
 
 ## Why - teaching
@@ -58,17 +62,26 @@ Slidify
 
 ```{r eval=FALSE,echo=TRUE}
 library(shiny)
-runGitHub('ShinyLeastSquares', 'ekstroem')
+runGitHub('ekstroem/ShinyLeastSquares')
 ```
 
 
 ## Background
 
-(Some stuff about us)
-
-Toby: asasdasd
+<div class="columns-2">
+  ![](image.png)
+  
+  Toby: asasdasd
 
 Claus: asdasd
+
+ - Dept. Biostatistics, UCPH
+ - 
+ -
+  
+</div>
+(Some stuff about us)
+
 
 
 ## Outline for the tutorial
@@ -77,7 +90,7 @@ Claus: asdasd
  - Highlevel interactive graphics [**35 minutes**]. Javascript. Exercises
  - Interactive graphics [**35 minutes**]. Shiny. Exercises
  - Break
- - Multi layer/ -panel graphics [**30 minutes**]
+ - Multi layer/-panel graphics [**30 minutes**]
  - Animated graphics [**30 minutes**]
  - Putting it all together [**30 minutes**]
 
@@ -90,7 +103,7 @@ Necesary packages etc
 
 Rstudio
 
-See also: Tobys link
+See also: Toby's link
 
 devtools::install_github("ramnathv/rCharts")
 
@@ -111,6 +124,8 @@ Thinking about graphics
 
 ## Quiz
 
+Or something else. Quick example quiz
+
 ![Use kahoot.com?](img/kahoot.png)
 
 
@@ -125,10 +140,10 @@ Dedicated server vs. local server
 
 JavaScript libraries, D3.js doesn’t ship with any pre-built charts out of the box. However, you can look at the list of graphs built with D3.js to get an overview.
 
-ChartJS
-Chartist.js
-n3
-plotly
+- ChartJS
+- Chartist.js
+- n3
+- plotly
 
 
 ### R and Javascript architecture
@@ -144,14 +159,15 @@ View in browser. More problematic to share
  Numerous possibilities in R
  
  - rCharts
- - htmlwidgets
+ - highcharter
  - dygraph
  - plotly
+ - **htmlwidgets**
  
  
   R markdown
     + Markdown + embedded R code chunks like knitr
-    +  .Rmd &rarr; .md &rarr; .html (docx, pdf)
+    +  .Rmd -> .md -> .html (docx, pdf)
     + RStudio: "Knit" command (Ctrl+Shift+K)
 
 
@@ -167,18 +183,128 @@ View in browser. More problematic to share
 |[Leaflet](http://leafletjs.com/)   |  new()   | Interactive Maps |
 |[Rickshaw](http://code.shutterstock.com/rickshaw/)  |  new()   | Real-time ts graphs |
 |[Dimple](http://www.dimplejs.org)    | dPlot    | Business analytics |
+|[metricsgraphics](http://metricsgraphicsjs.org/)    | mjs_plot    | Time-series |
+|[dygraphs](http://dygraphs.com/)    | dygraph    | Time-series |
 
-Add the rest: metricsgraphics, dygraphs
 
 ## polychart
 
+R-like 
+
+```{r warning=FALSE, results='asis'}
+library(rCharts)
+library(MESS)
+data(happiness)
+mydata <- happiness
+mydata$size <- sqrt(mydata$population)/8
+r1 <- rPlot(x = "tax", y = "happy", data = mydata, type = "point", 
+            color = "continent", size = "size")
+#h1 <- hPlot(x = "tax", y = "happy", data = mydata, type = "bubble", 
+#            group = "continent", size = "size")
+r1$show('inline', include_assets = TRUE)
+#r1
+```
+
+## Highcharts - highcharter
+
+![HighCharter](img/highcharter.png)
+
 ## highcharter
 
+```{r}
+knit_print.htmlwidget <- function(x, ..., options = NULL){ 
+  options(pandoc.stack.size = "2048m") 
+  wdgtclass <- setdiff(class(x), "htmlwidget")[1] 
+  wdgtrndnm <- paste0(sample(letters, size = 7), collapse = "") 
+  wdgtfname <- sprintf("wdgt_%s_%s.html", wdgtclass, wdgtrndnm) 
+  htmlwidgets::saveWidget(x, file = wdgtfname, selfcontained = TRUE, background = "transparent") 
+  iframetxt <- sprintf("<iframe frameBorder=\"0\" src=\"%s\" width=\"100%%\" height=\"600\"></iframe>", wdgtfname)  
+  knitr::asis_output(iframetxt) 
+} 
+
+# knit_print.htmlwidget(hc)
+```
+
+<div class="columns-2">
+```{r echo=TRUE}
+library(highcharter)
+hc <- highchart() %>% 
+  hc_chart(type = "column") %>% 
+  hc_title(text = "A highcharter chart") %>% 
+  hc_xAxis(categories = 2012:2016) %>% 
+  hc_add_series(data = c(3900,  4200,  5700,  8500, 11900),
+                name = "Downloads")
+hc
+```
+</div>
+
+Build graph from bottom up.
+
+## Highcharter - adding data
+
+hc_add_series / hc_add_series_list
+hc_add_series_df
+add_serie_scatter
+
+
+## Highcharter - scatter points and lines
+
+```{r}
+citytemp <- data.frame(month=month.name, london=1:12, new_york=2:13) 
+hc <- highchart() %>% 
+  hc_title(text = "Temperatures for some cities") %>% 
+  hc_xAxis(categories = citytemp$month) %>% 
+  hc_add_serie(name = "London", data = citytemp$london, type="column", 
+               dataLabels = list(enabled = TRUE)) %>%
+  hc_add_serie(name = "New York", data = citytemp$new_york,
+               type = "spline") %>% 
+  hc_yAxis(title = list(text = "Temperature"),
+           labels = list(format = "{value}? C")) %>%
+  hc_add_theme(hc_theme_sandsignika())
+
+hc
+```
+
+## Highcharter function overview
+
+Function, types
+
+
+## Highcharter - adding information
+
+
+```{r}
+hcmtcars <- highchart() %>% 
+  hc_title(text = "Motor Trend Car Road Tests") %>% 
+  hc_subtitle(text = "Source: 1974 Motor Trend US magazine") %>% 
+  hc_xAxis(title = list(text = "Weight")) %>% 
+  hc_yAxis(title = list(text = "Miles/gallon")) %>% 
+  hc_chart(zoomType = "xy") %>% 
+  hc_add_serie_scatter(mtcars$wt, mtcars$mpg,
+                       mtcars$drat, mtcars$hp,
+                       rownames(mtcars),
+                       dataLabels = list(
+                         enabled = TRUE,
+                         format = "{point.label}"
+                       )) %>% 
+  hc_tooltip(useHTML = TRUE,
+             headerFormat = "<table>",
+             pointFormat = paste("<tr><th colspan=\"1\"><b>{point.label}</b></th></tr>",
+                                 "<tr><th>Weight</th><td>{point.x} lb/1000</td></tr>",
+                                 "<tr><th>MPG</th><td>{point.y} mpg</td></tr>",
+                                 "<tr><th>Drat</th><td>{point.z} </td></tr>",
+                                 "<tr><th>HP</th><td>{point.valuecolor} hp</td></tr>"),
+             footerFormat = "</table>")
+hcmtcars
+```
+
+
+## Highcharter - Happyness and taxes
+
+(replace the one above)
 
 ```{r results="asis", message=FALSE, warning=FALSE}
 library(MESS)
-library(rCharts)
-library(knitr)
 data(happiness)
 mydata <- happiness
 mydata$size <- sqrt(mydata$population)/8
@@ -190,6 +316,9 @@ h1$show('inline', include_assets = TRUE)
 #h1$print('chart1', include_assets = TRUE, cdn = TRUE)
 ```
 
+## Highcharter function overview
+
+References
 
 ## dygraph
 
@@ -198,6 +327,19 @@ library(dygraphs)
 dygraph(nhtemp, main = "New Haven Temperatures") %>% 
   dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
 ```
+
+
+## dygraphs 2
+
+```{r}
+hw <- HoltWinters(ldeaths)
+predicted <- predict(hw, n.ahead = 72, prediction.interval = TRUE)
+
+dygraph(predicted, main = "Predicted Lung Deaths (UK)") %>%
+  dyAxis("x", drawGrid = FALSE) %>%
+  dySeries(c("lwr", "fit", "upr"), label = "Deaths") %>%
+  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
+```  
 
 ## metricsgraphics
 
@@ -216,6 +358,26 @@ mtcars %>%
   mjs_labs(x="Weight of Car", y="Miles per Gallon") %>%
   mjs_add_legend(legend="X")
 ```
+
+Should be the same as before (happyness)
+
+## Metricgraphics
+
+```{r}
+library(RColorBrewer)
+
+tmp <- data.frame(year=seq(1790, 1970, 10), uspop=as.numeric(uspop))
+
+tmp %>%
+  mjs_plot(x=year, y=uspop) %>%
+  mjs_point() %>%
+  mjs_add_marker(1850, "Something Wonderful") %>%
+  mjs_add_baseline(150, "Something Awful")
+```
+
+## Metricgraphics function overview
+
+
 
 ## rMaps  - choropleths
 
@@ -243,6 +405,9 @@ m
 
 
 ## Publishing interactive graphics
+
+
+saveWidget()
 
 self_contained: false
 
