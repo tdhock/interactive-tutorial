@@ -1,3 +1,7 @@
+HOCKING-handout.pdf: HOCKING-handout.tex
+	rm -rf *.aux *.bbl
+	pdflatex HOCKING-handout
+	pdflatex HOCKING-handout
 intreg.html: intreg.Rmd
 	Rscript -e 'rmarkdown::render("intreg.Rmd")'
 introduction-vocabulary.html: introduction-vocabulary.Rmd

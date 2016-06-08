@@ -1,0 +1,59 @@
+\documentclass{article}
+
+\usepackage[cm]{fullpage}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{90-minute Animint tutorial}
+\author{Toby Dylan Hocking}
+\maketitle
+\thispagestyle{empty}
+
+\section*{Animint book Ch2: basics of ggplot2}
+
+\url{http://cbio.ensmp.fr/~thocking/animint-book/Ch02-ggplot2.html}
+
+%\subsection*{Translating sketches to ggplots and animints}
+\hrulefill
+
+\textbf{Sketching} a data viz on paper can be useful, since the sketch
+can be directly translated into R+ggplot2 code.
+
+A \textbf{ggplot} consists of one or more geoms, each with its own
+data set and aesthetic mapping.
+
+An \textbf{animint} \texttt{viz} is a list of ggplots and options
+which can be rendered via \verb|structure(viz, class="animint")|.
+
+\textbf{Exercise:} re-make interactive scatterplot of World Bank data,
+using a different aes mapping.
+
+\hrulefill
+
+%\subsection*{Multi-layer and multi-plot animints}
+
+\textbf{Multi-layer} graphics consist of ggplots with several geoms.
+
+A \textbf{multi-plot} animint \texttt{viz} list contains more than one
+ggplot.
+
+\textbf{Exercise:} create an animint with three ggplots.
+
+\section*{Animint book Ch3: showSelected}
+
+\url{http://cbio.ensmp.fr/~thocking/animint-book/Ch03-showSelected.html}
+
+\hrulefill
+
+\texttt{aes(showSelected=variable)} means to only show data for the
+selected value of \texttt{variable}.
+
+\textbf{Exercise:} add another geom.
+
+\hrulefill
+
+\section*{Animint book Ch4: clickSelects}
+\url{http://cbio.ensmp.fr/~thocking/animint-book/Ch04-clickSelects.html}
+
+\end{document}
