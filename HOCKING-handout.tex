@@ -49,11 +49,25 @@ ggplot.
 \texttt{aes(showSelected=variable)} means to only show data for the
 selected value of \texttt{variable}.
 
-\textbf{Exercise:} add another geom.
+\textbf{Exercise:} add another geom or plot to the previous data viz.
 
 \hrulefill
 
+\textbf{Smooth transitions} can be specified using
+e.g. \texttt{duration=list(year=2000)},\\and then for each geom with
+\texttt{aes(showSelected=year)}, you should specify \texttt{aes(key)}.
+
+\textbf{Animation} can be specified using
+e.g. \texttt{time=list(variable="year", ms=2000)}.
+
+\textbf{Exercise:} make a data viz with animation but without smooth
+transitions.
+
 \section*{Animint book Ch4: clickSelects}
 \url{http://cbio.ensmp.fr/~thocking/animint-book/Ch04-clickSelects.html}
+
+\hrulefill
+
+Use \textbf{aes(clickSelects=variable)} for clicking 
 
 \end{document}
