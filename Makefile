@@ -1,3 +1,7 @@
+HOCKING-handout.pdf: HOCKING-handout.tex
+	rm -rf *.aux *.bbl
+	pdflatex HOCKING-handout
+	pdflatex HOCKING-handout
 IntGraph.html: IntGraph.Rmd
 	Rscript -e 'rmarkdown::render("IntGraph.Rmd")'
 intreg.html: intreg.Rmd
