@@ -35,7 +35,8 @@ In contrast, the following interactive graphic can be zoomed by
 dragging the mouse on the plot (without changing the R code).
 
 ```{r}
-dygraphs::dygraph(lungDeaths)
+library(dygraphs)
+dygraph(lungDeaths)
 ```
 
 ## Actions, effects, and complexity
