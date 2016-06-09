@@ -68,6 +68,28 @@ transitions.
 
 \hrulefill
 
-Use \textbf{aes(clickSelects=variable)} for clicking 
+\texttt{aes(clickSelects=variable)} means clicking the geom changes
+the selected value of \texttt{variable}.
+
+\textbf{Exercise:} make the country text label disappear when the
+corresponding region is de-selected.
+
+\hrulefill
+
+\texttt{first=list(year=1970)} means that the year 1970 should be
+selected when the data viz is first rendered.
+
+\texttt{selector.types=list(country="multiple")} means to use multiple
+selection for the \texttt{country} variable.
+
+\textbf{Exercise:} make clicking a country text label de-select that
+country.
+
+\hrulefill
+
+\verb|geom_tallrect| occupies the entire vertical space, so only
+\texttt{aes(xmin,xmax)} need to be specified.
+
+\textbf{Exercise:} add layers to the scatterplot, and animate the data viz.
 
 \end{document}
