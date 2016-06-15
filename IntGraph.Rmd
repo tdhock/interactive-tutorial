@@ -778,30 +778,20 @@ i1$show('inline', include_assets = TRUE)
 
 ## Publishing interactive graphics
 
-html output. Need javascript machinery to run. 
+Note: html/js output. Need javascript machinery to run (ie., html with js code embedded or online link). 
 
 ```{r eval=FALSE, echo=TRUE}
-saveWidget()
+library(htmlwidgets)
+saveWidget(widget, file, selfcontained = TRUE, background="white")
 ```
 
-self_contained: false
+### Including in R markdown
 
-html
-
-standalone
-
-javascript
-
-images
-
-
-## Including in R markdown
-
-
-savewidget
 iframe
 
-
+```{r}
+r1$show('inline', include_assets = TRUE)
+```
 
 
 
