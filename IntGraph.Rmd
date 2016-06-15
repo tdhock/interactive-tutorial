@@ -231,7 +231,7 @@ grViz("
 - Dedicated server vs. local server 
 
 
-# Javascript-based libraries
+# Javascript-based libraries (htmlwidgets)
 
 ## R and Javascript architecture { .columns-2 }
 
@@ -266,7 +266,7 @@ knitr::include_graphics("img/RJavaHtml.png")
  - **metricsgraphics** (also time series)
  - **leaflet** (maps)
  - **plotly** (general plots - like ggplot)
- - [**htmlwidgets**](http://www.htmlwidgets.org/) Javascript framework (many are part of this)
+ - [**htmlwidgets**](http://www.htmlwidgets.org/) Javascript framework (many are part of this). Super important!
  
  <br><br> <br><br>
 
@@ -508,17 +508,14 @@ Data are added using one of the following functions
 | Title  | hc_title(text = "Temperature") | 
 | Subtitle  | hc_subtitle(text = "Somewhere warm") | 
 | Axis   | hc_xAxis(categories = month) | 
-|        | hc_yAxis(title = list(text = "Temperature"),
-           labels = list(format = "{value}? C")) |
+|        | hc_yAxis(title = list(text = "Temperature"), labels = list(format = "{value} C")) |
 | Theme  | hc_add_theme(hc_theme_sandsignika()) |
 | Zoom   | hc_chart(zoomType = "xy") |
-| Tooltip | hc_tooltip(useHTML = TRUE, headerFormat="<table>", |
-|         | pointFormat = "<tr><th>x-val</th><td>{point.x}</td></tr>" |
-|         | footerFormat = "</table>") |
+| Tooltip | hc_tooltip(useHTML = TRUE, headerFormat="&lt;table&gt;", |
+|         | pointFormat = "&lt;tr&gt;&lt;th&gt;x-val&lt;/th&gt;&lt;td&gt;{point.x}&lt;/td&gt;&lt;/tr&gt;" |
+|         | footerFormat = "&lt;/table&gt;") |
 | Legend  | hc_legend(enabled=FALSE) |
-| Credits | hc_credits(enabled = TRUE, text = "Source: Wikipedia",
-             href = "https://wikipedia.com",
-             style = list(fontSize = "12px")) |
+| Credits | hc_credits(enabled = TRUE, text = "Source: Wikipedia", href = "https://wikipedia.com", style = list(fontSize = "12px")) |
 
 
 
@@ -623,6 +620,7 @@ dygraph(nhtemp, main = "New Haven Temperatures") %>%
 ## dygraphs 2 { .columns-2 }
 
 ```{r}
+library(dygraphs)
 hw <- HoltWinters(ldeaths)
 predicted <- predict(hw, n.ahead = 72, prediction.interval = TRUE)
 
@@ -794,12 +792,8 @@ r1$show('inline', include_assets = TRUE)
 ```
 
 
+# plotly and ggplotly
 
-
-# Shiny and plotly
-
-
-## plotly + ggplotly
 
 Differences to other libraries ... public
 
@@ -829,6 +823,12 @@ ggplotly(g)
 ## Exercise
 
 ggiraph
+
+
+
+# Shiny
+
+
 
 ## Shiny
 
@@ -969,18 +969,3 @@ shinyServer(function(input, output) {
 
 ## Exercise
 
-
-## Remember
-
-High-level interactive plotting packages, 30 minutes
-• Simple approaches like rotating plots (rgl package) and simple user interaction (wallyplot from MESS package).
-• Interactive bar plots (rCharts, several different JavaScript interfaces, interfacing with JavaScript libraries to change axes and legends)
-• Interactive scatter plots showing happiness and tax rate (rCharts, and clickme packages, several different JavaScript interfaces, add dropdown effects and improve tooltips)
-• interactive maps and choropleths (the rMaps packages)
-• Discussion of frustrations that new users unfamiliar with JavaScript may encounter when interfacing with JavaScript libraries
-
-Interactive graphics with shiny and plotly, 30 minutes
-• Teaching least squares estimation (shiny)
-• Teaching power calculations (shiny)
-• Reproducing some of the previous graphics on happiness and tax rate in plotly (ggplot2, and ggplotly, adding tooltips/hover effects, and dropdown)
-• Graphics on prediction accuracy for Danish population predictions (plotly, adding sliders)
