@@ -5,7 +5,7 @@ date: "6 June 2016"
 output: ioslides_presentation
 ---
 
-## Why - presenting research results {.flexbox .vcenter}
+## Why? Presenting research results {.flexbox .vcenter}
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -21,7 +21,7 @@ knitr::include_graphics("img/nature.png")
 Nature, October 2014
 
 
-## Interactive graphics - teaching {.columns-2}
+## Why? Teaching {.columns-2}
 
 Least squares estimation
 
@@ -34,33 +34,36 @@ $$
 Estimates for the intercept and slope can be found by minimizing the squared residuals.
 
 $$
-\arg_{\alpha, \beta} \min \sum_i \left(y_i - (\alpha + \beta x_i) \right)^2
+\arg\min_{\alpha, \beta} \sum_i \left(y_i - (\alpha + \beta x_i) \right)^2
 $$
+
+<br><br><br><br>
+
 
 ```{r, out.width = 400, fig.retina = NULL}
 knitr::include_graphics("img/fedtsyre.png")
 ```
 
 
-## Why - teaching {.centered}
+## Why? Teaching {.centered}
 
 ```{r, out.width = 500, fig.retina = NULL}
 knitr::include_graphics("img/fedtsyre.png")
 ```
 
-## Why - teaching {.centered}
+## Why? Teaching {.centered}
 
 ```{r, out.width = 500, fig.retina = NULL}
 knitr::include_graphics("img/fedtsyrer1.png")
 ```
 
-## Why - teaching {.centered}
+## Why? Teaching {.centered}
 
 ```{r, out.width = 500, fig.retina = NULL}
 knitr::include_graphics("img/fedtsyrer2.png")
 ```
 
-## Why - teaching
+## Why? Teaching
 
 Slidify
 
@@ -70,35 +73,59 @@ runGitHub('ekstroem/ShinyLeastSquares')
 ```
 
 
-## Background { .columns-2 }
-
-### Toby
+The "role" of graphics is changing and expanding
 
 
-### Claus 
+
+## Background { .columns-2 .center }
+
+### **Toby**
+
+```{r, out.width = 150, fig.retina = NULL}
+knitr::include_graphics("img/fedtsyrer2.png")
+```
+
+ - Dept. XXX, XXX
+ - R packages: `animint `
+ - Some other nice info. 
+ - Change pic?
+
+<br><br><br>
+
+### **Claus** 
+
+```{r, out.height = 150, fig.retina = NULL}
+knitr::include_graphics("img/ekstrom-2014.jpg")
+```
 
  - Dept. Biostatistics, UCPH
- - 
- -
-  
-
-## Outline for the tutorial
-
- - Introduction [**15 minutes**]. Concepts. Quick quiz
-   -  asdasd
- - Highlevel interactive graphics [**35 minutes**]. Javascript. Exercises
- - Interactive graphics [**35 minutes**]. Shiny. Exercises
- - Break
- - Multi layer/-panel graphics [**30 minutes**]
- - Animated graphics [**30 minutes**]
- - Putting it all together [**30 minutes**]
+ - R packages: ` MESS `, ` MethComp `, ` SuperRanker `, ...
+ - R book: The R Primer
+ - Happy/**frustrated** interactive graphics enthusiast
 
 
-Tutorial goals:
+## Outline for the tutorial { .smaller }
+
+|Topic | Time |
+|------+------|
+| Introduction | 15 minutes |
+| Highlevel interactive graphics (javascript libraries) | **35 minutes** |
+| Interactive graphics (shiny, ggplotly) | **35 minutes** |
+| *Break* ||
+| Multi layer/-panel graphics | **30 minutes** |
+| Animated graphics | **30 minutes** |
+| Putting it all together  | **30 minutes** |
+
+**Tutorial goals:**
+
+1. Explain and emphasize the role that interactive graphics have in reporting, scientific journals, and in teaching.
+2. Give overview of existing R packages for interactive graphics. 
+3. Explain the strengths and weaknesses of the existing R packages, to highlight directions for future work.
+
 
 ## Necessary stuff
 
-Necesary packages etc 
+Necesary packages etc XXX To be filled out at the end
 
 Rstudio
 
@@ -111,66 +138,149 @@ devtools::install_github("ramnathv/rCharts")
 
 Tobys slides terms / discussion
 
-
  - multi-layer, multi-panel, multi-plot
  - animation, direct manipulation (clicking, hovering), indirect manipulation (buttons, menus)
  - zoom, highlight, show/hide (data, labels, tooltips)
+ 
+## An example of 1
 
-## The role of the viewer
+## An example of 2
 
-Thinking about graphics
-
-
-## Quiz
-
-Or something else. Quick example quiz
-
-![Use kahoot.com?](img/kahoot.png)
+## An example of 3
 
 
-## Interactive graphics architechture
-
-![Architechture](img/client.png)
-
-Dedicated server vs. local server 
 
 
-## d3.js
+## The role of the graphics/viewer
 
-JavaScript libraries, D3.js doesn’t ship with any pre-built charts out of the box. However, you can look at the list of graphs built with D3.js to get an overview.
+<div class="centered">
+```{r, out.height = 250, fig.retina = NULL}
+knitr::include_graphics("img/napoleon.jpg")
+```
+</div>
+<div class="columns-2">
+```{r out.height=200, out.width = 500}
+library(DiagrammeR)
+grViz("
+  digraph neato {
+
+    rankdir=LR;
+    node[width=.4,height=.4,fixedsize=true];
+    { rank=same; A ; B} 
+
+    node [shape = circle]
+    A -> {B} 
+    B -> {C} 
+
+    A[label='Data',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
+    B[label='Researcher',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
+    C[label='Viewer',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
+
+  }")
+```
+```{r out.height=200, out.width = 500}
+library(DiagrammeR)
+grViz("
+  digraph neato {
+
+    rankdir=LR;
+    node[width=.4,height=.4,fixedsize=true];
+    { rank=same; A ; B} 
+
+    node [shape = circle]
+    A -> {B C} 
+    B -> {C} 
+    B -> {C} 
+    B -> {C} 
+
+    C -> {A}
+    A[label='Data',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
+    B[label='Researcher',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
+    C[label='Viewer',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
+
+
+  }")
+```
+</div>
+
+
+## Interactive graphics architechture { .center }
+
+<div class="centered">
+```{r out.width = 650}
+grViz("
+  digraph neato {
+
+    rankdir=LR;
+    node[width=1,height=1,fixedsize=true];
+
+    edge[weight=20];
+    A -> B ;
+    B -> A ;
+
+    edge[weight=1];
+
+    A -> { A }
+  
+    A[label='Client/\nuser',shape=circle,fillcolor='lightblue',style='filled'];
+    B[label='Server',shape=circle,fillcolor='lightblue',style='filled'];
+  }")
+```
+</div>
+- Distribution and viewing
+- Dedicated server vs. local server 
+
+
+# Javascript-based libraries
+
+## R and Javascript architecture { .columns-2 }
+
+<div class="centered">
+```{r, out.height = 100, fig.retina = NULL}
+knitr::include_graphics("img/Logo_D3.png")
+```
+</div>
+
+[D3.js](https://d3js.org/) doesn’t ship with any pre-built charts out of the box. However, go to website to get an overview of the possibilities.
 
 - ChartJS
 - Chartist.js
-- n3
-- plotly
+- [n3]
+- [plotly](https://plot.ly/)
 
 
-### R and Javascript architecture
+<div class="centered">
+```{r, out.height = 400, fig.retina = NULL}
+knitr::include_graphics("img/RJavaHtml.png")
+```
+</div>
 
-R -> package -> javascript library  -> html/javascript
 
-View in browser. More problematic to share
+## Highlevel interactive graphics { .columns-2 .smaller }
 
-
-
-## Highlevel interactive graphics
-
- Numerous possibilities in R
+ Numerous possibilities in R packages
  
- - rCharts
- - highcharter
- - dygraph
- - plotly
- - **htmlwidgets**
+ - **rCharts**  (oldish - mix of libraries)
+ - **highcharter** (standard plot types, mature library)
+ - [**dygraphs**](https://rstudio.github.io/dygraphs/) (mostly time series. well documented. Rich features) 
+ - **metricsgraphics** (also time series)
+ - **leaflet** (maps)
+ - **plotly** (general plots - like ggplot)
+ - [**htmlwidgets**](http://www.htmlwidgets.org/) Javascript framework (many are part of this)
  
+ <br><br> <br><br>
+
+<div class="centered">
+```{r, out.height = 200, fig.retina = NULL}
+knitr::include_graphics("img/frustration20logo.jpg")
+```
+</div>
  
-  R markdown
-    + Markdown + embedded R code chunks like knitr
-    +  .Rmd -> .md -> .html (docx, pdf)
-    + RStudio: "Knit" command (Ctrl+Shift+K)
+- No standard interface
+- Not easily extendable from R 
+- Pick a library and learn it!
 
-
-## rCharts interfaces
+## rCharts interfaces { .smaller }
 
 | library  | function |            |
 |:---------|----------|------------|
@@ -182,15 +292,32 @@ View in browser. More problematic to share
 |[Leaflet](http://leafletjs.com/)   |  new()   | Interactive Maps |
 |[Rickshaw](http://code.shutterstock.com/rickshaw/)  |  new()   | Real-time ts graphs |
 |[Dimple](http://www.dimplejs.org)    | dPlot    | Business analytics |
-|[metricsgraphics](http://metricsgraphicsjs.org/)    | mjs_plot    | Time-series |
-|[dygraphs](http://dygraphs.com/)    | dygraph    | Time-series |
 
 
-## polychart
+## polychart (from rCharts) { .columns-2 .smaller }
 
-R-like 
+`plot`/`lattice`-like function.
 
-```{r warning=FALSE, results='asis'}
+
+```{r warning=FALSE, echo=TRUE, message=FALSE, eval=FALSE, out.width = 400}
+library(rCharts)
+library(MESS)
+data(happiness)
+mydf <- happiness
+mydf$size <- sqrt(mydf$population)/8
+r1 <- rPlot(x = "tax", 
+            y = "happy", 
+            data = mydf, 
+            type = "point", 
+            color = "continent", 
+            size = "size")
+r1
+```
+
+Type: bar, layers, ...
+
+
+```{r warning=FALSE, results='asis', message=FALSE, echo=FALSE, out.width=400}
 library(rCharts)
 library(MESS)
 data(happiness)
@@ -198,17 +325,109 @@ mydata <- happiness
 mydata$size <- sqrt(mydata$population)/8
 r1 <- rPlot(x = "tax", y = "happy", data = mydata, type = "point", 
             color = "continent", size = "size")
+r1$addParams(width = 400, height = 500)
 #h1 <- hPlot(x = "tax", y = "happy", data = mydata, type = "bubble", 
 #            group = "continent", size = "size")
 r1$show('inline', include_assets = TRUE)
 #r1
 ```
 
-## Highcharts - highcharter
+
+## polychart (from rCharts) { .columns-2 .smaller }
+
+`plot`/`lattice`-like function. Add layers and guides to plot ..
+
+```{r warning=FALSE, echo=TRUE, message=FALSE, eval=FALSE}
+mydf2 <- data.frame(tax=c(1, 50), 
+                happy=c(4.93, 7.09))
+
+r1$layer(x = "tax", 
+         y = "happy", 
+         data = mydf2, 
+         type = "line",
+         size=list(const=4))
+
+r1$guides(y = list(title="New label", 
+                   min=0, max=12))
+
+r1
+```
+
+- `layer`  $\approx$ points/lines
+- `guides` $\approx$ axis
+- `addParams` $\approx$ title, plot size
+
+
+```{r warning=FALSE, results='asis', message=FALSE, echo=FALSE}
+mydf2 <- data.frame(tax=c(1, 50), happy=c(4.93976, 7.09233))
+
+r2 <- rPlot(x = "tax", y = "happy", data = mydata, type = "point", 
+            color = "continent", size = "size")
+r2$addParams(width = 400, height = 500)
+
+r2$layer(x = "tax", 
+         y = "happy", 
+         data = mydf2, 
+         type = "line",
+         size=list(const=4))
+
+r2$guides(y = list(title = "New label", 
+                   min=0, max = 12))
+
+r2$show('inline', include_assets = TRUE)
+
+```
+
+
+
+## polychart - tooltips { .columns-2 .smaller }
+
+```{r warning=FALSE, message=FALSE, echo=TRUE, eval=FALSE}
+
+r3 <- rPlot(x = "tax", y = "happy", 
+      data = mydf, type = "point", 
+      color = "continent", 
+      size = "size", 
+      tooltip="#!function(item){ 
+return ('Country: ' +item.country+ 
+        '&#013; Tax: ' +item.tax+ 
+        '% Happiness: ' +item.happy+
+        '<br> Pop: ' +item.population+ 
+        ' mio.') }!#")  
+
+```
+
+Passing javascript is non-trivial.
+
+```{r results = 'asis', commment = NA, message = FALSE, echo = FALSE, warning=FALSE}
+mydf <- happiness
+mydf$size <- sqrt(mydf$population)/8
+
+r3 <- rPlot(x = "tax", y = "happy", 
+      data = mydf, type = "point", 
+      color = "continent", 
+      size = "size", 
+      tooltip="#!function(item){ 
+return ('Country: ' +item.country+ 
+        '&#013; Tax: ' +item.tax+ 
+        '% Happiness: ' +item.happy+
+        '<br> Pop: ' +item.population+ 
+        ' mio.') }!#")  
+
+r3$addParams(width = 400, height = 500)
+
+
+r3$show('inline', include_assets = TRUE)
+
+```
+
+
+
+## [Highcharts](http://jkunst.com/highcharter/index.html)
 
 ![HighCharter](img/highcharter.png)
 
-## highcharter {.columns-2}
+## highcharter {.columns-2 .smaller }
 
 ```{r}
 knit_print.htmlwidget <- function(x, ..., options = NULL){ 
@@ -221,115 +440,187 @@ knit_print.htmlwidget <- function(x, ..., options = NULL){
   knitr::asis_output(iframetxt) 
 } 
 
-# knit_print.htmlwidget(hc)
 ```
 
-Start with empty chart and add components.
+Mature charts, stocks (time series), maps. Good API.
 
-Simple bar plot.
+- Start with empty chart and add components.
+- (Mostly) no default arguments
 
-```{r echo=TRUE}
+```{r echo=TRUE,eval=FALSE}
 library(highcharter)
 hc <- highchart() %>% 
   hc_chart(type = "column") %>% 
-  hc_title(text = "A highcharter chart") %>% 
-  hc_xAxis(categories = 2012:2016) %>% 
-  hc_add_series(data = c(3900,  4200,  5700,  8500, 11900),
-                name = "Downloads")
+  hc_title(text = "Denmark") %>% 
+  hc_xAxis(categories = 2011:2016) %>% 
+  hc_add_series(data = c(3806,  6184,  
+                         7557, 14792, 
+                         21315, 3016),
+          name = "Asylum seekers") %>% 
+  hc_add_serie(name = "Syria", 
+               data = c(429, 822, 
+                      1710, 7087, 
+                       8608, 777),
+               type = "spline")
 hc
 ```
 
+<br><br><br><br>
 
-## Highcharter - adding data
-
-hc_add_series / hc_add_series_list
-hc_add_series_df
-add_serie_scatter
-
-
-## Highcharter - scatter points and lines
-
-```{r}
-citytemp <- data.frame(month=month.name, london=1:12, new_york=2:13) 
+```{r echo=FALSE, eval=TRUE}
+library(highcharter)
 hc <- highchart() %>% 
-  hc_title(text = "Temperatures for some cities") %>% 
-  hc_xAxis(categories = citytemp$month) %>% 
-  hc_add_serie(name = "London", data = citytemp$london, type="column", 
-               dataLabels = list(enabled = TRUE)) %>%
-  hc_add_serie(name = "New York", data = citytemp$new_york,
-               type = "spline") %>% 
-  hc_yAxis(title = list(text = "Temperature"),
-           labels = list(format = "{value}? C")) %>%
-  hc_add_theme(hc_theme_sandsignika())
+  hc_chart(type = "column") %>% 
+  hc_title(text = "Denmark") %>% 
+  hc_xAxis(categories = 2011:2016) %>% 
+  hc_add_series(data = c(3806,  6184,  
+                         7557, 14792, 
+                         21315, 3016),
+          name = "Asylum seekers") %>% 
+  hc_add_series(name = "Syria", 
+               data = c(429, 822, 
+                      1710, 7087, 
+                       8608, 777),
+               type = "spline")
 
 hc
 ```
 
-## Highcharter function overview
+## Highcharter - adding data { .smaller }
 
-Function, types
+Data are added using one of the following functions
+
+| Name |  Function |
+|----------+-----|
+| hc_add_series | Add single series (named: `data`, `name`) |
+| hc_add_series_list | Add *list* named series |
+| hc_add_series_df | Add data.frame. Name variables accordingly |
+| hc_add_series_ts | Add ts object. Extra argument: `name` |
+| hc_add_series_scatter | Crate scatter from two vectors. Extra arguments (size, color, label) | 
+| hc_add_series_boxplot | Add boxplots |
+| hc_add_series_map | Add geojson map |
+
+
+## Highcharter function overview { .smaller }
+
+| Function | Example |
+|--------+----------|
+| Title  | hc_title(text = "Temperature") | 
+| Subtitle  | hc_subtitle(text = "Somewhere warm") | 
+| Axis   | hc_xAxis(categories = month) | 
+|        | hc_yAxis(title = list(text = "Temperature"),
+           labels = list(format = "{value}? C")) |
+| Theme  | hc_add_theme(hc_theme_sandsignika()) |
+| Zoom   | hc_chart(zoomType = "xy") |
+| Tooltip | hc_tooltip(useHTML = TRUE, headerFormat="<table>", |
+|         | pointFormat = "<tr><th>x-val</th><td>{point.x}</td></tr>" |
+|         | footerFormat = "</table>") |
+| Legend  | hc_legend(enabled=FALSE) |
+| Credits | hc_credits(enabled = TRUE, text = "Source: Wikipedia",
+             href = "https://wikipedia.com",
+             style = list(fontSize = "12px")) |
+
 
 
 ## Highcharter - adding information
 
 
-```{r}
-hcmtcars <- highchart() %>% 
-  hc_title(text = "Motor Trend Car Road Tests") %>% 
-  hc_subtitle(text = "Source: 1974 Motor Trend US magazine") %>% 
-  hc_xAxis(title = list(text = "Weight")) %>% 
-  hc_yAxis(title = list(text = "Miles/gallon")) %>% 
+```{r echo=TRUE, eval=FALSE}
+happiness$size <- sqrt(happiness$population)/8
+
+happy2 <- highchart() %>% 
+  hc_title(text = "Taxes and happiness") %>% 
+  hc_subtitle(text = "Source: Wikipedia") %>% 
+  hc_xAxis(title = list(text = "Taxation (%)")) %>% 
+  hc_yAxis(title = list(text = "Happiness")) %>% 
   hc_chart(zoomType = "xy") %>% 
-  hc_add_serie_scatter(mtcars$wt, mtcars$mpg,
-                       mtcars$drat, mtcars$hp,
-                       rownames(mtcars),
+  hc_add_serie_scatter(happiness$tax, happiness$happy,
+                       happiness$size, happiness$continent,
+                       happiness$country,
                        dataLabels = list(
                          enabled = TRUE,
                          format = "{point.label}"
-                       )) %>% 
+                       ),
+                       extrainfo = sprintf("Mostly %s", happiness$religion)
+                       ) %>%
   hc_tooltip(useHTML = TRUE,
              headerFormat = "<table>",
              pointFormat = paste("<tr><th colspan=\"1\"><b>{point.label}</b></th></tr>",
                                  "<tr><th>Weight</th><td>{point.x} lb/1000</td></tr>",
                                  "<tr><th>MPG</th><td>{point.y} mpg</td></tr>",
                                  "<tr><th>Drat</th><td>{point.z} </td></tr>",
-                                 "<tr><th>HP</th><td>{point.valuecolor} hp</td></tr>"),
+                                 "<tr><th>HP</th><td>{point.valuecolor} hp</td></tr>",
+                                 "<tr><th>HP</th><td>{point.extrainfo} hp</td></tr>"),
+
              footerFormat = "</table>")
-hcmtcars
+happy2
 ```
 
 
-## Highcharter - Happyness and taxes
 
-(replace the one above)
+## Highcharter - adding information
 
-```{r results="asis", message=FALSE, warning=FALSE}
-library(MESS)
-data(happiness)
-mydata <- happiness
-mydata$size <- sqrt(mydata$population)/8
-h1 <- hPlot(x = "tax", y = "happy", data = mydata, type = "bubble", 
-            group = "continent", size = "size")
-#h1$show('iframesrc', cdn = TRUE)
-# h1$show('inline')
-h1$show('inline', include_assets = TRUE)
-#h1$print('chart1', include_assets = TRUE, cdn = TRUE)
+
+```{r}
+happiness$size <- sqrt(happiness$population)/8
+
+happy2 <- highchart() %>% 
+  hc_title(text = "Taxes and happiness") %>% 
+  hc_subtitle(text = "Source: Wikipedia") %>% 
+  hc_xAxis(title = list(text = "Taxation (%)")) %>% 
+  hc_yAxis(title = list(text = "Happiness")) %>% 
+  hc_chart(zoomType = "xy") %>% 
+  hc_add_serie_scatter(happiness$tax, happiness$happy,
+                       happiness$size, happiness$continent,
+                       happiness$country,
+                       dataLabels = list(
+                         enabled = TRUE,
+                         format = "{point.label}"
+                       ),
+                       extrainfo = sprintf("Mostly %s", happiness$religion)
+                       ) %>%
+  hc_tooltip(useHTML = TRUE,
+             headerFormat = "<table>",
+             pointFormat = paste("<tr><th colspan=\"1\"><b>{point.label}</b></th></tr>",
+                                 "<tr><th>Weight</th><td>{point.x} lb/1000</td></tr>",
+                                 "<tr><th>MPG</th><td>{point.y} mpg</td></tr>",
+                                 "<tr><th>Drat</th><td>{point.z} </td></tr>",
+                                 "<tr><th>HP</th><td>{point.valuecolor} hp</td></tr>",
+                                 "<tr><th>HP</th><td>{point.extrainfo} hp</td></tr>"),
+
+             footerFormat = "</table>")
+happy2
 ```
 
-## Highcharter function overview
+## Highcharter - adding information
 
-References
+More on functions?
 
-## dygraph
 
-```{r echo=TRUE}
+## dygraphs
+
+
+## dygraphs { .columns-2 }
+
+Same build-up as highcharter
+
+```{r echo=TRUE, eval=FALSE}
+library(dygraphs)
+head(nhtemp)
+dygraph(nhtemp, main = "New Haven Temperatures") %>% 
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+```
+
+<br><br><br><br>
+
+```{r echo=FALSE, eval=FALSE}
 library(dygraphs)
 dygraph(nhtemp, main = "New Haven Temperatures") %>% 
   dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
 ```
 
 
-## dygraphs 2
+## dygraphs 2 { .columns-2 }
 
 ```{r}
 hw <- HoltWinters(ldeaths)
@@ -340,6 +631,28 @@ dygraph(predicted, main = "Predicted Lung Deaths (UK)") %>%
   dySeries(c("lwr", "fit", "upr"), label = "Deaths") %>%
   dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
 ```  
+
+
+## dygraphs functions
+
+| Function | Example |
+|--------+----------|
+| Title  | hc_title(text = "Temperature") | 
+| Subtitle  | hc_subtitle(text = "Somewhere warm") | 
+| Axis   | hc_xAxis(categories = month) | 
+|        | hc_yAxis(title = list(text = "Temperature"),
+           labels = list(format = "{value}? C")) |
+| Theme  | hc_add_theme(hc_theme_sandsignika()) |
+| Zoom   | hc_chart(zoomType = "xy") |
+| Tooltip | hc_tooltip(useHTML = TRUE, headerFormat="<table>", |
+|         | pointFormat = "<tr><th>x-val</th><td>{point.x}</td></tr>" |
+|         | footerFormat = "</table>") |
+| Legend  | hc_legend(enabled=FALSE) |
+| Credits | hc_credits(enabled = TRUE, text = "Source: Wikipedia",
+             href = "https://wikipedia.com",
+             style = list(fontSize = "12px")) |
+
+
 
 ## metricsgraphics
 
@@ -362,6 +675,9 @@ mtcars %>%
 Should be the same as before (happyness)
 
 ## Metricgraphics
+
+## Metricgraphics
+
 
 ```{r eval=FALSE, echo=TRUE}
 library(RColorBrewer)
@@ -391,6 +707,26 @@ tmp %>%
 
 ## Metricgraphics function overview
 
+
+| Function | Example |
+|--------+----------|
+| Title  | hc_title(text = "Temperature") | 
+| Subtitle  | hc_subtitle(text = "Somewhere warm") | 
+| Axis   | hc_xAxis(categories = month) | 
+|        | hc_yAxis(title = list(text = "Temperature"),
+           labels = list(format = "{value}? C")) |
+| Theme  | hc_add_theme(hc_theme_sandsignika()) |
+| Zoom   | hc_chart(zoomType = "xy") |
+| Tooltip | hc_tooltip(useHTML = TRUE, headerFormat="<table>", |
+|         | pointFormat = "<tr><th>x-val</th><td>{point.x}</td></tr>" |
+|         | footerFormat = "</table>") |
+| Legend  | hc_legend(enabled=FALSE) |
+| Credits | hc_credits(enabled = TRUE, text = "Source: Wikipedia",
+             href = "https://wikipedia.com",
+             style = list(fontSize = "12px")) |
+
+
+## leaflet
 
 ## leaflet
 
@@ -423,7 +759,15 @@ m
 ## leaflet function overview 
 
 
-## rMaps  - choropleths
+
+
+## Exercise
+
+
+
+
+
+## rMaps  - choropleths - out?
 
 ```{r results="asis", message=FALSE, warning=FALSE}
 library(rMaps)
@@ -459,9 +803,6 @@ iframe
 
 
 
-## Exercise
-
-
 
 
 
@@ -486,16 +827,18 @@ df <- data.frame(cbind(x,y))
 df$f1 <- f1
 df$f2 <- f2
 
-ggplot(df,aes(x=x,y=y)) +
+g <- ggplot(df,aes(x=x,y=y)) +
     geom_point() +
     facet_grid(f1~f2) +
     stat_smooth(method="lm")
 
-ggplotly()
+ggplotly(g)
 ```
 
 
 ## Exercise
+
+ggiraph
 
 ## Shiny
 
