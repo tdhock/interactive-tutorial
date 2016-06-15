@@ -1,3 +1,5 @@
+IntGraph.html: IntGraph.Rmd
+	Rscript -e 'rmarkdown::render("IntGraph.Rmd")'
 syllabus.pdf: syllabus.tex
 	pdflatex syllabus
 tutorial-prop.pdf: tutorial-prop.tex

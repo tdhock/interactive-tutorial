@@ -149,7 +149,7 @@ Tobys slides terms / discussion
 
 ## An example of 3
 
-```{r animintWorldBankEx}
+```{r animintWorldBankEx, echo=FALSE}
 library(animint)
 data(WorldBank)
 WorldBank$region <- sub(" [(].*", "", WorldBank$region)
