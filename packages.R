@@ -1,3 +1,7 @@
+old.lib <- file.path(Sys.getenv("HOME"), "lib-old")
+dir.create(old.lib, showWarnings=FALSE)
+.libPaths(old.lib)
+options(repos="http://cran.rstudio.com")
 ### Write down what package versions work with your R code, and
 ### attempt to download and load those packages. The first argument is
 ### the version of R that you used, e.g. "3.0.2" and then the rest of
@@ -45,10 +49,11 @@ works_with_R <- function(Rvers,...){
         install.packages(pkg)
       }
       pkg_ok_have(pkg, vers, packageVersion(pkg))
-      library(pkg, character.only=TRUE)
+      require(pkg, character.only=TRUE)
     }
   }
 }
+
 
 works_with_R(
   "3.2.3",
@@ -65,6 +70,7 @@ works_with_R(
   "hadley/scales@2c3edf45de56d617444dc38e47e0404173817886",
   "tdhock/ggplot2@a8b06ddb680acdcdbd927773b1011c562134e4d2",
   "tdhock/animint@6b1c9e588b03f632cd39cdec9bbcfa730db9e889"
+  ##DiagrammeR="1.0"## DO NOT UNCOMMENT! 
 )
 
 
