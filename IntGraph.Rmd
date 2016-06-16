@@ -1,6 +1,6 @@
 ---
 title: "Interactive graphics"
-author: "Toby and Claus"
+author: "Toby Hocking and Claus Ekstrø  m"
 date: "6 June 2016"
 output: ioslides_presentation
 ---
