@@ -7,6 +7,9 @@ graphics. To begin, please install the required packages:
 source("http://tdhock.github.io/interactive-tutorial/packages.R")
 ```
 
+If that worked then `example(animint)` should open some web browser
+windows containing animints.
+
 ## Definition of interactive graphics
 
 The R command line is interactive, so aren't all R graphics
