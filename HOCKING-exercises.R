@@ -146,11 +146,11 @@ viz.timeSeries$scatter <- viz.multiple$scatter+
     geom_path(aes(x=life.expectancy, y=fertility.rate, color=region,
                   group=country,
                   key=country,
-                  clickSelects=year,
+                  clickSelects=country,
                   showSelected=year),
+              size=3,
               data=tails)+
     geom_text(aes(55, 9, label=paste("year =", year),
                   showSelected=year),
               data=years)
-
 structure(viz.timeSeries, class="animint")
