@@ -1,7 +1,7 @@
 ---
 title: "Interactive graphics"
-author: "Toby Hocking and Claus Ekstrø  m"
-date: "6 June 2016"
+author: "Toby Hocking and Claus Ekstrøm"
+date: "16 June 2016"
 output: ioslides_presentation
 ---
 
@@ -11,6 +11,7 @@ output: ioslides_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+# source("packages.R")
 ```
 
 
@@ -89,8 +90,7 @@ knitr::include_graphics("img/HOCKING-lab-2015.jpg")
  - R packages: `directlabels`, `animint`, `plotly`, ...
  - Animint book in progress https://github.com/tdhock/animint-book
  - Uses interactive graphics for machine learning model visualization.
-
-<br><br><br>
+<br>
 
 ### **Claus**
 
@@ -104,24 +104,31 @@ knitr::include_graphics("img/ekstrom-2014.jpg")
  - Happy/**frustrated** interactive graphics enthusiast
 
 
-## Outline for the tutorial { .smaller }
+## Outline for the tutorial { .smaller .columns-2 }
 
-|Topic | Time |
-|------+------|
-| Introduction | 15 minutes |
-| Highlevel interactive graphics (javascript libraries) | **35 minutes** |
-| Interactive graphics (shiny, ggplotly) | **35 minutes** |
-| *Break* ||
-| Intro to animation and direct manipulation | **5 minutes** |
-| Basics of ggplot2 and animint | **25 minutes** |
-| aes(showSelected), animation | **25 minutes** |
-| aes(clickSelects), direct manipulation  | **25 minutes** |
+|Topic |
+|------|
+| Introduction  (**10 min.**)
+| Interactive graphics/javascript (htmlwidgets, **25 min**) |
+| Interactive graphics (ggplotly/ggiraph) **20 minutes** |
+| Shiny  **25 minutes** |
+| Intro to animation and direct manipulation **5 minutes** |
+| Basics of ggplot2 and animint  **25 minutes** |
+| aes(showSelected), animation  **25 minutes** |
+| aes(clickSelects), direct manipulation   **25 minutes** |
+
+
+<br><br><br>
+
+
 
 **Tutorial goals:**
 
 1. Explain and emphasize the role that interactive graphics have in reporting, scientific journals, and in teaching.
 2. Give overview of existing R packages for interactive graphics.
 3. Explain the strengths and weaknesses of the existing R packages, to highlight directions for future work.
+
+<br><br><br>
 
 
 ## Necessary stuff
@@ -149,69 +156,7 @@ Tobys slides terms / discussion
 
 ## An example of 3
 
-```{r animintWorldBankEx, echo=FALSE}
-library(animint)
-data(WorldBank)
-WorldBank$region <- sub(" [(].*", "", WorldBank$region)
-years <- data.frame(year=unique(WorldBank$year))
-not.na <- subset(WorldBank, !is.na(fertility.rate))
-by.country <- split(not.na, not.na$country)
-min.years <- do.call(rbind, lapply(by.country, subset, year == min(year)))
-min.years$year <- 1959
-add.x.var <- function(df, x.var){
-  data.frame(df, x.var=factor(x.var, c("life expectancy", "year")))
-}
-viz.facets <- list(
-  duration=list(year=500),
-  time=list(variable="year", ms=1000),
-  selector.types=list(country="multiple"),
-  first=list(country=c(
-               "United States", "France", "Japan", "Oman", "Timor-Leste")),
-  scatterTS=ggplot()+
-    theme_bw()+
-    theme(panel.margin=grid::unit(0, "lines"))+
-    theme_animint(width=700)+
-    scale_size_animint(breaks=10^(10:1))+
-    geom_text(aes(x=55, y=9, label=paste("year =", year), showSelected=year),
-              data=add.x.var(years, "life expectancy"))+
-    geom_point(aes(x=life.expectancy, y=fertility.rate, color=region,
-                   size=population,
-                   key=country,
-                   showSelected=year,
-                   clickSelects=country),
-               data=add.x.var(WorldBank, "life expectancy"))+
-    geom_text(aes(x=life.expectancy, y=fertility.rate, label=country,
-                  key=country,
-                  clickSelects=country,
-                  showSelected=year,
-                  showSelected2=country,
-                  showSelected3=region),
-              data=add.x.var(WorldBank, "life expectancy"))+
-    facet_grid(. ~ x.var, scales="free")+
-    xlab("")+
-    ylab("fertility rate (children per mother)")+
-    geom_tallrect(aes(xmin=year-0.5, xmax=year+0.5,
-                      clickSelects=year),
-                  alpha=0.5,
-                  data=add.x.var(years, "year"))+
-    geom_text(aes(year, fertility.rate, label=country, clickSelects=country,
-                  hjust=1,
-                  showSelected=country),
-              data=add.x.var(min.years, "year"))+
-    geom_line(aes(x=year, y=fertility.rate, group=country, color=region,
-                  clickSelects=country),
-              size=3,
-              alpha=0.6,
-              data=add.x.var(WorldBank, "year"))+
-    geom_point(aes(x=year, y=fertility.rate, group=country, color=region,
-                   size=population,
-                   showSelected=country,
-                   clickSelects=country),
-              alpha=0.6,
-              data=add.x.var(not.na, "year")))
-structure(viz.facets, class="animint")
-```
-
+http://cbio.ensmp.fr/~thocking/WorldBank-facets/
 
 ## The role of the graphics/viewer
 
@@ -227,16 +172,16 @@ grViz("
   digraph neato {
 
     rankdir=LR;
-    node[width=.4,height=.4,fixedsize=true];
+    node[width=.5,height=.5,fixedsize=false];
     { rank=same; A ; B}
 
     node [shape = circle]
     A -> {B}
     B -> {C}
 
-    A[label='Data',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
-    B[label='Researcher',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
-    C[label='Viewer',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
+    A[label='Data',shape=circle,fillcolor='lightblue',style='filled', fontsize=10];
+    B[label='Researcher',shape=circle,fillcolor='lightblue',style='filled', fontsize=10];
+    C[label='Viewer',shape=circle,fillcolor='lightblue',style='filled', fontsize=10];
 
   }")
 ```
@@ -246,7 +191,7 @@ grViz("
   digraph neato {
 
     rankdir=LR;
-    node[width=.4,height=.4,fixedsize=true];
+    node[width=.5,height=.5,fixedsize=FALSE];
     { rank=same; A ; B}
 
     node [shape = circle]
@@ -256,9 +201,9 @@ grViz("
     B -> {C}
 
     C -> {A}
-    A[label='Data',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
-    B[label='Researcher',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
-    C[label='Viewer',shape=circle,fillcolor='lightblue',style='filled', fontsize=8];
+    A[label='Data',shape=circle,fillcolor='lightblue',style='filled', fontsize=10];
+    B[label='Researcher',shape=circle,fillcolor='lightblue',style='filled', fontsize=10];
+    C[label='Viewer',shape=circle,fillcolor='lightblue',style='filled', fontsize=10];
 
 
   }")
@@ -322,13 +267,15 @@ knitr::include_graphics("img/RJavaHtml.png")
 
  Numerous possibilities in R packages
 
- - **rCharts**  (oldish - mix of libraries)
- - **highcharter** (standard plot types, mature library)
+ - [**rCharts**](https://github.com/ramnathv/rCharts)  (oldish - mix of libraries)
+ - [**highcharter**](http://jkunst.com/highcharter/) (standard plot types, mature library, maps, time series)
  - [**dygraphs**](https://rstudio.github.io/dygraphs/) (mostly time series. well documented. Rich features)
- - **metricsgraphics** (also time series)
- - **leaflet** (maps)
- - **plotly** (general plots - like ggplot)
+ - [**metricsgraphics**](https://github.com/hrbrmstr/metricsgraphics) (also time series)
+ - [**leaflet**](https://rstudio.github.io/leaflet/) (maps)
  - [**htmlwidgets**](http://www.htmlwidgets.org/) Javascript framework (many are part of this). Super important!
+
+ - [**plotly**](https://plot.ly/ggplot2/user-guide/) (general plots - like ggplot)
+ - [**ggiraph**](https://github.com/davidgohel/ggiraph) (ggplot graphics interactive)
 
  <br><br> <br><br>
 
@@ -356,7 +303,7 @@ knitr::include_graphics("img/frustration20logo.jpg")
 |[Dimple](http://www.dimplejs.org)    | dPlot    | Business analytics |
 
 
-## polychart (from rCharts) { .columns-2 .smaller }
+## polychart (from rCharts package) { .columns-2 .smaller }
 
 `plot`/`lattice`-like function.
 
@@ -380,8 +327,11 @@ Type: bar, layers, ...
 
 
 ```{r warning=FALSE, results='asis', message=FALSE, echo=FALSE, out.width=400}
+library(dplyr)
+library(viridis)
 library(rCharts)
 library(MESS)
+library(xts)
 data(happiness)
 mydata <- happiness
 mydata$size <- sqrt(mydata$population)/8
@@ -395,7 +345,7 @@ r1$show('inline', include_assets = TRUE)
 ```
 
 
-## polychart (from rCharts) { .columns-2 .smaller }
+## polychart (from rCharts package) { .columns-2 .smaller }
 
 `plot`/`lattice`-like function. Add layers and guides to plot ..
 
@@ -485,11 +435,11 @@ r3$show('inline', include_assets = TRUE)
 
 
 
-## [Highcharts](http://jkunst.com/highcharter/index.html)
+## [Highcharts](http://www.highcharts.com)
 
 ![HighCharter](img/highcharter.png)
 
-## highcharter {.columns-2 .smaller }
+## [highcharter]((http://jkunst.com/highcharter/index.html)) (highcharter package) {.columns-2 .smaller }
 
 ```{r}
 knit_print.htmlwidget <- function(x, ..., options = NULL){
@@ -527,7 +477,7 @@ hc <- highchart() %>%
 hc
 ```
 
-<br><br><br><br>
+<br><br><br>
 
 ```{r echo=FALSE, eval=TRUE}
 library(highcharter)
@@ -548,31 +498,35 @@ hc <- highchart() %>%
 hc
 ```
 
-## Highcharter - adding data { .smaller }
+## highcharter - adding data { .smaller }
 
 Data are added using one of the following functions
 
 | Name |  Function |
-|----------+-----|
+|---+----------|
 | hc_add_series | Add single series (named: `data`, `name`) |
 | hc_add_series_list | Add *list* named series |
 | hc_add_series_df | Add data.frame. Name variables accordingly |
 | hc_add_series_ts | Add ts object. Extra argument: `name` |
-| hc_add_series_scatter | Crate scatter from two vectors. Extra arguments (size, color, label) |
+| hc_add_series_scatter | Create scatter from two vectors. Extra arguments (size, color, label) |
 | hc_add_series_boxplot | Add boxplots |
 | hc_add_series_map | Add geojson map |
+
+Chart types: line (default), column, boxplot, bubble, arearange, heatmap, funnel, pie, ...
+
+Also: the `hchart` function (a la `plot`)
 
 
 ## Highcharter function overview { .smaller }
 
 | Function | Example |
-|--------+----------|
-| Title  | hc_title(text = "Temperature") |
-| Subtitle  | hc_subtitle(text = "Somewhere warm") |
+|----+----------|
+| Title, subtitle  | hc_title(text = "Temperature"), hc_subtitle(text = "Somewhere warm") |
 | Axis   | hc_xAxis(categories = month) |
 |        | hc_yAxis(title = list(text = "Temperature"), labels = list(format = "{value} C")) |
 | Theme  | hc_add_theme(hc_theme_sandsignika()) |
 | Zoom   | hc_chart(zoomType = "xy") |
+| Export | hc_exporting(enabled = TRUE) |
 | Tooltip | hc_tooltip(useHTML = TRUE, headerFormat="&lt;table&gt;", |
 |         | pointFormat = "&lt;tr&gt;&lt;th&gt;x-val&lt;/th&gt;&lt;td&gt;{point.x}&lt;/td&gt;&lt;/tr&gt;" |
 |         | footerFormat = "&lt;/table&gt;") |
@@ -586,30 +540,27 @@ Data are added using one of the following functions
 
 ```{r echo=TRUE, eval=FALSE}
 happiness$size <- sqrt(happiness$population)/8
-
+hap <- happiness # Shorten name
 happy2 <- highchart() %>%
   hc_title(text = "Taxes and happiness") %>%
   hc_subtitle(text = "Source: Wikipedia") %>%
   hc_xAxis(title = list(text = "Taxation (%)")) %>%
   hc_yAxis(title = list(text = "Happiness")) %>%
   hc_chart(zoomType = "xy") %>%
-  hc_add_serie_scatter(happiness$tax, happiness$happy,
-                       happiness$size, happiness$continent,
-                       happiness$country,
-                       dataLabels = list(
-                         enabled = TRUE,
-                         format = "{point.label}"
-                       ),
-                       extrainfo = sprintf("Mostly %s", happiness$religion)
+  hc_exporting(enabled = TRUE) %>%
+  hc_add_serie_scatter(hap$tax, hap$happy,
+                       hap$size, hap$continent, hap$country,
+                       dataLabels = list( enabled = TRUE,
+                                    format = "{point.label}")
                        ) %>%
   hc_tooltip(useHTML = TRUE,
              headerFormat = "<table>",
              pointFormat = paste("<tr><th colspan=\"1\"><b>{point.label}</b></th></tr>",
-                                 "<tr><th>Weight</th><td>{point.x} lb/1000</td></tr>",
-                                 "<tr><th>MPG</th><td>{point.y} mpg</td></tr>",
-                                 "<tr><th>Drat</th><td>{point.z} </td></tr>",
-                                 "<tr><th>HP</th><td>{point.valuecolor} hp</td></tr>",
-                                 "<tr><th>HP</th><td>{point.extrainfo} hp</td></tr>"),
+                                 "<tr><th>Tax</th><td>{point.x} %</td></tr>",
+                                 "<tr><th>Score</th><td>{point.y}</td></tr>",
+                                 "<tr><th>Pop</th><td>{point.z} </td></tr>",
+                                 "<tr><th>Cont.</th><td>{point.valuecolor} hp</td></tr>",
+                                 "<tr><th>Religion</th><td>{point.extrainfo} hp</td></tr>"),
 
              footerFormat = "</table>")
 happy2
@@ -621,7 +572,17 @@ happy2
 
 
 ```{r}
+library(dplyr)
+library(viridis)
 happiness$size <- sqrt(happiness$population)/8
+hap <- happiness # Shorten name
+
+# Extra tooltip
+colorvar <- hap$continent
+cols <- viridis(1000)[round(ecdf(colorvar)(colorvar)*1000)]
+cols <- substr(cols, 0, 7)
+dt <- hap %>% mutate(x=tax, y=happy, z=size, color=cols, label=country)
+ds <- list.parse3(dt)
 
 happy2 <- highchart() %>%
   hc_title(text = "Taxes and happiness") %>%
@@ -629,89 +590,209 @@ happy2 <- highchart() %>%
   hc_xAxis(title = list(text = "Taxation (%)")) %>%
   hc_yAxis(title = list(text = "Happiness")) %>%
   hc_chart(zoomType = "xy") %>%
-  hc_add_serie_scatter(happiness$tax, happiness$happy,
-                       happiness$size, happiness$continent,
-                       happiness$country,
-                       dataLabels = list(
-                         enabled = TRUE,
-                         format = "{point.label}"
-                       ),
-                       extrainfo = sprintf("Mostly %s", happiness$religion)
-                       ) %>%
+  hc_exporting(enabled = TRUE) %>%
+  hc_add_series(data=ds, name=FALSE, type="bubble", showInLegend=FALSE,
+                dataLabels = list(enabled = TRUE, format = "{point.label}")) %>%
   hc_tooltip(useHTML = TRUE,
              headerFormat = "<table>",
              pointFormat = paste("<tr><th colspan=\"1\"><b>{point.label}</b></th></tr>",
-                                 "<tr><th>Weight</th><td>{point.x} lb/1000</td></tr>",
-                                 "<tr><th>MPG</th><td>{point.y} mpg</td></tr>",
-                                 "<tr><th>Drat</th><td>{point.z} </td></tr>",
-                                 "<tr><th>HP</th><td>{point.valuecolor} hp</td></tr>",
-                                 "<tr><th>HP</th><td>{point.extrainfo} hp</td></tr>"),
-
+                                 "<tr><th>Tax</th><td>{point.x} %</td></tr>",
+                                 "<tr><th>Score</th><td>{point.y}</td></tr>",
+                                 "<tr><th>Pop</th><td>{point.z} </td></tr>",
+                                 "<tr><th>Cont.</th><td>{point.continent} </td></tr>",
+                                 "<tr><th>Religion</th><td>{point.religion}</td></tr>"),
              footerFormat = "</table>")
 happy2
 ```
 
-## Highcharter - adding information
+## Exercise 
 
-More on functions?
+Take the `airquality` dataset. Plot series of temperature and wind speed for June.
+
+```{r eval=FALSE, echo=TRUE}
+data(airquality)
+aq <- subset(airquality, Month==6)
+head(aq)
+
+library(highcharter)
+hc <- highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_title(text = "Denmark") %>%
+  hc_xAxis(categories = aq$Day) %>% 
+  hc_yAxis_multiples(
+    list(title = list(text = "Temperature (F)")), 
+    list(opposite=TRUE, title = list(text = "Speed (MPH)"))) %>%
+ ...
+```
 
 
-## dygraphs
+## One solution
+
+```{r}
+library(highcharter)
+data(airquality)
+aq <- subset(airquality, Month==6)
+hc <- highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_title(text = "Denmark") %>%
+  hc_xAxis(categories = 1:30) %>% 
+hc_add_series(data = aq$Temp,
+          name = "Temperature") %>%
+  hc_add_series(name = "Wind speed",
+               data = aq$Wind,
+               type = "spline")
+
+hc
+```
 
 
-## dygraphs { .columns-2 }
 
-Same build-up as highcharter
+## [dygraphs](http://dygraphs.com/index.html)
+
+![dygraphs](img/dygraphs.png)
+
+
+## dygraphs { .columns-2 .smaller }
+
+Same build-up as highcharter. Most of the information passed in `dygraph` and `dyOptions`.
+
+`xts` extended time series
+
 
 ```{r echo=TRUE, eval=FALSE}
 library(dygraphs)
-head(nhtemp)
-dygraph(nhtemp, main = "New Haven Temperatures") %>%
-  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+library(MESS)
+library(xts)
+data(greenland)
+rownames(greenland) <-
+  paste0(greenland$year, "-07-15")
+greenland$year <- NULL
+temp <- as.xts(greenland)
+dygraph(temp, 
+        main="Av. Summer temp") %>%
+  dyRangeSelector(dateWindow = 
+      c("1960-01-01", "2011-01-01"))
+```
+
+Series can be added with `dySeries`. 
+
+<br><br><br>
+
+```{r echo=FALSE, eval=TRUE}
+library(dygraphs)
+library(MESS)
+library(xts)
+data(greenland)
+rownames(greenland) <-paste(greenland$year, 
+                          "-07-15", sep="")
+greenland$year <- NULL
+temp <- as.xts(greenland)
+dygraph(temp, 
+        main="Average Summer temp") %>%
+  dyRangeSelector(dateWindow = 
+             c("1960-01-01", "2011-01-01"))
+```
+
+
+
+## dygraphs functions { .smaller }
+
+| Function | Example |
+|------+----------------|
+| Title  | dygraph(data, main = "My Title")  |
+| Axis   | dyAxis("x", drawGrid = TRUE, label="My X axis") |
+| Zoom/panning | dyRangeSelector() |
+| Highlights | dyHighlight(highlightSeriesOpts = list(strokeWidth = 3)) |
+
+| dyOptions/dySeries | Example |
+|----------+----------------|
+| Step Plot | dyOptions(stepPlot = TRUE) |
+| Colour    | dyOptions(colors="blue")  |
+| Fill      | dyOptions(fillGraph = TRUE, fillAlpha = 0.4) |
+| L/V/U     | A 3-vector name has special meaning (lower, value, upper). `dySeries(c("L", "V", "U"))`
+
+Also: `dyShading`, `dyEvent`, ... 
+
+
+## dygraphs 2 { .columns-2 .smaller }
+
+Danish Monthly births/deaths. Multiple series.
+
+```{r echo=TRUE, eval=FALSE}
+library(MESS)
+library(dygraphs)
+data(bdstat)
+births <- ts(bdstat$births[1:(12*112)], 
+             frequency=12, 
+             start=c(1901, 1)) 
+deaths <- ts(bdstat$dead[1:(12*112)], 
+             frequency=12, 
+             start=c(1901, 1)) 
+DKdata <- cbind(births, deaths)
+dygraph(DKdata, 
+        main="Births/Deaths") %>%
+  dyAxis("x", drawGrid = FALSE) %>%
+  dySeries("births", drawPoints=TRUE, 
+           color = "blue") %>%
+  dySeries("deaths", stepPlot = TRUE, 
+           fillGraph = TRUE, 
+           color = "red") %>%
+  dyHighlight(highlightSeriesOpts = 
+              list(strokeWidth = 3)) 
 ```
 
 <br><br><br><br>
 
-```{r echo=FALSE, eval=FALSE}
+
+
+```{r echo=FALSE}
+library(MESS)
 library(dygraphs)
-dygraph(nhtemp, main = "New Haven Temperatures") %>%
-  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
-```
-
-
-## dygraphs 2 { .columns-2 }
-
-```{r}
-library(dygraphs)
-hw <- HoltWinters(ldeaths)
-predicted <- predict(hw, n.ahead = 72, prediction.interval = TRUE)
-
-dygraph(predicted, main = "Predicted Lung Deaths (UK)") %>%
+data(bdstat)
+births <- ts(bdstat$births[1:(12*112)], frequency=12, start=c(1901, 1)) 
+deaths <- ts(bdstat$dead[1:(12*112)], frequency=12, start=c(1901, 1)) 
+DKdata <- cbind(births, deaths)
+dkb <- HoltWinters(births)
+predicted <- predict(dkb, n.ahead = 50*12, prediction.interval = TRUE)
+dygraph(DKdata, main = "Births/Deaths (DK)") %>%
   dyAxis("x", drawGrid = FALSE) %>%
-  dySeries(c("lwr", "fit", "upr"), label = "Deaths") %>%
-  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
+  dySeries("births", drawPoints = TRUE, color = "blue") %>%
+  dySeries("deaths", stepPlot = TRUE, fillGraph = TRUE, color = "red") %>%
+  dyHighlight(highlightSeriesOpts = list(strokeWidth = 3)) 
 ```
 
 
-## dygraphs functions
 
-| Function | Example |
-|--------+----------|
-| Title  | hc_title(text = "Temperature") |
-| Subtitle  | hc_subtitle(text = "Somewhere warm") |
-| Axis   | hc_xAxis(categories = month) |
-|        | hc_yAxis(title = list(text = "Temperature"),
-           labels = list(format = "{value}? C")) |
-| Theme  | hc_add_theme(hc_theme_sandsignika()) |
-| Zoom   | hc_chart(zoomType = "xy") |
-| Tooltip | hc_tooltip(useHTML = TRUE, headerFormat="<table>", |
-|         | pointFormat = "<tr><th>x-val</th><td>{point.x}</td></tr>" |
-|         | footerFormat = "</table>") |
-| Legend  | hc_legend(enabled=FALSE) |
-| Credits | hc_credits(enabled = TRUE, text = "Source: Wikipedia",
-             href = "https://wikipedia.com",
-             style = list(fontSize = "12px")) |
+## dygraphs 3 { .columns-2 .smaller }
 
+Danish Monthly births/deaths. Multiple series. Prediciton
+
+```{r echo=TRUE,eval=FALSE}
+dkb <- HoltWinters(births)
+p <- predict(dkb, n.ahead = 50*12, 
+             prediction.interval=TRUE)
+all <- cbind(births, p)
+dygraph(all, main = "Births (DK)") %>%
+  dySeries("births", drawPoints = TRUE, 
+           color = "blue", 
+           label="asd") %>%
+  dySeries(c("p.lwr","p.fit","p.upr"),
+           color = "red")
+```
+
+<br><br><br><br>
+
+```{r echo=FALSE, eval=TRUE}
+dkb <- HoltWinters(births)
+p <- predict(dkb, n.ahead = 50*12, 
+             prediction.interval = TRUE)
+all <- cbind(births, p)
+dygraph(all, main = "Births (DK)") %>%
+  dySeries("births", drawPoints = TRUE, 
+           color = "blue", label="asd") %>%
+  dySeries(c("p.lwr", "p.fit", "p.upr"),
+           color = "red")
+```
 
 
 ## metricsgraphics
@@ -734,10 +815,16 @@ mtcars %>%
 
 Should be the same as before (happyness)
 
-## Metricgraphics
 
-## Metricgraphics
+## [MetricsGraphics](http://metricsgraphicsjs.org/)
 
+![metricsgraphics](img/metgraph.png)
+
+## The [metricsgraphics](metricsgraphics) package
+
+Time series, line charts, scatterplots, histograms, bar charts and data tables, rug plots and basic linear regression.
+
+Same idea as highcharter/dygraphs. 
 
 ```{r eval=FALSE, echo=TRUE}
 library(RColorBrewer)
@@ -786,53 +873,114 @@ tmp %>%
              style = list(fontSize = "12px")) |
 
 
-## leaflet
+## [leaflet](http://leafletjs.com/)
 
-## leaflet
-
-```{r eval=FALSE, echo=TRUE}
-library(leaflet)
-library(MESS)
+![leaflet](img/leaflet.png)
 
 
-data(earthquakes)
-m <- leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lng=earthquakes$longitude[earthquakes$mag>6],          lat=earthquakes$latitude[earthquakes$mag>6], popup="Mag 6+")
-m
-```
+## The [leaflet](https://rstudio.github.io/leaflet/) package
 
-## leaflet
+Beautiful maps crated by adding layers on top of maps.
 
 ```{r}
 library(leaflet)
+
+m <- leaflet() %>%
+  addTiles() %>%  # Default OpenStreetMap map tiles
+  addMarkers(lat=37.431106, lng=-122.164672, popup="useR 2016") 
+m 
+```
+
+## leaflet example
+
+```{r echo=TRUE, eval=FALSE}
+library(leaflet)
+
+m <- leaflet() %>%
+  addTiles() %>%  # Default OpenStreetMap map tiles
+  addMarkers(lat=37.431106, lng=-122.164672, popup="useR 2016") 
+m 
+```
+
+
+
+## leaflet  function overview
+
+Main functions
+
+| Function | Example |
+|--------+----------|
+| Default map  |  addTiles()  |
+| Alternative maps | addProviderTiles("CartoDB.DarkMatter", options = providerTileOptions(opacity = 0.35))    Stackable! |
+| Markers | addMarkers(~long, ~lat, popup = ~as.character(mag)) |
+| Pop-ups | addPopups(lng=-122.164672, lat=37.431106, "&lt;a href='http://www.user2016.org'&gt; Hi &lt;/a&gt;",
+    options = popupOptions(closeButton = FALSE)) |
+| Custom icons | makeIcon() |
+
+
+## Earthquakes
+
+```{r eval=FALSE, echo=TRUE, message=FALSE}
+library(leaflet)
 library(MESS)
 
-
+pal <- colorNumeric("RdYlBu", 
+                    domain = NULL)
 data(earthquakes)
-m <- leaflet() %>%
-  addTiles() %>%  # Add default OpenStreetMap map tiles
-  addMarkers(lng=earthquakes$longitude[earthquakes$mag>6],          lat=earthquakes$latitude[earthquakes$mag>6], popup="Mag 6+")
+m <- leaflet(subset(earthquakes,  mag>3)) %>%
+  addProviderTiles("CartoDB.DarkMatter") %>%  
+addCircleMarkers(
+    radius = ~ mag*3,
+    color  = ~ pal(depth),
+    stroke = FALSE, fillOpacity = 0.4
+  )
 m
 ```
 
-## leaflet function overview
+## Earthquakes
 
+```{r eval=TRUE, echo=FALSE, message=FALSE}
+library(leaflet)
+library(MESS)
 
+pal <- colorNumeric("RdYlBu", 
+                    domain = NULL)
+data(earthquakes)
+m <- leaflet(subset(earthquakes,  mag>3)) %>%
+  addProviderTiles("CartoDB.DarkMatter") %>%  # Add default OpenStreetMap map tiles
+addCircleMarkers(
+    radius = ~ mag*4,
+    color  = ~ pal(depth),
+    stroke = FALSE, fillOpacity = 0.5
+  )
+m
+```
 
 
 ## Exercise
 
+Create your own icon and pop-up on this map.
 
+```{r eval=FALSE}
+library(leaflet)
+m <- leaflet() %>%
+  addTiles() %>%  # Default OpenStreetMap map tiles
+  addMarkers(lng=-122.164672, lat=37.431106, popup="useR 2016") 
+m 
+```
 
+Add the R icon to the map: https://www.r-project.org/logo/Rlogo.png
 
+(Use `icon` instead of `popup` in  `addMarkers`)
 
-## rMaps  - choropleths - out?
+Create simple icon:
 
-```{r results="asis", message=FALSE, warning=FALSE}
-library(rMaps)
-i1 <- ichoropleth(Crime ~ State, data = violent_crime, animate = "Year")
-i1$show('inline', include_assets = TRUE)
+```{r echo=TRUE}
+greenLeafIcon <- makeIcon(
+  iconUrl = "http://leafletjs.com/docs/images/leaf-green.png",
+  iconWidth = 38, iconHeight = 95,
+  iconAnchorX = 22, iconAnchorY = 94
+)
 ```
 
 
@@ -847,20 +995,34 @@ saveWidget(widget, file, selfcontained = TRUE, background="white")
 
 ### Including in R markdown
 
-iframe
+`htmlwidget` widgets behave nicely in R markdown.
 
-```{r}
-r1$show('inline', include_assets = TRUE)
-```
+### Otherwise
 
-
-# plotly and ggplotly
+`as.iframe` to appear.
 
 
-Differences to other libraries ... public
+
+# Javascript-based libraries (ggplotly and ggiraph)
 
 
-## ggplotly - ggplot2
+## ggplotly and ggiraph
+
+Use ggplot2 (and grammar of graphics) to render interactive graphics.
+
+- ggplotly use the [plot.ly]() service
+- ggiraph uses it's own htmlwidget extensions.
+
+
+## [Plotly](https://plot.ly/) - ggplotly
+
+![plotly](img/plotly.png)
+
+
+## The [plotly](https://plot.ly/ggplot2/) package
+
+Use legend to toggle traces, zoom, shift and click to pan.
+Super simple: `p <- ggplot() ; ggplotly(p)`
 
 ```{r message=FALSE}
 library(plotly)
@@ -880,6 +1042,142 @@ g <- ggplot(df,aes(x=x,y=y)) +
 
 ggplotly(g)
 ```
+
+
+## Revisiting the happiness data
+```{r warning=FALSE, message=FALSE, echo=TRUE, eval=FALSE}
+p <- ggplot(happiness, 
+            aes(x=tax, y=happy, color=continent, size=population, 
+                text = paste("country:", country))) + 
+  geom_point( alpha = I(0.8)) + 
+  scale_size_area(max_size = 30) + 
+  geom_smooth(method="lm", se= F, size = 1, 
+              aes(linetype = continent, group = continent))
+ggplotly(p)
+```
+
+## Revisiting the happiness data
+```{r warning=FALSE, message=FALSE}
+p <- ggplot(happiness, aes(x=tax, y=happy, color=continent, size=population, text = paste("country:", country))) + geom_point( alpha = I(0.8)) + scale_size_area(max_size = 30) + geom_smooth(method="lm", se= F, size = 1, aes(linetype = continent, group = continent))
+ggplotly(p)
+```
+
+
+## Publishing ggplotly graphics
+
+On plotly
+
+xxxx
+
+
+
+
+## The [ggiraph]() package
+
+Extends `ggplot2` with new `geom` functions.
+
+- geom_point_interactive
+- geom_polygon_interactive
+- geom_map_interactive
+- geom_path_interactive
+- geom_rect_interactive
+- geom_segment_interactive
+- geom_text_interactive
+
+Three arguments let you add interactivity:
+
+- `tooltip`: mouse-over tooltips to be displayed when mouse is over elements.
+- `onclick`: javascript function to be executed when elements are clicked.
+- `data_id`: id to be associated with elements.
+
+
+## ggiraph example - happiness
+
+```{r echo=TRUE, eval=FALSE}
+library(ggiraph)
+
+happiness$tooltip <- paste0("<table><th>Welcome to</th><tr><td>", 
+                            happiness$country, 
+                            "</td></tr></table>")
+
+p <- ggplot(happiness, 
+            aes(x=tax, y=happy, color=continent, 
+                size=population, tooltip=tooltip)) + 
+  geom_point_interactive(alpha=I(.8)) + 
+  scale_size_area(max_size = 30)
+
+ggiraph(code = {print(p)}, height = "350px")
+```
+
+## ggiraph example - happiness
+
+```{r warning=FALSE, message=FALSE}
+library(ggiraph)
+
+happiness$tooltip <- paste0("<table><th>Welcome to</th><tr><td>", happiness$country, "</td></tr></table>")
+
+
+p <- ggplot(happiness, aes(x=tax, y=happy, color=continent, size=population, tooltip=tooltip)) + geom_point_interactive(alpha=I(.8)) + scale_size_area(max_size = 30)
+ggiraph(code = {print(p)}, height = "350px")
+```
+
+
+## ggiraph and dataid and onclick events
+
+
+```{r echo=TRUE, eval=FALSE}
+library(ggiraph)
+
+happiness$tooltip <- paste0("<table><th>Welcome to</th><tr><td>", happiness$country, "</td></tr></table>")
+
+
+happiness$onclick <- sprintf(
+  "window.open(\"%s%s\")",
+  "http://en.wikipedia.org/wiki/",
+  as.character(happiness$country)
+)
+
+happiness$data_id <- happiness$country
+
+p <- ggplot(happiness, 
+            aes(x=tax, y=happy, color=continent, 
+                size=population, tooltip=tooltip, onclick=onclick)) + 
+  geom_point_interactive(alpha=I(.8)) + 
+  scale_size_area(max_size = 30)
+
+ggiraph(code = print(p), 
+        hover_css = "fill-opacity:.3;cursor:pointer;",
+           height = "350px")
+```
+
+
+## ggiraph and dataid and onclick events
+
+```{r message=FALSE, warning=FALSE}
+library(ggiraph)
+
+happiness$tooltip <- paste0("<table><th>Welcome to</th><tr><td>", happiness$country, "</td></tr></table>")
+
+happiness$onclick <- sprintf(
+  "window.open(\"%s%s\")",
+  "http://en.wikipedia.org/wiki/",
+  as.character(happiness$country)
+)
+
+happiness$data_id <- happiness$country
+
+
+p2 <- ggplot(happiness, 
+            aes(x=tax, y=happy, color=continent, 
+                size=population, tooltip=tooltip, onclick=onclick, data_id=data_id)) + 
+  geom_point_interactive(alpha=I(.8)) + 
+  scale_size_area(max_size = 30)
+
+ggiraph(code = print(p2), 
+        hover_css = "fill-opacity:.3;cursor:pointer;",
+           width="600px", height = "350px")
+```
+
 
 
 ## Exercise
@@ -905,10 +1203,35 @@ runGitHub('ekstroem/ShinySampleMean')
 
 ## Quick introduction to Shiny
 
+Library
+
 ## Shiny User Interface
+
+```{r}
+library(shiny)
+
+shinyUI(pageWithSidebar(
+
+  # Application title
+  headerPanel("Miles Per Gallon"),
+
+  sidebarPanel(),
+
+  mainPanel()
+))
+```
 
 ## Shiny server interface
 
+
+```{r}
+library(shiny)
+
+# Define server 
+shinyServer(function(input, output) {
+
+})
+```
 
 ## Example
 

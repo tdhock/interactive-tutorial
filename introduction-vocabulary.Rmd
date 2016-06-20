@@ -1,0 +1,155 @@
+# A vocabulary for characterizing interactive graphics
+
+This tutorial presents several R packages for making interactive
+graphics. To begin, please install the required packages:
+
+```{r}
+source("http://tdhock.github.io/interactive-tutorial/packages.R")
+```
+
+If that worked then `example(animint)` should open some web browser
+windows containing animints.
+
+## Definition of interactive graphics
+
+The R command line is interactive, so aren't all R graphics
+interactive? Yes, if you have access to the data and R source
+code. No, if you only have access to the graphic itself.
+
+This tutorial uses the following definition: in an **interactive** or
+**dynamic** graphic, the plot can be updated without changing the R
+code. In a **non-interactive** or **static** graphic, the R code must
+be changed to update the plot.
+
+For example, the following is a static graphic
+
+```{r}
+lungDeaths <- cbind(mdeaths, fdeaths)
+matplot(lungDeaths, type="l")
+```
+
+because it can be zoomed only by changing the R code:
+
+```{r}
+matplot(lungDeaths, type="l", xlim=c(20, 40))
+```
+
+In contrast, the following interactive graphic can be zoomed by
+dragging the mouse on the plot (without changing the R code).
+
+```{r}
+library(dygraphs)
+dygraph(lungDeaths)
+```
+
+## Actions, effects, and complexity
+
+We will use the terms **Actions** and **Effects** to categorize
+different kinds of interactive graphics. In the graphic above, we see
+several examples of **direct manipulation actions** which produce the
+following effects:
+
+| Action | Effect     |
+|--------|------------|
+| Hover mouse | Show x and y values |
+| Drag mouse | Zoom x or y axis |
+| Double click | Zoom out |
+
+We use the term **direct manipulation** to describe **actions** near
+the plotted data. This contrasts **indirect manipulation** on buttons
+or menus which are typically located outside of the plotting region.
+
+We will use some other terms to describe the **complexity** of a data
+visualization. The complexity terms answer the following questions:
+
+* How many layers? A single plot may have several layers or different
+  geoms (points, lines, etc) that represent different parts of a
+  complex data set. The data viz above is **single-layer** because it
+  only displays one layer (lines).
+* How many panels? A single plot may have several panels, each with
+  its own axis. The data viz above is **single-panel** since it has
+  only one panel.
+* How many plots? A single data viz may have several linked plots,
+  each with different axes and data. The data viz above is
+  **single-plot** since it has only one plot.
+  
+## The shiny web server
+
+The `shiny` package provides a web server that can be used for many
+interactive graphics based on indirect manipulation actions. For
+example, **multi-panel**, **multi-layer**, **single-plot** data viz
+below uses **indirect manipulation** to show how the central limit
+theorem works for data of different distributions.
+
+```{r, eval=FALSE}
+shiny::runGitHub('ShinySampleMean', 'ekstroem')
+```
+
+Another example with the same keywords to explain power calculations.
+
+```{r, eval=FALSE}
+shiny::runGitHub('ShinyPower', 'ekstroem')
+```
+
+## Multi-plot data visualization
+
+This is not in R, but [dc.js](http://dc-js.github.io/dc.js/) can be
+used to create **multi-plot**, **single-panel**, **single-layer** data
+visualizations with **direct manipulation actions**. Note the **smooth
+transitions** that can be used to emphasize continuity between data
+subsets.
+
+## Animated data visualization
+
+The `animation`, `ggvis`+`shiny` and `animint` packages can be used to
+produce **animated** data visualizations which are updated over time
+like a video. The main differences are that
+
+* `animation` uses **indirect manipulation**, and only allows
+  scrolling forward or backward in time.
+* `ggvis`+`shiny` also uses **indirect manipulation**, but allows
+  interaction with any number of variables (not just the time
+  variable).
+* `animint` uses both **direct and indirect manipulation**, and allows
+  interaction with any number of variables.
+  
+Exercise: what keywords apply to the following data visualizations?
+
+| Data | `animation` | `shiny`+`ggvis` | `animint` | 
+|--------|------------|--|--|
+| World Bank | [viz+source](http://www.ggplot2-exts.org/gganimate.html) | [viz](https://cpsievert.shinyapps.io/worldBank-ggvis/) | [viz](http://cbio.ensmp.fr/~thocking/WorldBank-facets/) [source](https://github.com/tdhock/animint/blob/master/inst/examples/WorldBank-facets.R) |
+| Evolution | [viz](http://nicholsonppp.r-forge.r-project.org/2009-08-19/index.htm) |  n/a |  [viz](http://cbio.ensmp.fr/~thocking/animint-evolution-plots/) [source](https://github.com/tdhock/animint/blob/master/inst/examples/evolution.R) |
+
+## Summary of vocabulary
+
+We have discussed the following terms.
+
+### Actions
+
+* Direct manipulation (click, drag, hover) is useful for showing
+  details of plotted data.
+* Indirect manipulation (menus, buttons) is useful for changing the
+  data subset or plotting parameters.
+* Animation is useful for showing how data sets vary with a time
+  variable.
+
+### Effects
+
+* Zooming is useful to show details of data that is already plotted.
+* Showing/hiding data/labels/tooltips is useful to show details that
+  are not already shown.
+* Smooth transitions are useful to emphasize continuity between data
+  subsets.
+* Highlighting is useful to show the current selection. 
+
+### Complexity
+
+* Multi-layer graphics are useful when there are different data sets
+  to compare on the same axes.
+* Multi-panel graphics are useful in two situations:
+    - Same geom for different data subsets (mostly useful for non-interactive graphics).
+    - Different geoms for with aligned axes (useful for interactive graphics). 
+* Multi-plot graphics are useful for data sets where there are more
+  than two quantitative variables. You can show an overview in one
+  plot and details in another.
+

@@ -1,0 +1,99 @@
+\documentclass{article}
+
+\usepackage[cm]{fullpage}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Understanding and creating animated graphicsAnimint tutorial}
+\author{Toby Dylan Hocking}
+\maketitle
+\thispagestyle{empty}
+
+\subsection*{Intro to animation and direct manipulation (5 min)}
+
+\url{https://github.com/tdhock/interactive-tutorial}
+
+\subsection*{Animint manual Ch2: basics of ggplot2 (25 min)}
+
+\url{http://cbio.ensmp.fr/~thocking/animint-book/Ch02-ggplot2.html}
+
+%\subsection*{Translating sketches to ggplots and animints}
+\hrulefill
+
+\textbf{Sketching} a data viz on paper can be useful, since the sketch
+can be directly translated into R+ggplot2 code.
+
+A \textbf{ggplot} consists of one or more geoms, each with its own
+data set and aesthetic mapping.
+
+An \textbf{animint} \texttt{viz} is a list of ggplots and options
+which can be rendered via \verb|structure(viz, class="animint")|.
+
+\textbf{Exercise:} re-make interactive scatterplot of World Bank data,
+using a different aes mapping.
+
+\hrulefill
+
+%\subsection*{Multi-layer and multi-plot animints}
+
+\textbf{Multi-layer} graphics consist of ggplots with several geoms.
+
+A \textbf{multi-plot} animint \texttt{viz} list contains more than one
+ggplot.
+
+\textbf{Exercise:} create an animint with three ggplots.
+
+\subsection*{Animint manual Ch3: showSelected (25 min)}
+
+\url{http://cbio.ensmp.fr/~thocking/animint-book/Ch03-showSelected.html}
+
+\hrulefill
+
+\texttt{aes(showSelected=variable)} means to only show data for the
+selected value of \texttt{variable}.
+
+\textbf{Exercise:} add another geom or plot to the previous data viz.
+
+\hrulefill
+
+\textbf{Smooth transitions} can be specified using
+e.g. \texttt{duration=list(year=2000)},\\and then for each geom with
+\texttt{aes(showSelected=year)}, you should specify \texttt{aes(key)}.
+
+\textbf{Animation} can be specified using
+e.g. \texttt{time=list(variable="year", ms=2000)}.
+
+\textbf{Exercise:} make a data viz with animation but without smooth
+transitions.
+
+\subsection*{Animint manual Ch4: clickSelects (25 min)}
+\url{http://cbio.ensmp.fr/~thocking/animint-book/Ch04-clickSelects.html}
+
+\hrulefill
+
+\texttt{aes(clickSelects=variable)} means clicking the geom changes
+the selected value of \texttt{variable}.
+
+\textbf{Exercise:} make the country text label disappear when the
+corresponding region is de-selected.
+
+\hrulefill
+
+\texttt{first=list(year=1970)} means that the year 1970 should be
+selected when the data viz is first rendered.
+
+\texttt{selector.types=list(country="multiple")} means to use multiple
+selection for the \texttt{country} variable.
+
+\textbf{Exercise:} make clicking a country text label de-select that
+country.
+
+\hrulefill
+
+\verb|geom_tallrect| occupies the entire vertical space, so only
+\texttt{aes(xmin,xmax)} need to be specified.
+
+\textbf{Exercise:} add layers to the scatterplot, and animate the data viz.
+
+\end{document}
