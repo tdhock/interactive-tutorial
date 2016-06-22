@@ -2,7 +2,9 @@
 title: "Interactive graphics"
 author: "Toby Hocking and Claus Ekstrøm"
 date: "16 June 2016"
-output: ioslides_presentation
+output: 
+  ioslides_presentation:
+    widescreen: true
 ---
 
 ## Why? Presenting research results {.flexbox .vcenter}
@@ -78,7 +80,7 @@ The "role" of graphics is changing and expanding
 
 
 
-## Background { .columns-2 .center }
+## Background { .columns-2 .center .smaller }
 
 ### **Toby**
 
@@ -90,7 +92,8 @@ knitr::include_graphics("img/HOCKING-lab-2015.jpg")
  - R packages: `directlabels`, `animint`, `plotly`, ...
  - Animint book in progress https://github.com/tdhock/animint-book
  - Uses interactive graphics for machine learning model visualization.
-<br>
+
+<br><br><br>
 
 ### **Claus**
 
@@ -109,9 +112,9 @@ knitr::include_graphics("img/ekstrom-2014.jpg")
 |Topic |
 |------|
 | Introduction  (**10 min.**)
-| Interactive graphics/javascript (htmlwidgets, **25 min**) |
+| Interactive graphics/javascript (htmlwidgets, **30 min**) |
 | Interactive graphics (ggplotly/ggiraph) **20 minutes** |
-| Shiny  **25 minutes** |
+| Shiny  **20 minutes** |
 | Intro to animation and direct manipulation **5 minutes** |
 | Basics of ggplot2 and animint  **25 minutes** |
 | aes(showSelected), animation  **25 minutes** |
@@ -150,11 +153,9 @@ Tobys slides terms / discussion
  - animation, direct manipulation (clicking, hovering), indirect manipulation (buttons, menus)
  - zoom, highlight, show/hide (data, labels, tooltips)
 
-## An example of 1
+## Example (concepts)
 
-## An example of 2
-
-## An example of 3
+## Example (concepts)
 
 http://cbio.ensmp.fr/~thocking/WorldBank-facets/
 
@@ -277,7 +278,7 @@ knitr::include_graphics("img/RJavaHtml.png")
  - [**plotly**](https://plot.ly/ggplot2/user-guide/) (general plots - like ggplot)
  - [**ggiraph**](https://github.com/davidgohel/ggiraph) (ggplot graphics interactive)
 
- <br><br> <br><br>
+ <br><br>
 
 <div class="centered">
 ```{r, out.height = 200, fig.retina = NULL}
@@ -289,10 +290,10 @@ knitr::include_graphics("img/frustration20logo.jpg")
 - Not easily extendable from R
 - Pick a library and learn it!
 
-## rCharts interfaces { .smaller }
+## rCharts interfaces 
 
-| library  | function |            |
-|:---------|----------|------------|
+| library  | R function | Functionality           |
+|:---------|-----|------------|
 |[polychart](http://www.polychart.com/js/) | rPlot    | ggplot2-like |
 |[Morris](http://morrisjs.github.io/morris.js/)    | mPlot    | Pretty time series |
 |[nvd3](http://nvd3.org)      | nPlot    | Lines/areas/bars |
@@ -303,12 +304,11 @@ knitr::include_graphics("img/frustration20logo.jpg")
 |[Dimple](http://www.dimplejs.org)    | dPlot    | Business analytics |
 
 
-## polychart (from rCharts package) { .columns-2 .smaller }
+## polychart (from rCharts package) { .columns-2 .smaller  }
 
 `plot`/`lattice`-like function.
 
-
-```{r warning=FALSE, echo=TRUE, message=FALSE, eval=FALSE, out.width = 400}
+```{r warning=FALSE, echo=TRUE, message=FALSE, eval=FALSE}
 library(rCharts)
 library(MESS)
 data(happiness)
@@ -323,10 +323,12 @@ r1 <- rPlot(x = "tax",
 r1
 ```
 
-Type: bar, layers, ...
+Type: point, bar, line, ...
+
+Add layers: `r1$layer(y= ..., copy_layer=TRUE, type="line")`  
 
 
-```{r warning=FALSE, results='asis', message=FALSE, echo=FALSE, out.width=400}
+```{r warning=FALSE, results='asis', message=FALSE, echo=FALSE}
 library(dplyr)
 library(viridis)
 library(rCharts)
@@ -520,7 +522,7 @@ Also: the `hchart` function (a la `plot`)
 ## Highcharter function overview { .smaller }
 
 | Function | Example |
-|----+----------|
+|---+-------------|
 | Title, subtitle  | hc_title(text = "Temperature"), hc_subtitle(text = "Somewhere warm") |
 | Axis   | hc_xAxis(categories = month) |
 |        | hc_yAxis(title = list(text = "Temperature"), labels = list(format = "{value} C")) |
@@ -535,7 +537,7 @@ Also: the `hchart` function (a la `plot`)
 
 
 
-## Highcharter - adding information
+## Highcharter - adding information { .smaller }
 
 
 ```{r echo=TRUE, eval=FALSE}
@@ -546,13 +548,11 @@ happy2 <- highchart() %>%
   hc_subtitle(text = "Source: Wikipedia") %>%
   hc_xAxis(title = list(text = "Taxation (%)")) %>%
   hc_yAxis(title = list(text = "Happiness")) %>%
-  hc_chart(zoomType = "xy") %>%
-  hc_exporting(enabled = TRUE) %>%
-  hc_add_serie_scatter(hap$tax, hap$happy,
+  hc_chart(zoomType = "xy") %>% hc_exporting(enabled = TRUE) %>%
+  hc_add_serie_scatter(hap$tax, hap$happy, 
                        hap$size, hap$continent, hap$country,
                        dataLabels = list( enabled = TRUE,
-                                    format = "{point.label}")
-                       ) %>%
+                                    format = "{point.label}")) %>%
   hc_tooltip(useHTML = TRUE,
              headerFormat = "<table>",
              pointFormat = paste("<tr><th colspan=\"1\"><b>{point.label}</b></th></tr>",
@@ -561,7 +561,6 @@ happy2 <- highchart() %>%
                                  "<tr><th>Pop</th><td>{point.z} </td></tr>",
                                  "<tr><th>Cont.</th><td>{point.valuecolor} hp</td></tr>",
                                  "<tr><th>Religion</th><td>{point.extrainfo} hp</td></tr>"),
-
              footerFormat = "</table>")
 happy2
 ```
@@ -607,7 +606,7 @@ happy2
 
 ## Exercise 
 
-Take the `airquality` dataset. Plot series of temperature and wind speed for June.
+Take the `airquality` dataset. Plot series of temperature and wind speed for June using for example `highcharter` or `polychart`.
 
 ```{r eval=FALSE, echo=TRUE}
 data(airquality)
@@ -780,7 +779,7 @@ dygraph(all, main = "Births (DK)") %>%
            color = "red")
 ```
 
-<br><br><br><br>
+<br><br><br><br><br><br>
 
 ```{r echo=FALSE, eval=TRUE}
 dkb <- HoltWinters(births)
@@ -795,87 +794,11 @@ dygraph(all, main = "Births (DK)") %>%
 ```
 
 
-## metricsgraphics
-
-```{r}
-library(htmlwidgets)
-library(metricsgraphics)
-library(RColorBrewer)
-mtcars %>%
-  mjs_plot(x=wt, y=mpg, width=600, height=500) %>%
-  mjs_point(color_accessor=cyl,
-            x_rug=TRUE, y_rug=TRUE,
-            size_accessor=carb,
-            size_range=c(5, 10),
-            color_type="category",
-            color_range=brewer.pal(n=11, name="RdBu")[c(1, 5, 11)]) %>%
-  mjs_labs(x="Weight of Car", y="Miles per Gallon") %>%
-  mjs_add_legend(legend="X")
-```
-
-Should be the same as before (happyness)
-
-
-## [MetricsGraphics](http://metricsgraphicsjs.org/)
-
-![metricsgraphics](img/metgraph.png)
-
-## The [metricsgraphics](metricsgraphics) package
-
-Time series, line charts, scatterplots, histograms, bar charts and data tables, rug plots and basic linear regression.
-
-Same idea as highcharter/dygraphs. 
-
-```{r eval=FALSE, echo=TRUE}
-library(RColorBrewer)
-
-tmp <- data.frame(year=seq(1790, 1970, 10), uspop=as.numeric(uspop))
-
-tmp %>%
-  mjs_plot(x=year, y=uspop) %>%
-  mjs_point() %>%
-  mjs_add_marker(1850, "Something Wonderful") %>%
-  mjs_add_baseline(150, "Something Awful")
-```
-
-## Metricgraphics
-
-```{r}
-library(RColorBrewer)
-
-tmp <- data.frame(year=seq(1790, 1970, 10), uspop=as.numeric(uspop))
-
-tmp %>%
-  mjs_plot(x=year, y=uspop) %>%
-  mjs_point() %>%
-  mjs_add_marker(1850, "Something Wonderful") %>%
-  mjs_add_baseline(150, "Something Awful")
-```
-
-## Metricgraphics function overview
-
-
-| Function | Example |
-|--------+----------|
-| Title  | hc_title(text = "Temperature") |
-| Subtitle  | hc_subtitle(text = "Somewhere warm") |
-| Axis   | hc_xAxis(categories = month) |
-|        | hc_yAxis(title = list(text = "Temperature"),
-           labels = list(format = "{value}? C")) |
-| Theme  | hc_add_theme(hc_theme_sandsignika()) |
-| Zoom   | hc_chart(zoomType = "xy") |
-| Tooltip | hc_tooltip(useHTML = TRUE, headerFormat="<table>", |
-|         | pointFormat = "<tr><th>x-val</th><td>{point.x}</td></tr>" |
-|         | footerFormat = "</table>") |
-| Legend  | hc_legend(enabled=FALSE) |
-| Credits | hc_credits(enabled = TRUE, text = "Source: Wikipedia",
-             href = "https://wikipedia.com",
-             style = list(fontSize = "12px")) |
 
 
 ## [leaflet](http://leafletjs.com/)
 
-![leaflet](img/leaflet.png)
+![](img/leaflet.png)
 
 
 ## The [leaflet](https://rstudio.github.io/leaflet/) package
@@ -891,7 +814,7 @@ m <- leaflet() %>%
 m 
 ```
 
-## leaflet example
+## **leaflet example**
 
 ```{r echo=TRUE, eval=FALSE}
 library(leaflet)
@@ -904,7 +827,7 @@ m
 
 
 
-## leaflet  function overview
+## **leaflet function overview**
 
 Main functions
 
@@ -913,12 +836,11 @@ Main functions
 | Default map  |  addTiles()  |
 | Alternative maps | addProviderTiles("CartoDB.DarkMatter", options = providerTileOptions(opacity = 0.35))    Stackable! |
 | Markers | addMarkers(~long, ~lat, popup = ~as.character(mag)) |
-| Pop-ups | addPopups(lng=-122.164672, lat=37.431106, "&lt;a href='http://www.user2016.org'&gt; Hi &lt;/a&gt;",
-    options = popupOptions(closeButton = FALSE)) |
+| Pop-ups | addPopups(lng=-122.164672, lat=37.431106, "&lt;a href='http://www.user2016.org'&gt; Hi &lt;/a&gt;",  options = popupOptions(closeButton = FALSE)) |
 | Custom icons | makeIcon() |
 
 
-## Earthquakes
+## **Earthquakes**
 
 ```{r eval=FALSE, echo=TRUE, message=FALSE}
 library(leaflet)
@@ -937,7 +859,7 @@ addCircleMarkers(
 m
 ```
 
-## Earthquakes
+## **Earthquakes**
 
 ```{r eval=TRUE, echo=FALSE, message=FALSE}
 library(leaflet)
@@ -957,11 +879,11 @@ m
 ```
 
 
-## Exercise
+## **Exercise** 
 
 Create your own icon and pop-up on this map.
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=TRUE}
 library(leaflet)
 m <- leaflet() %>%
   addTiles() %>%  # Default OpenStreetMap map tiles
@@ -984,7 +906,7 @@ greenLeafIcon <- makeIcon(
 ```
 
 
-## Publishing interactive graphics
+## **Publishing interactive graphics**
 
 Note: html/js output. Need javascript machinery to run (ie., html with js code embedded or online link).
 
@@ -1046,6 +968,9 @@ ggplotly(g)
 
 ## Revisiting the happiness data
 ```{r warning=FALSE, message=FALSE, echo=TRUE, eval=FALSE}
+library(ggplot2)
+library(plotly)
+
 p <- ggplot(happiness, 
             aes(x=tax, y=happy, color=continent, size=population, 
                 text = paste("country:", country))) + 
@@ -1065,24 +990,28 @@ ggplotly(p)
 
 ## Publishing ggplotly graphics
 
-On plotly
 
-xxxx
+### Works directly in R markdown / knitr
+
+Just works (automatically embedded)
+
+### Post on plot.ly account 
+
+Embed the graph as an iframe
+
+```{r eval=FALSE, echo=TRUE}
+signup("username", "email", save=TRUE)
+plotly_POST(p, "My Chart")
+```
 
 
 
 
-## The [ggiraph]() package
+## The [ggiraph](https://github.com/davidgohel/ggiraph) package
 
 Extends `ggplot2` with new `geom` functions.
 
-- geom_point_interactive
-- geom_polygon_interactive
-- geom_map_interactive
-- geom_path_interactive
-- geom_rect_interactive
-- geom_segment_interactive
-- geom_text_interactive
+- `geom_point_interactive`, `geom_polygon_interactive`, `geom_map_interactive`, `geom_path_interactive`, `geom_rect_interactive`, `geom_segment_interactive`, `geom_text_interactive`
 
 Three arguments let you add interactivity:
 
@@ -1114,22 +1043,27 @@ ggiraph(code = {print(p)}, height = "350px")
 ```{r warning=FALSE, message=FALSE}
 library(ggiraph)
 
-happiness$tooltip <- paste0("<table><th>Welcome to</th><tr><td>", happiness$country, "</td></tr></table>")
+happiness$tooltip <- paste0("<table><th>Welcome to</th><tr><td>", 
+                            happiness$country, 
+                            "</td></tr></table>")
 
+p <- ggplot(happiness, 
+            aes(x=tax, y=happy, color=continent, 
+                size=population, tooltip=tooltip)) + 
+  geom_point_interactive(alpha=I(.8)) + 
+  scale_size_area(max_size = 30)
 
-p <- ggplot(happiness, aes(x=tax, y=happy, color=continent, size=population, tooltip=tooltip)) + geom_point_interactive(alpha=I(.8)) + scale_size_area(max_size = 30)
-ggiraph(code = {print(p)}, height = "350px")
+ggiraph(code = {print(p)}, width="600px", height = "300px")
+
 ```
 
 
-## ggiraph and dataid and onclick events
-
+## ggiraph and dataid and onclick events { .smaller }
 
 ```{r echo=TRUE, eval=FALSE}
 library(ggiraph)
 
 happiness$tooltip <- paste0("<table><th>Welcome to</th><tr><td>", happiness$country, "</td></tr></table>")
-
 
 happiness$onclick <- sprintf(
   "window.open(\"%s%s\")",
@@ -1139,15 +1073,15 @@ happiness$onclick <- sprintf(
 
 happiness$data_id <- happiness$country
 
-p <- ggplot(happiness, 
+p3 <- ggplot(happiness, 
             aes(x=tax, y=happy, color=continent, 
                 size=population, tooltip=tooltip, onclick=onclick)) + 
   geom_point_interactive(alpha=I(.8)) + 
   scale_size_area(max_size = 30)
 
-ggiraph(code = print(p), 
-        hover_css = "fill-opacity:.3;cursor:pointer;",
-           height = "350px")
+ggiraph(code = print(p3), 
+        width="600px", height = "300px"
+)
 ```
 
 
@@ -1175,24 +1109,61 @@ p2 <- ggplot(happiness,
 
 ggiraph(code = print(p2), 
         hover_css = "fill-opacity:.3;cursor:pointer;",
-           width="600px", height = "350px")
+           width="600px", height = "300px")
 ```
 
 
 
-## Exercise
+## Exercise { .smaller }
 
-ggiraph
+Use ggplotly/ggiraph to create an interactive plot of development in average Danish life expectancy for males and females.
 
+
+```{r echo=TRUE}
+library(MESS)
+data(lifeexpect)
+head(lifeexpect)
+```
+
+Could start with 
+
+```{r}
+library(ggiraph)
+p <- ggplot(lifeexpect, aes(x=myear, y=male)) + geom_path()
+p
+```
 
 
 # Shiny
 
+## Shiny { .smaller }
+
+Use standard R. Rather simple and beautiful. Requires server, or running locally in R.
+
+Two files
+```
+  Directory
+  |
+  +-- ui.R
+  +-- server.R
+```
+
+Or single file, `app.R`, with 
+```{r, eval=FALSE, echo=TRUE}
+server <- function(input, output) { ... }
+ui <- fluidPage( ...)
+
+shinyApp(ui = ui, server = server)
+```
 
 
-## Shiny
+Run using 
+```{r echo=TRUE, eval=FALSE}
+library(shiny)
+runApp("/path/to/directory")           # Local
+runGitHub('ekstroem/ShinySampleMean')  # From GitHub
+```
 
-Use standard R. Rather simple and beautiful. Simple input - no fancy transitions. Requires server
 
 ## Example
 
@@ -1201,156 +1172,119 @@ library(shiny)
 runGitHub('ekstroem/ShinySampleMean')
 ```
 
-## Quick introduction to Shiny
-
-Library
-
 ## Shiny User Interface
 
-```{r}
+"Standard" [design layout](http://shiny.rstudio.com/articles/layout-guide.html) with sidebar for input and main window for output.
+
+```{r eval=FALSE, echo=TRUE}
 library(shiny)
 
 shinyUI(pageWithSidebar(
+  
+  titlePanel("My title"), # Application title
 
-  # Application title
-  headerPanel("Miles Per Gallon"),
-
-  sidebarPanel(),
-
-  mainPanel()
+  sidebarLayout(          # Layout for this page
+    sidebarPanel(         # Well a side bar panel
+      selectInput()       # Input type
+    ),  
+    mainPanel(
+      plotOutput()        # Types of output
+    )                     # ... and main panel
+  )
 ))
 ```
 
 ## Shiny server interface
 
+Communication through `input`  and `output` lists.
 
-```{r}
+```{r eval=FALSE, echo=TRUE}
 library(shiny)
 
 # Define server 
 shinyServer(function(input, output) {
-
+  
+  output$something <- renderFunction( 
+    v1 <- input$variable1 # Get input
+    ... 
+    )
 })
 ```
 
-## Example
+## User interface functions { .columns-2 .smaller  }
 
-ui.R
+### Inputs 
 
-server.R
+- `checkboxInput`	- Check box
+- `dateInput`	- Calendar to aid date selection
+- `dateRangeInput`	- Pair of calendars for selecting a date range
+- `fileInput`	- File upload control wizard
+- `numericInput`	- Field to enter numbers
+- `radioButtons`	- Set of radio buttons
+- `selectInput`	- Box with choices to select from
+- `sliderInput`	- Slider bar
+- `textInput` - Text area
 
-## Building the user interface
+### Outputs
 
-## User interface functions
+- `htmlOutput`	- raw HTML
+- `imageOutput`	- image
+- `plotOutput`	- plot
+- `tableOutput`	- table
+- `textOutput`	- text
+- `verbatimTextOutput`	- text
 
-## Example -> product
+## Server side functions { .smaller  }
 
+Input functions are strings
 
-## Building the server side
+* `renderImage` - images (saved as a link to a source file)
+* `renderPlot` - plots
+* `renderPrint` - any printed output
+* `renderTable` - data frame, matrix, other table like structures
+* `renderText` - Raw text
 
-## Server side functions
+Each `render*` function takes a single argument: an R expression surrounded by braces, {}.
 
-## Example -> product
+## Example { .smaller }
 
-## Finished product
-
-## ui.R
-
-```{r  eval=FALSE}
+```{r eval=FALSE, echo=TRUE}
 library(shiny)
 
-shinyUI(pageWithSidebar(
+ui <- fluidPage(
+  titlePanel("My title"),
+  sidebarLayout(
+	  sidebarPanel(
+      selectInput("xvar", label = h3("Select x"),
+                  choices = list("A"=1, "B"=2, "C"=3),
+			selected = 1)),
+    mainPanel(
+      textOutput("text"),
+      plotOutput("plot", height="600")
+    )))
 
-  # Application title
-  headerPanel("Least squares example"),
+server <- function(input, output) {
+    output$plot <- renderPlot({
+        mytext <- input$xvar
+        hist(rnorm(1000), col="lightred")
+    })
+    output$text <- renderText( { paste0("Hello ", mytext) } )
+}
 
-  sidebarPanel(
-    sliderInput("alpha",
-                "Intercept",
-                value = 1,
-                min = -1,
-                max = 3,
-                step = 0.05),
-
-    sliderInput("beta",
-                "Slope",
-                value = 1,
-                min = -1,
-                max = 3,
-                step = 0.05),
-
-    br(),
-
-    radioButtons("outputtype", "Output type:",
-                 list("Points" = "points",
-                      "Residuals" = "residuals",
-                      "Squared residuals" = "sqresiduals")),
-
-    checkboxInput(inputId = "sse",
-                  label = strong("Show sum of squared residuals"),
-                  value = FALSE)
-  ),
-
-  mainPanel(
-      plotOutput(outputId = "main_plot", height="600px", width="800px")
-
-))
-)
+shinyApp(ui = ui, server = server)
 ```
+	  
 
-## server.R
+## Example - view data frame
 
-```{r eval=FALSE}
-library(shiny)
-
-shinyServer(function(input, output) {
-
-  x <- c(1, 2, 3, 4)
-  y <- c(2, 4, 3, 5)
-
-  output$main_plot <- renderPlot({
-
-    res <- lm(y ~ x)
-
-    layout(matrix(c(1,1, 2, 2), ncol=2), widths=c(3,1))
-
-    par(cex=1.3)
-    plot(x, y, xlim=c(-1, 6), ylim=c(-1, 6), pch=20, cex=1.3)
-
-    abline(a=input$alpha, b=input$beta, lwd=3, col="blue")
-
-    if (input$outputtype=="residuals") {
-      segments(x, input$alpha+input$beta*x, x, y)
-    } else if (input$outputtype=="sqresiduals") {
-      for (i in 1:length(x)) {
-        preds <- input$alpha + input$beta*x[i]
-        ress <- y[i] - preds
-        polygon(x=c(x[i], x[i], x[i]-ress, x[i]-ress), y=c(preds, y[i], y[i], preds),
-                col="#0000BB66")
-      }
-      segments(x, input$alpha+input$beta*x, x, y)
-    }
-
-    if (input$sse) {
-        sse <- sum((y - (input$alpha+input$beta*x))**2)
-        bp <- barplot(sse, col="#0000BB66", ylim=c(0, 15), main="Sum of squared residuals")
-        text(bp, 1, sse)
-    }
-
-#    if (input$density) {
-#      dens <- density(faithful$eruptions,
-#                      adjust = input$bw_adjust)
-#      lines(dens, col = "blue")
-#    }
-
-  })
-})
+```{r eval=FALSE, echo=TRUE}
+runGitHub("ekstroem/useRapp")
 ```
-
-## Running apps
-
- Running apps from Github
-
 
 ## Exercise
 
+Try to run the code from previous example. Add a slider to change the point size in the graph.
+
+1. Look at the code
+2. Add `sliderInput` (arguments: label, text, start value, min value, max value)
+3. Change server function to accommodate the new input
