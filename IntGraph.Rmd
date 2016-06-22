@@ -68,7 +68,7 @@ knitr::include_graphics("img/fedtsyrer2.png")
 
 ## Why? Teaching
 
-Slidify
+Shiny
 
 ```{r eval=FALSE, echo=TRUE}
 library(shiny)
@@ -136,13 +136,21 @@ knitr::include_graphics("img/ekstrom-2014.jpg")
 
 ## Necessary stuff
 
-Necesary packages etc XXX To be filled out at the end
+```{r echo=TRUE, eval=FALSE}
+CRANpackages <- c("MESS", "dplyr", "shiny", "plotly", "xts", "highcharter"
+                  "DiagrammeR", "dygraphs", "ggplot2", "htmlwidgets",
+                  "leaflet", "viridis")
 
-Rstudio
+install.packages(CRANpackages)
 
-See also: Toby's link
+devtools::install_github('ramnathv/rCharts')
+```
 
-devtools::install_github("ramnathv/rCharts")
+Or run
+
+```{r echo=TRUE, eval=FALSE}
+source("http://biostatistics.dk/useR2016pack.R")
+```
 
 
 ## The role of the graphics/viewer
@@ -690,7 +698,7 @@ dygraph(temp,
 | Highlights | dyHighlight(highlightSeriesOpts = list(strokeWidth = 3)) |
 
 | dyOptions/dySeries | Example |
-|----------+----------------|
+|-------+-------------------|
 | Step Plot | dyOptions(stepPlot = TRUE) |
 | Colour    | dyOptions(colors="blue")  |
 | Fill      | dyOptions(fillGraph = TRUE, fillAlpha = 0.4) |
@@ -757,6 +765,7 @@ dkb <- HoltWinters(births)
 p <- predict(dkb, n.ahead = 50*12, 
              prediction.interval=TRUE)
 all <- cbind(births, p)
+
 dygraph(all, main = "Births (DK)") %>%
   dySeries("births", drawPoints = TRUE, 
            color = "blue", 
@@ -765,7 +774,7 @@ dygraph(all, main = "Births (DK)") %>%
            color = "red")
 ```
 
-<br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 
 ```{r echo=FALSE, eval=TRUE}
 dkb <- HoltWinters(births)
@@ -878,10 +887,7 @@ m
 ```
 
 Add the R icon to the map: https://www.r-project.org/logo/Rlogo.png
-
-(Use `icon` instead of `popup` in  `addMarkers`)
-
-Create simple icon:
+(Use `icon` instead of `popup` in  `addMarkers`). Create simple icon:
 
 ```{r echo=TRUE}
 greenLeafIcon <- makeIcon(
@@ -1100,7 +1106,7 @@ ggiraph(code = print(p2),
 
 
 
-## Exercise { .smaller }
+## Exercise { .columns-2 }
 
 Use ggplotly/ggiraph to create an interactive plot of development in average Danish life expectancy for males and females.
 
@@ -1111,11 +1117,15 @@ data(lifeexpect)
 head(lifeexpect)
 ```
 
+<br>
+
 Could start with 
 
-```{r}
+```{r echo=TRUE, out.width = 400}
 library(ggiraph)
-p <- ggplot(lifeexpect, aes(x=myear, y=male)) + geom_path()
+p <- ggplot(lifeexpect, 
+            aes(x=myear, y=male)) + 
+     geom_path()
 p
 ```
 
