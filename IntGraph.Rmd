@@ -145,20 +145,6 @@ See also: Toby's link
 devtools::install_github("ramnathv/rCharts")
 
 
-## Concepts
-
-Tobys slides terms / discussion
-
- - multi-layer, multi-panel, multi-plot
- - animation, direct manipulation (clicking, hovering), indirect manipulation (buttons, menus)
- - zoom, highlight, show/hide (data, labels, tooltips)
-
-## Example (concepts)
-
-## Example (concepts)
-
-http://cbio.ensmp.fr/~thocking/WorldBank-facets/
-
 ## The role of the graphics/viewer
 
 <div class="centered">
