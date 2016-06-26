@@ -501,11 +501,11 @@ Data are added using one of the following functions
 | Name |  Function |
 |---+----------|
 | hc_add_series | Add single series (named: `data`, `name`) |
-| hc_add_series_list | Add *list* named series |
-| hc_add_series_df | Add data.frame. Name variables accordingly |
-| hc_add_series_ts | Add ts object. Extra argument: `name` |
-| hc_add_series_scatter | Create scatter from two vectors. Extra arguments (size, color, label) |
-| hc_add_series_boxplot | Add boxplots |
+| hc_add_series_list | Add *list* of named series |
+| hc_add_series_df | Add data.frame. Name variables accordingly => plot type |
+| hc_add_series_ts | Add and plot ts object. Extra argument: `name` |
+| hc_add_series_scatter | Create and plot scatter from two vectors. Extra arguments (size, color, label) |
+| hc_add_series_boxplot | Add and plot boxplots |
 | hc_add_series_map | Add geojson map |
 
 Chart types: line (default), column, boxplot, bubble, arearange, heatmap, funnel, pie, ...
@@ -612,9 +612,8 @@ hc <- highchart() %>%
   hc_chart(type = "column") %>%
   hc_title(text = "Denmark") %>%
   hc_xAxis(categories = aq$Day) %>% 
-  hc_yAxis_multiples(
-    list(title = list(text = "Temperature (F)")), 
-    list(opposite=TRUE, title = list(text = "Speed (MPH)"))) %>%
+  hc_add_series(data = aq$Temp,
+          name = "Temperature") %>%
  ...
 ```
 
@@ -704,7 +703,7 @@ dygraph(temp,
 | Fill      | dyOptions(fillGraph = TRUE, fillAlpha = 0.4) |
 | L/V/U     | A 3-vector name has special meaning (lower, value, upper). `dySeries(c("L", "V", "U"))`
 
-Also: `dyShading`, `dyEvent`, ... 
+Also: `dyShading`, `dyEvent`,  ... 
 
 
 ## dygraphs 2 { .columns-2 .smaller }
@@ -1067,11 +1066,13 @@ happiness$data_id <- happiness$country
 
 p3 <- ggplot(happiness, 
             aes(x=tax, y=happy, color=continent, 
-                size=population, tooltip=tooltip, onclick=onclick)) + 
+                size=population, tooltip=tooltip, 
+                onclick=onclick, data_id=data_id)) + 
   geom_point_interactive(alpha=I(.8)) + 
   scale_size_area(max_size = 30)
 
 ggiraph(code = print(p3), 
+        hover_css = "fill-opacity:.3;cursor:pointer;",  # data_id 
         width="600px", height = "300px"
 )
 ```
