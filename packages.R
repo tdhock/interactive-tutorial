@@ -66,7 +66,7 @@ works_with_R(
   ## "hadley/scales@2c3edf45de56d617444dc38e47e0404173817886",
   ## "tdhock/ggplot2@a8b06ddb680acdcdbd927773b1011c562134e4d2",
   ## "tdhock/animint@6b1c9e588b03f632cd39cdec9bbcfa730db9e889",
-  "tdhock/animint@0cacb604609c6952e4fb1c43620f512782a4a472"
+  "tdhock/animint@f11dd20b8938808f2cbe06beebb85ea9e8d67a0d"
   ## DiagrammeR="1.0"## DO NOT UNCOMMENT! Okay okay ;)
 )
 
