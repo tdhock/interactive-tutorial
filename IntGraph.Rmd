@@ -1,7 +1,7 @@
 ---
 title: "Interactive graphics"
 author: "Toby Hocking and Claus Ekstrøm"
-date: "16 June 2016"
+date: "27 June 2016"
 output: 
   ioslides_presentation:
     widescreen: true
@@ -250,9 +250,10 @@ knitr::include_graphics("img/Logo_D3.png")
 - [n3]
 - [plotly](https://plot.ly/)
 
+<br><br><br>
 
 <div class="centered">
-```{r, out.height = 400, fig.retina = NULL}
+```{r, out.width = 400, fig.retina = NULL}
 knitr::include_graphics("img/RJavaHtml.png")
 ```
 </div>
@@ -267,7 +268,7 @@ knitr::include_graphics("img/RJavaHtml.png")
  - [**dygraphs**](https://rstudio.github.io/dygraphs/) (mostly time series. well documented. Rich features)
  - [**metricsgraphics**](https://github.com/hrbrmstr/metricsgraphics) (also time series)
  - [**leaflet**](https://rstudio.github.io/leaflet/) (maps)
- - [**htmlwidgets**](http://www.htmlwidgets.org/) Javascript framework (many are part of this). Super important!
+ - [**htmlwidgets**](http://www.htmlwidgets.org/) Javascript framework (many are part of this). **Super important!**
 
  - [**plotly**](https://plot.ly/ggplot2/user-guide/) (general plots - like ggplot)
  - [**ggiraph**](https://github.com/davidgohel/ggiraph) (ggplot graphics interactive)
@@ -465,7 +466,7 @@ hc <- highchart() %>%
                          7557, 14792,
                          21315, 3016),
           name = "Asylum seekers") %>%
-  hc_add_serie(name = "Syria",
+  hc_add_series(name = "Syria",
                data = c(429, 822,
                       1710, 7087,
                        8608, 777),
@@ -543,7 +544,7 @@ happy2 <- highchart() %>%
   hc_xAxis(title = list(text = "Taxation (%)")) %>%
   hc_yAxis(title = list(text = "Happiness")) %>%
   hc_chart(zoomType = "xy") %>% hc_exporting(enabled = TRUE) %>%
-  hc_add_serie_scatter(hap$tax, hap$happy, 
+  hc_add_series_scatter(hap$tax, hap$happy, 
                        hap$size, hap$continent, hap$country,
                        dataLabels = list( enabled = TRUE,
                                     format = "{point.label}")) %>%
@@ -597,6 +598,7 @@ happy2 <- highchart() %>%
              footerFormat = "</table>")
 happy2
 ```
+
 
 ## Exercise 
 
@@ -768,7 +770,7 @@ all <- cbind(births, p)
 dygraph(all, main = "Births (DK)") %>%
   dySeries("births", drawPoints = TRUE, 
            color = "blue", 
-           label="asd") %>%
+           label="births") %>%
   dySeries(c("p.lwr","p.fit","p.upr"),
            color = "red")
 ```
@@ -889,7 +891,7 @@ Add the R icon to the map: https://www.r-project.org/logo/Rlogo.png
 (Use `icon` instead of `popup` in  `addMarkers`). Create simple icon:
 
 ```{r echo=TRUE}
-greenLeafIcon <- makeIcon(
+myIcon <- makeIcon(
   iconUrl = "http://leafletjs.com/docs/images/leaf-green.png",
   iconWidth = 38, iconHeight = 95,
   iconAnchorX = 22, iconAnchorY = 94
@@ -966,7 +968,7 @@ p <- ggplot(happiness,
             aes(x=tax, y=happy, color=continent, size=population, 
                 text = paste("country:", country))) + 
   geom_point( alpha = I(0.8)) + 
-  scale_size_area(max_size = 30) + 
+  scale_size_area(max_size = 30) + # Size of largest points
   geom_smooth(method="lm", se= F, size = 1, 
               aes(linetype = continent, group = continent))
 ggplotly(p)
@@ -1109,7 +1111,7 @@ ggiraph(code = print(p2),
 
 ## Exercise { .columns-2 }
 
-Use ggplotly/ggiraph to create an interactive plot of development in average Danish life expectancy for males and females.
+Use **ggplotly**/ggiraph to create an interactive plot of development in average Danish life expectancy for males and females.
 
 
 ```{r echo=TRUE}
@@ -1122,12 +1124,12 @@ head(lifeexpect)
 
 Could start with 
 
-```{r echo=TRUE, out.width = 400}
-library(ggiraph)
+```{r echo=TRUE, eval=FALSE, out.width = 400}
+library(MESS)
+data(lifeexpect)
+library(plotly)
 p <- ggplot(lifeexpect, 
-            aes(x=myear, y=male)) + 
-     geom_path()
-p
+            aes(x=myear, y=male)) ...
 ```
 
 
@@ -1148,7 +1150,7 @@ Two files
 Or single file, `app.R`, with 
 ```{r, eval=FALSE, echo=TRUE}
 server <- function(input, output) { ... }
-ui <- fluidPage( ...)
+ui <- fluidPage( ...)   # Fluid UI
 
 shinyApp(ui = ui, server = server)
 ```
@@ -1166,7 +1168,7 @@ runGitHub('ekstroem/ShinySampleMean')  # From GitHub
 
 ```{r eval=FALSE,echo=TRUE}
 library(shiny)
-runGitHub('ekstroem/ShinySampleMean')
+runGitHub('ekstroem/ShinyLeastSquares')
 ```
 
 ## Shiny User Interface
@@ -1242,35 +1244,6 @@ Input functions are strings
 * `renderText` - Raw text
 
 Each `render*` function takes a single argument: an R expression surrounded by braces, {}.
-
-## Example { .smaller }
-
-```{r eval=FALSE, echo=TRUE}
-library(shiny)
-
-ui <- fluidPage(
-  titlePanel("My title"),
-  sidebarLayout(
-	  sidebarPanel(
-      selectInput("xvar", label = h3("Select x"),
-                  choices = list("A"=1, "B"=2, "C"=3),
-			selected = 1)),
-    mainPanel(
-      textOutput("text"),
-      plotOutput("plot", height="600")
-    )))
-
-server <- function(input, output) {
-    output$plot <- renderPlot({
-        mytext <- input$xvar
-        hist(rnorm(1000), col="lightred")
-    })
-    output$text <- renderText( { paste0("Hello ", mytext) } )
-}
-
-shinyApp(ui = ui, server = server)
-```
-	  
 
 ## Example - view data frame
 
