@@ -10,16 +10,18 @@ viz.1975 <- list(
   scatter=ggplot()+
   geom_point(
     mapping=aes(
-      x=life.expectancy,
-      y=fertility.rate,
-      color=region),
-    data=WorldBank1975))
+      x=as.numeric(paste(longitude)),
+      y=as.numeric(paste(latitude)),
+      color=region,
+      size=population),
+    data=WorldBank1975)+
+  scale_size_animint(breaks=10^(9:5)))
 structure(viz.1975, class="animint")
 
-## Ch2 Exercise 2: use animint to create a data viz with three plots,
+## Ch2 Exercise 1: use animint to create a data viz with three plots,
 ## by creating a list with three ggplots.
 WorldBankBefore1975 <- subset(WorldBank, 1970 <= year & year <= 1975)
-viz.several.plots <- list(
+viz.three.plots <- list(
   scatter=ggplot()+
     geom_point(
       mapping=aes(
@@ -36,25 +38,59 @@ viz.several.plots <- list(
       data=WorldBankBefore1975),
   tsFert=ggplot()+
     geom_line(aes(x=year, y=fertility.rate, color=region, group=country),
+              data=WorldBank),
+  tsLife=ggplot()+
+    geom_line(aes(x=year, y=life.expectancy, color=region, group=country),
               data=WorldBank))
-structure(viz.several.plots, class="animint")
+structure(viz.three.plots, class="animint")
 
-## Ch3 Exercise 1: add another geom or plot with
-## aes(showSelected=year) to the following data viz.
+## Ch3 Exercise 1: add another geom. Just add some more geoms with
+## aes(showSelected=year) to the data viz.
+years <- data.frame(year=unique(WorldBank$year))
+tails.list <- list()
+WorldBank$other.year <- WorldBank$year
+for(year.value in years$year){
+  ## For every year, compute the tail (geom_path) which is the data
+  ## for the previous 5 years.
+  one.tail <- subset(
+    WorldBank, year.value-5 <= other.year & other.year <= year.value)
+  one.tail$year <- year.value
+  tails.list[[paste(year.value)]] <- one.tail
+}
+tails <- do.call(rbind, tails.list)
 viz.scatter <- list(
   scatter=ggplot()+
+    geom_path(aes(x=life.expectancy, y=fertility.rate, color=region,
+                  group=country,
+                  showSelected=year),
+              data=tails)+
     geom_point(aes(x=life.expectancy, y=fertility.rate, color=region,
                    showSelected=year),
-               data=WorldBank))
+               data=WorldBank)+
+    geom_text(aes(55, 9, label=paste("year =", year),
+                  showSelected=year),
+              data=years))
 structure(viz.scatter, class="animint")
 
+## Ch3 Exercise 1: add another plot. Just add another ggplot to the
+## viz list.
+viz.scatter.ts <- viz.scatter
+viz.scatter.ts$tsFert <- ggplot()+
+  geom_line(aes(x=year, y=fertility.rate, color=region, group=country),
+            data=WorldBank)+
+  geom_vline(aes(xintercept=year, showSelected=year), data=years)
+structure(viz.scatter.ts, class="animint")
+
 ## Ch3 Exercise 2: make an animated data viz that does NOT use smooth
-## transitions.
+## transitions. Just add the "time" option to the viz list.
+viz.anim.only <- viz.scatter.ts
+viz.anim.only$time <- list(variable="year", ms=1000)
+structure(viz.anim.only, class="animint")
 
 ## Ch4 Exercise 1: how to get the geom_text to disappear along with
-## the point when the region legend is clicked? Hint: add one aes to
-## the geom_text.
-viz.text <- list(
+## the point when the region legend is clicked? Add
+## aes(showSelected=region).
+viz.click <- list(
   scatter=ggplot()+
     geom_point(aes(x=life.expectancy, y=fertility.rate, color=region,
                    key=country,
@@ -64,13 +100,14 @@ viz.text <- list(
     geom_text(aes(x=life.expectancy, y=fertility.rate, label=country,
                   key=country,
                   showSelected=year,
-                  showSelected2=country),
+                  showSelected2=country,
+                  showSelected3=region), #added!
               data=WorldBank),
   duration=list(year=2000))
-structure(viz.text, class="animint")
+structure(viz.click, class="animint")
 
 ## Ch4 Exercise 2: how to get the geom_text to disappear when you
-## click it?  Hint: add one aes to the geom_text.
+## click it?  Add aes(clickSelects=country).
 viz.multiple <- list(
   scatter=ggplot()+
     geom_point(aes(x=life.expectancy, y=fertility.rate, color=region,
@@ -80,6 +117,7 @@ viz.multiple <- list(
                data=WorldBank)+
     geom_text(aes(x=life.expectancy, y=fertility.rate, label=country,
                   key=country,
+                  clickSelects=country, #added!
                   showSelected=year,
                   showSelected2=country,
                   showSelected3=region), 
@@ -92,10 +130,8 @@ viz.multiple <- list(
   duration=list(year=2000))
 structure(viz.multiple, class="animint")
 
-## Ch4 Exercise 3: add layers to the scatterplot in the following data
-## viz, and animate it!
+## Ch4 Exercise 3: add animation and layers.
 viz.timeSeries <- viz.multiple
-years <- data.frame(year=unique(WorldBank$year))
 viz.timeSeries$timeSeries <- ggplot()+
   geom_tallrect(aes(xmin=year-0.5, xmax=year+0.5,
                     clickSelects=year),
@@ -106,4 +142,16 @@ viz.timeSeries$timeSeries <- ggplot()+
             size=3,
             alpha=0.6,
             data=WorldBank)
+viz.timeSeries$time <- list(variable="year", ms=1000)
+viz.timeSeries$scatter <- viz.multiple$scatter+
+    geom_path(aes(x=life.expectancy, y=fertility.rate, color=region,
+                  group=country,
+                  key=country,
+                  clickSelects=country,
+                  showSelected=year),
+              size=3,
+              data=tails)+
+    geom_text(aes(55, 9, label=paste("year =", year),
+                  showSelected=year),
+              data=years)
 structure(viz.timeSeries, class="animint")

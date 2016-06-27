@@ -1,3 +1,6 @@
+old.lib <- file.path(Sys.getenv("HOME"), "lib-old")
+dir.create(old.lib, showWarnings=FALSE)
+.libPaths(old.lib)
 options(repos="http://cran.rstudio.com")
 ### Write down what package versions work with your R code, and
 ### attempt to download and load those packages. The first argument is
@@ -51,8 +54,9 @@ works_with_R <- function(Rvers,...){
   }
 }
 
+
 works_with_R(
-  "3.2.2",
+  "3.2.3",
   ##rCharts="0.4.2",
   ## "ramnathv/rCharts@faf2043f90e149d8620a570c78449079c6dbb6fb",
   ## "ramnathv/rMaps@e08edfed5a1c1e02dcf04269f42120dd3224c952",
@@ -63,10 +67,9 @@ works_with_R(
   ## metricsgraphics="0.9.0",
   ##highcharter="1.0",
   ##"jbkunst/highcharter@a8c917e91ae64efa66087d8fe883e1b403e177be",
-  ## "hadley/scales@2c3edf45de56d617444dc38e47e0404173817886",
-  ## "tdhock/ggplot2@a8b06ddb680acdcdbd927773b1011c562134e4d2",
-  ## "tdhock/animint@6b1c9e588b03f632cd39cdec9bbcfa730db9e889",
-  "tdhock/animint@0cacb604609c6952e4fb1c43620f512782a4a472"
+  "hadley/scales@2c3edf45de56d617444dc38e47e0404173817886",
+  "tdhock/ggplot2@a8b06ddb680acdcdbd927773b1011c562134e4d2",
+  "tdhock/animint@6b1c9e588b03f632cd39cdec9bbcfa730db9e889",
   ## DiagrammeR="1.0"## DO NOT UNCOMMENT! Okay okay ;)
 )
 
