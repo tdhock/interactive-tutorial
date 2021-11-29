@@ -17,3 +17,19 @@ http://user2016.org/tutorials/13.html
   - [[http://cbio.ensmp.fr/~thocking/animint-book/Ch03-showSelected.html][aes(showSelected)]] (25 min).
   - [[http://cbio.ensmp.fr/~thocking/animint-book/Ch04-clickSelects.html][aes(clickSelects)]] (25 min).
   - [[file:HOCKING-exercises.R][Exercises]] ([[file:HOCKING-solutions.R][solutions]]).
+
+** SHERC RIC workshop Spring 2022
+
+Title: Animated, Interactive Data Visualization: animint2 R package
+
+Abstract: Data visualization is useful for understanding patterns in large data sets and models. 
+In constrast with static data visualization which produces a single image rendered as a PDF/PNG/etc image file, interactive data visualization can show many images of a data set, by rendering to a web page which can be clicked in order to show/hide different details of the data set.
+Interactive data visualization is useful for exploratory data analysis, for research, and for teaching.
+This tutorial will explain how to create animated and interactive data visualizations using the animint2 R package.
+It will cover chapters 2-4 of the animint2 Manual, https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch02-ggplot2.html
+Participants in this workshop should have R installed on their computer so they can follow along with the exercises.
+Some prior knowledge of R and the ggplot2 package would be useful.
+We will begin by explaining the basics of ggplots (grammar of graphics plots), including plot sketching, geoms, and aesthetic mappings from data variables to visual properties.
+Next we will show how the animint() function can be used to render a list of ggplots on a web page.
+Finally we will explain the showSelected and clickSelected keywords, which can be used to add interactivity to ggplots.
+At the end of this workshop, participants should understand the basics of static and interactive data visualization using the grammar of graphics.
