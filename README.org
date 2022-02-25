@@ -34,5 +34,7 @@ Next we will show how the animint() function can be used to render a list of ggp
 Finally we will explain the showSelected and clickSelected keywords, which can be used to add interactivity to ggplots.
 At the end of this workshop, participants should understand the basics of static and interactive data visualization using the grammar of graphics.
 - [[https://github.com/tdhock/animint/wiki/Gallery][Animint Gallery containing links to example data visualizations and source code]].
-- [[http://ml.nau.edu/viz/2022-02-02-gradient-descent-regression/][Gradient descent for linear regression]].
-- [[https://bl.ocks.org/tdhock/raw/8d188b04ca9aa629a3700a8055bf27dd/][Evaluation of binary classification algorithms, highly imbalanced Table Mountain Pine data]]
+- Click on legends to hide/show data subsets of interest, [[https://bl.ocks.org/tdhock/raw/8d188b04ca9aa629a3700a8055bf27dd/][Evaluation of binary classification algorithms, highly imbalanced Table Mountain Pine data]], [[https://github.com/tdhock/species-variable-selection/blob/master/figure-batchtools-expired.R][source]].
+- Click on loss/BIC plot to select data and changepoint model, [[http://bl.ocks.org/tdhock/raw/43ac9c6be9188dcb02a7/][BIC]], [[https://github.com/tdhock/animint/blob/master/inst/examples/intreg.R][source]].
+- Animation over years and click selects countries, [[https://rcdata.nau.edu/genomic-ml/WorldBank-facets/][World Bank data visualization]], [[https://github.com/tdhock/animint2/blob/master/inst/examples/WorldBank-facets.R][source]].
+- Animation over iterations of gradient descent and click selects data and step size, [[http://ml.nau.edu/viz/2022-02-02-gradient-descent-regression/][Gradient descent for linear regression]], [[https://github.com/tdhock/cs570-spring-2022/blob/master/figure-gradient-descent-regression.R][source]].
