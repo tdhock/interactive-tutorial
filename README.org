@@ -33,3 +33,4 @@ We will begin by explaining the basics of ggplots (grammar of graphics plots), i
 Next we will show how the animint() function can be used to render a list of ggplots on a web page.
 Finally we will explain the showSelected and clickSelected keywords, which can be used to add interactivity to ggplots.
 At the end of this workshop, participants should understand the basics of static and interactive data visualization using the grammar of graphics.
+- [[https://github.com/tdhock/animint/wiki/Gallery][Animint Gallery containing links to example data visualizations and source code]].
