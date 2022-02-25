@@ -13,9 +13,9 @@ http://user2016.org/tutorials/13.html
     Tsai]], [[https://github.com/kferris10][Kevin Ferris]], [[https://github.com/faizan-khan-iit][Faizan Khan]]. Without their work none of this
     would be possible!
   - [[http://cbio.ensmp.fr/~thocking/interactive-tutorial/introduction-vocabulary.html][Introduction and vocabulary]] (5 min), [[https://github.com/tdhock/interactive-tutorial/blob/gh-pages/introduction-vocabulary.Rmd][source]].
-  - [[http://cbio.ensmp.fr/~thocking/animint-book/Ch02-ggplot2.html][Basics of ggplot2 and animint]] (25 min).
-  - [[http://cbio.ensmp.fr/~thocking/animint-book/Ch03-showSelected.html][aes(showSelected)]] (25 min).
-  - [[http://cbio.ensmp.fr/~thocking/animint-book/Ch04-clickSelects.html][aes(clickSelects)]] (25 min).
+  - [[https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch02-ggplot2.html][Basics of ggplot2 and animint]] (25 min).
+  - [[https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch03-showSelected.html][aes(showSelected)]] (25 min).
+  - [[https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch04-clickSelects.html][aes(clickSelects)]] (25 min).
   - [[file:HOCKING-exercises.R][Exercises]] ([[file:HOCKING-solutions.R][solutions]]).
 
 ** SHERC RIC workshop Spring 2022
