@@ -34,3 +34,5 @@ Next we will show how the animint() function can be used to render a list of ggp
 Finally we will explain the showSelected and clickSelected keywords, which can be used to add interactivity to ggplots.
 At the end of this workshop, participants should understand the basics of static and interactive data visualization using the grammar of graphics.
 - [[https://github.com/tdhock/animint/wiki/Gallery][Animint Gallery containing links to example data visualizations and source code]].
+- [[http://ml.nau.edu/viz/2022-02-02-gradient-descent-regression/][Gradient descent for linear regression]].
+- [[https://bl.ocks.org/tdhock/raw/8d188b04ca9aa629a3700a8055bf27dd/][Evaluation of binary classification algorithms, highly imbalanced Table Mountain Pine data]]
