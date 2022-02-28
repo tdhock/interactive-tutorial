@@ -44,4 +44,13 @@ At the end of this workshop, participants should understand the basics of static
 
 *** Hello world
 
-- [[https://github.com/tdhock/animint2/wiki/FAQ#web-browser-on-local-indexhtml-file-is-blank][FAQ]]
+#+BEGIN_SRC R
+  install.packages("animint2")
+  example("animint", package="animint2")
+  ## if it does not render try installing servr:
+  install.packages("servr")
+#+END_SRC
+
+- [[https://github.com/tdhock/animint2/wiki/FAQ#web-browser-on-local-indexhtml-file-is-blank][FAQ]] about blank web browser page.
+
+
