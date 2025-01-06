@@ -36,7 +36,7 @@ Documentation : https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch02-ggplot2.h
 
 Exemples : https://animint.github.io/gallery/
 
-Installation : install.packages("animint2") sous R version >= 3.5.0 
+Installation : =install.packages("animint2")= sous R version >= 3.5.0 
 
 ** SHERC RIC workshop Spring 2022
 
