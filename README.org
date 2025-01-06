@@ -18,6 +18,24 @@ http://user2016.org/tutorials/13.html
   - [[https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch04-clickSelects.html][aes(clickSelects)]] (25 min).
   - [[file:HOCKING-exercises.R][Exercises]] ([[file:HOCKING-solutions.R][solutions]]).
 
+** ALEA seminar Nov 2024
+
+Titre : animint2 dans R pour les graphiques intéractifs
+
+Conférencier : Toby Dylan Hocking, Professeur Agrégé, UdeS Département d'Informatique (http://tdhock.github.io/)
+
+Résumé : Dans la visualisation de données, les graphiques interactifs permettent de cliquer sur des éléments d'un graphique, pour ensuite changer ce qui est affiché dans un autre graphique. Ils sont utiles pour l'enseignement et la recherche, mais ils sont souvent difficiles à créer. Ici, je propose le package R animint2 pour la création rapide des graphiques interactifs, en utilisant la méthode "grammaire de graphiques" qui a été popularisé par ggplot2 pour les graphiques non interactifs. animint2 est un logiciel mature, développé depuis 2013, disponible sur CRAN, avec beaucoup de documentation. Dans cette présentation je vais expliquer comment vous pouvez utiliser animint2 pour créer et partager les graphiques interactifs.
+
+Diapos : https://docs.google.com/presentation/d/1QDwo9x4OM7UKAXffJrny6nSfeytFR0kO5NB-NQEspcE
+
+Article : https://doi.org/10.1080/10618600.2018.1513367
+
+Paquetage R : https://github.com/animint/animint2
+
+Documentation : https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch02-ggplot2.html
+
+Exemples : https://animint.github.io/gallery/
+
 ** SHERC RIC workshop Spring 2022
 
 Title: Animated, Interactive Data Visualization: animint2 R package
